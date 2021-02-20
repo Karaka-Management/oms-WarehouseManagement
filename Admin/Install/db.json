@@ -1,0 +1,360 @@
+{
+    "warehousemgmt_item": {
+        "name": "warehousemgmt_item",
+        "fields": {
+            "warehousemgmt_item_id": {
+                "name": "warehousemgmt_item_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_item_item": {
+                "name": "warehousemgmt_item_item",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_item_track_type": {
+                "name": "warehousemgmt_item_track_type",
+                "type": "TINYINT",
+                "null": false
+            },
+            "warehousemgmt_item_negative": {
+                "name": "warehousemgmt_item_negative",
+                "type": "TINYINT",
+                "null": false
+            },
+            "warehousemgmt_item_": {
+                "name": "warehousemgmt_item_",
+                "type": "TINYINT",
+                "null": false
+            }
+        }
+    },
+    "warehousemgmt_stock": {
+        "name": "warehousemgmt_stock",
+        "fields": {
+            "warehousemgmt_stock_id": {
+                "name": "warehousemgmt_stock_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_stock_name": {
+                "name": "warehousemgmt_stock_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_stock_type": {
+                "description": "???",
+                "name": "warehousemgmt_stock_type",
+                "type": "TINYINT",
+                "null": false
+            }
+        }
+    },
+    "warehousemgmt_stocklocation": {
+        "name": "warehousemgmt_stocklocation",
+        "fields": {
+            "warehousemgmt_stocklocation_id": {
+                "name": "warehousemgmt_stocklocation_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_stocklocation_name": {
+                "name": "warehousemgmt_stocklocation_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_stocklocation_stock": {
+                "name": "warehousemgmt_stocklocation_stock",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "warehousemgmt_stock",
+                "foreignKey": "warehousemgmt_stock_id"
+            },
+            "warehousemgmt_stocklocation_x": {
+                "name": "warehousemgmt_stocklocation_x",
+                "type": "INT",
+                "null": false
+            },
+            "warehousemgmt_stocklocation_y": {
+                "name": "warehousemgmt_stocklocation_y",
+                "type": "INT",
+                "null": false
+            },
+            "warehousemgmt_stocklocation_z": {
+                "description": "Height",
+                "name": "warehousemgmt_stocklocation_z",
+                "type": "INT",
+                "null": false
+            }
+        }
+    },
+    "warehousemgmt_lot": {
+        "name": "warehousemgmt_lot",
+        "fields": {
+            "warehousemgmt_lot_id": {
+                "name": "warehousemgmt_lot_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_lot_item": {
+                "name": "warehousemgmt_lot_item",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "itemmgmt_item",
+                "foreignKey": "itemmgmt_item_id"
+            },
+            "warehousemgmt_lot_purchase_price": {
+                "name": "warehousemgmt_lot_purchase_price",
+                "type": "INT",
+                "null": false
+            },
+            "warehousemgmt_lot_internal": {
+                "name": "warehousemgmt_lot_internal",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_lot_external": {
+                "name": "warehousemgmt_lot_external",
+                "type": "VARCHAR(255)",
+                "null": true,
+                "default": null
+            },
+            "warehousemgmt_lot_type": {
+                "name": "warehousemgmt_lot_type",
+                "type": "TINYINT",
+                "null": false
+            },
+            "warehousemgmt_lot_expiration": {
+                "name": "warehousemgmt_lot_expiration",
+                "type": "DATETIME",
+                "null": true,
+                "default": null
+            }
+        }
+    },
+    "warehousemgmt_lot_media": {
+        "name": "warehousemgmt_lot_media",
+        "fields": {
+            "warehousemgmt_lot_media_id": {
+                "name": "warehousemgmt_lot_media_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_lot_media_lot": {
+                "name": "warehousemgmt_lot_media_lot",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "warehousemgmt_lot",
+                "foreignKey": "warehousemgmt_lot_id"
+            },
+            "warehousemgmt_lot_media_media": {
+                "name": "warehousemgmt_lot_media_media",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "media",
+                "foreignKey": "media_id"
+            }
+        }
+    },
+    "warehousemgmt_lot_status": {
+        "name": "warehousemgmt_lot_status",
+        "fields": {
+            "warehousemgmt_lot_status_id": {
+                "name": "warehousemgmt_lot_status_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_lot_status_name": {
+                "name": "warehousemgmt_lot_status_lot",
+                "type": "VARCHAR(255)",
+                "null": false
+            }
+        }
+    },
+    "warehousemgmt_lot_status_lot": {
+        "name": "warehousemgmt_lot_status_lot",
+        "fields": {
+            "warehousemgmt_lot_status_lot_id": {
+                "name": "warehousemgmt_lot_status_lot_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_lot_status_lot_lot": {
+                "name": "warehousemgmt_lot_status_lot_lot",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_lot_status_lot_status": {
+                "name": "warehousemgmt_lot_status_lot_status",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "warehousemgmt_lot_status",
+                "foreignKey": "warehousemgmt_lot_status_id"
+            },
+            "warehousemgmt_lot_status_lot_comment": {
+                "name": "warehousemgmt_lot_status_lot_comment",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_lot_status_lot_comment_raw": {
+                "name": "warehousemgmt_lot_status_lot_comment_raw",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_lot_status_lot_created_by": {
+                "name": "warehousemgmt_lot_status_lot_created_by",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_lot_status_lot_created_at": {
+                "name": "warehousemgmt_lot_status_created_at",
+                "type": "DATETIME",
+                "null": false
+            }
+        }
+    },
+    "warehousemgmt_movement_subtype": {
+        "name": "warehousemgmt_movement_subtype",
+        "fields": {
+            "warehousemgmt_movement_subtype_id": {
+                "name": "warehousemgmt_movement_subtype_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_movement_subtype_name": {
+                "name": "warehousemgmt_movement_subtype_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_movement_subtype_type": {
+                "name": "warehousemgmt_movement_subtype_type",
+                "type": "INT",
+                "null": false
+            }
+        }
+    },
+    "warehousemgmt_movement": {
+        "name": "warehousemgmt_movement",
+        "fields": {
+            "warehousemgmt_movement_id": {
+                "name": "warehousemgmt_movement_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_movement_quantity": {
+                "name": "warehousemgmt_movement_quantity",
+                "type": "INT",
+                "null": false
+            },
+            "warehousemgmt_movement_lot": {
+                "name": "warehousemgmt_movement_lot",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "warehousemgmt_lot",
+                "foreignKey": "warehousemgmt_lot_id"
+            },
+            "warehousemgmt_movement_from": {
+                "name": "warehousemgmt_movement_from",
+                "type": "INT",
+                "null": true,
+                "default": null,
+                "foreignTable": "warehousemgmt_stocklocation",
+                "foreignKey": "warehousemgmt_stocklocation_id"
+            },
+            "warehousemgmt_movement_to": {
+                "name": "warehousemgmt_movement_to",
+                "type": "INT",
+                "null": true,
+                "default": null,
+                "foreignTable": "warehousemgmt_stocklocation",
+                "foreignKey": "warehousemgmt_stocklocation_id"
+            },
+            "warehousemgmt_movement_type": {
+                "name": "warehousemgmt_movement_type",
+                "type": "INT",
+                "null": false
+            },
+            "warehousemgmt_movement_subtype": {
+                "name": "warehousemgmt_movement_subtype",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "warehousemgmt_movement_subtype",
+                "foreignKey": "warehousemgmt_movement_subtype_id"
+            },
+            "warehousemgmt_movement_reference": {
+                "name": "warehousemgmt_movement_reference",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_movement_bill_element": {
+                "name": "warehousemgmt_movement_bill_element",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "billing_bill_element",
+                "foreignKey": "billing_bill_element_id"
+            },
+            "warehousemgmt_movement_created_by": {
+                "name": "warehousemgmt_movement_created_by",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "account",
+                "foreignKey": "account_id"
+            },
+            "warehousemgmt_movement_created_at": {
+                "name": "warehousemgmt_movement_created_at",
+                "type": "DATETIME",
+                "null": false
+            }
+        }
+    },
+    "warehousemgmt_lot_quantity": {
+        "name": "warehousemgmt_lot_quantity",
+        "description": "Stores the quantity per lot per stocklocation. For every? (maybe only for transfers?) stock movement there are 2 item stock entries (from/to) where the last element per item (see movement_item) shows the current stock per lot and location. Consider to create even one more un-normalized table which shows quantity per item per stock for faster results?",
+        "fields": {
+            "warehousemgmt_lot_quantity_id": {
+                "name": "warehousemgmt_lot_quantity_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_lot_quantity_quantity": {
+                "name": "warehousemgmt_lot_quantity_quantity",
+                "type": "INT",
+                "null": false
+            },
+            "warehousemgmt_lot_quantity_stocklocation": {
+                "name": "warehousemgmt_lot_quantity_stocklocation",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "warehousemgmt_stocklocation",
+                "foreignKey": "warehousemgmt_stocklocation_id"
+            },
+            "warehousemgmt_lot_quantity_movement": {
+                "name": "warehousemgmt_lot_quantity_movement",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "warehousemgmt_movement",
+                "foreignKey": "warehousemgmt_movement_id"
+            }
+        }
+    }
+}
