@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.4
+ * PHP Version 8.0
  *
  * @package   Modules\WarehouseManagement\Admin
  * @copyright Dennis Eichhorn
@@ -14,7 +14,15 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Admin;
 
+use phpOMS\Config\SettingsInterface;
+use phpOMS\DataStorage\Database\DatabasePool;
+use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Module\InstallerAbstract;
+use phpOMS\Module\ModuleInfo;
+use Modules\WarehouseManagement\Models\Stock;
+use Modules\WarehouseManagement\Models\StockMapper;
+use Modules\WarehouseManagement\Models\StockLocation;
+use Modules\WarehouseManagement\Models\StockLocationMapper;
 
 /**
  * Installer class.
@@ -26,4 +34,24 @@ use phpOMS\Module\InstallerAbstract;
  */
 final class Installer extends InstallerAbstract
 {
+	/**
+     * {@inheritdoc}
+     */
+    public static function install(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
+    {
+        parent::install($dbPool, $info, $cfgHandler);
+
+        self::createStock();
+    }
+
+    private static function createStock() : void
+    {
+    	$stock = new Stock('Default');
+    	$stock->type = 0;
+    	StockMapper::create($stock);
+
+    	$stockLocation = new StockLocation((string) ($stock->getId() . '-1'));
+    	$stockLocation->stock = $stock;
+    	StockLocationMapper::create($stockLocation);
+    }
 }

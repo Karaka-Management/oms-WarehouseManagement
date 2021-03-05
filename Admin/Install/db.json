@@ -267,7 +267,8 @@
             "warehousemgmt_movement_lot": {
                 "name": "warehousemgmt_movement_lot",
                 "type": "INT",
-                "null": false,
+                "null": true,
+                "default": null,
                 "foreignTable": "warehousemgmt_lot",
                 "foreignKey": "warehousemgmt_lot_id"
             },
@@ -293,6 +294,7 @@
                 "null": false
             },
             "warehousemgmt_movement_subtype": {
+                "description": "Destroy, return, sale, purchase, ...",
                 "name": "warehousemgmt_movement_subtype",
                 "type": "INT",
                 "null": false,

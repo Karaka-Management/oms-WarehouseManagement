@@ -2,9 +2,9 @@
 /**
  * Orange Management
  *
- * PHP Version 7.4
+ * PHP Version 8.0
  *
- * @package   Modules\Warehousing\Models
+ * @package   Modules\WarehouseManagement\Models
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -17,22 +17,15 @@ namespace Modules\WarehouseManagement\Models;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Packaging status enum.
+ * Permision state enum.
  *
- * @package Modules\Warehousing\Models
+ * @package Modules\WarehouseManagement\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class PackagingStatus extends Enum
+abstract class PermissionState extends Enum
 {
-    public const PENDING = 0;
-
-    public const PACKING = 1;
-
-    public const PACKED = 2;
-
-    public const SUSPENDED = 3;
-
-    public const CANCELED = 4;
+    public const STOCK = 1;
+    public const STOCK_LOCATION = 2;
 }

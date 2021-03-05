@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.4
+ * PHP Version 8.0
  *
  * @package   Modules\WarehouseManagement
  * @copyright Dennis Eichhorn
@@ -15,7 +15,9 @@ declare(strict_types=1);
 return ['Navigation' => [
     'Arrival'     => 'Arrival',
     'Articles'    => 'Articles',
+    'Locations'   => 'Locations',
     'Shipping'    => 'Shipping',
     'Stock'       => 'Stock',
+    'Stocks'       => 'Stocks',
     'Warehousing' => 'Warehousing',
 ]];

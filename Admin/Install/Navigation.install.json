@@ -9,10 +9,56 @@
         "target": "self",
         "icon": "fa fa-cube",
         "order": 40,
-        "from": "Warehousing",
+        "from": "WarehouseManagement",
         "permission": { "permission": 2, "type": null, "element": null },
         "parent": 0,
         "children": [
+            {
+                "id": 1001302001,
+                "pid": "/",
+                "type": 2,
+                "subtype": 1,
+                "name": "Stock",
+                "uri": "{/prefix}warehouse/stock/list",
+                "target": "self",
+                "icon": null,
+                "order": 1,
+                "from": "WarehouseManagement",
+                "permission": { "permission": 2, "type": null, "element": null },
+                "parent": 1001301001,
+                "children": [
+                    {
+                        "id": 1001303001,
+                        "pid": "/warehouse/stock",
+                        "type": 3,
+                        "subtype": 1,
+                        "name": "Stocks",
+                        "uri": "{/prefix}warehouse/stock/list",
+                        "target": "self",
+                        "icon": null,
+                        "order": 1,
+                        "from": "WarehouseManagement",
+                        "permission": { "permission": 2, "type": null, "element": null },
+                        "parent": 1001302001,
+                        "children": []
+                    },
+                    {
+                        "id": 1001303002,
+                        "pid": "/warehouse/stock",
+                        "type": 3,
+                        "subtype": 1,
+                        "name": "Locations",
+                        "uri": "{/prefix}warehouse/stock/location/list",
+                        "target": "self",
+                        "icon": null,
+                        "order": 1,
+                        "from": "WarehouseManagement",
+                        "permission": { "permission": 2, "type": null, "element": null },
+                        "parent": 1001302001,
+                        "children": []
+                    }
+                ]
+            }
         ]
     }
 ]

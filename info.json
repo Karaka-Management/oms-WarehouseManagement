@@ -17,7 +17,9 @@
     "description": "Warehousing module.",
     "directory": "WarehouseManagement",
     "dependencies": {
-        "Admin": "1.0.0"
+        "Admin": "1.0.0",
+        "ItemManagement": "1.0.0",
+        "Billing": "1.0.0"
     },
     "providing": {
         "Navigation": "*"
@@ -28,7 +30,7 @@
                 "/warehouse"
             ],
             "type": 4,
-            "for": 0,
+            "for": "WarehouseManagement",
             "from": "WarehouseManagement",
             "file": "WarehouseManagement"
         },

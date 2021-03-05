@@ -2,7 +2,7 @@
 /**
  * Orange Management
  *
- * PHP Version 7.4
+ * PHP Version 8.0
  *
  * @package   Modules\Warehousing\Models
  * @copyright Dennis Eichhorn
@@ -14,25 +14,35 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
-use phpOMS\Stdlib\Base\Enum;
-
 /**
- * Arrival status enum.
+ * Warehouse class.
  *
  * @package Modules\Warehousing\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-abstract class ArrivalStatus extends Enum
+class Stock
 {
-    public const NONE = 0;
+    /**
+     * ID.
+     *
+     * @var int
+     * @since 1.0.0
+     */
+    private int $id = 0;
 
-    public const PENDING = 1;
+    public string $name = '';
 
-    public const CHECKING = 2;
+    public int $type = 0;
 
-    public const SORTING = 3;
+    public function __construct(string $name = '')
+    {
+        $this->name = $name;
+    }
 
-    public const FINISHED = 4;
+    public function getId() : int
+    {
+    	return $this->id;
+    }
 }
