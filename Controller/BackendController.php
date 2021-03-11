@@ -52,17 +52,17 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('stocks',
-                StockMapper::withConditional('language', $response->getLanguage())
+                StockMapper::with('language', $response->getLanguage())
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), limit: 25)
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('stocks',
-                StockMapper::withConditional('language', $response->getLanguage())
+                StockMapper::with('language', $response->getLanguage())
                     ::getAfterPivot((int) ($request->getData('id') ?? 0), limit: 25)
             );
         } else {
             $view->setData('stocks',
-                StockMapper::withConditional('language', $response->getLanguage())
+                StockMapper::with('language', $response->getLanguage())
                     ::getAfterPivot(0, limit: 25)
             );
         }
@@ -116,17 +116,17 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('locations',
-                StockLocationMapper::withConditional('language', $response->getLanguage())
+                StockLocationMapper::with('language', $response->getLanguage())
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), limit: 25)
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('locations',
-                StockLocationMapper::withConditional('language', $response->getLanguage())
+                StockLocationMapper::with('language', $response->getLanguage())
                     ::getAfterPivot((int) ($request->getData('id') ?? 0), limit: 25)
             );
         } else {
             $view->setData('locations',
-                StockLocationMapper::withConditional('language', $response->getLanguage())
+                StockLocationMapper::with('language', $response->getLanguage())
                     ::getAfterPivot(0, limit: 25)
             );
         }
