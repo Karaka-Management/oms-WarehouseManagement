@@ -22,7 +22,7 @@ namespace Modules\WarehouseManagement\Models;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class StockLocation
+class StockShelf
 {
     /**
      * ID.
@@ -34,7 +34,7 @@ class StockLocation
 
     public string $name = '';
 
-    public int | Stock $stock = 0;
+    public int | StockLocation $location = 0;
 
     public int $x = 0;
 

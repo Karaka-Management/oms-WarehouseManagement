@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
+use Modules\Admin\Models\Account;
+use Modules\Admin\Models\NullAccount;
+
 /**
  * Warehouse class.
  *
@@ -63,6 +66,12 @@ class StockMovement
      * @since 1.0.0
      */
     public \DateTimeImmutable $createdAt;
+
+    public function __construct()
+    {
+        $this->createdBy = new NullAccount();
+        $this->createdAt = new \DateTimeImmutable('now');
+    }
 
     /**
      * Get ID.

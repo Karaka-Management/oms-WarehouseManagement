@@ -94,6 +94,46 @@
             }
         }
     },
+    "warehousemgmt_stockshelf": {
+        "name": "warehousemgmt_stockshelf",
+        "fields": {
+            "warehousemgmt_stockshelf_id": {
+                "name": "warehousemgmt_stockshelf_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_stockshelf_name": {
+                "name": "warehousemgmt_stockshelf_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
+            "warehousemgmt_stockshelf_location": {
+                "name": "warehousemgmt_stockshelf_location",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "warehousemgmt_stocklocation",
+                "foreignKey": "warehousemgmt_stocklocation_id"
+            },
+            "warehousemgmt_stockshelf_x": {
+                "name": "warehousemgmt_stockshelf_x",
+                "type": "INT",
+                "null": false
+            },
+            "warehousemgmt_stockshelf_y": {
+                "name": "warehousemgmt_stockshelf_y",
+                "type": "INT",
+                "null": false
+            },
+            "warehousemgmt_stockshelf_z": {
+                "description": "Height",
+                "name": "warehousemgmt_stockshelf_z",
+                "type": "INT",
+                "null": false
+            }
+        }
+    },
     "warehousemgmt_lot": {
         "name": "warehousemgmt_lot",
         "fields": {

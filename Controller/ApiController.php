@@ -19,6 +19,8 @@ use Modules\WarehouseManagement\Models\Stock;
 use Modules\WarehouseManagement\Models\StockMapper;
 use Modules\WarehouseManagement\Models\StockLocation;
 use Modules\WarehouseManagement\Models\StockLocationMapper;
+use Modules\WarehouseManagement\Models\StockShelf;
+use Modules\WarehouseManagement\Models\StockShelfMapper;
 
 /**
  * WarehouseManagement api controller class.
@@ -46,9 +48,13 @@ final class ApiController extends Controller
 		$stock->type = 1;
 		StockMapper::create($stock);
 
-		$stockLocation = new StockLocation($new->number . '-1');
+		$stockLocation = new StockLocation($stock->name . '-1');
 		$stockLocation->stock = $stock->getId();
 		StockLocationMapper::create($stockLocation);
+
+		$stockShelf = new StockShelf($stockLocation->name . '-1');
+		$stockShelf->location = $stockLocation->getId();
+		StockShelfMapper::create($stockShelf);
 	}
 
 	public function eventBillUpdateInternal(
