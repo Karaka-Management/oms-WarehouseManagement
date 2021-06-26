@@ -26,21 +26,21 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class StockMovementType extends Enum
 {
-    public const MERGE = 1;
-    public const SPLIT = 2;
+    public const MERGE    = 1;
+    public const SPLIT    = 2;
     public const INCREASE = 4;
     public const DECREASE = 8;
     public const TRANSFER = 16;
 
 
     // @todo: subtypes, maybe creates as database subtypes during install.
-    public const DESTROY = 1; // 8
-    public const RETURN = 1; // 8
-    public const INVENTORY_PLUS = 1; // 4
-    public const INVENTORY_MINUS = 1; // 8
-    public const PURCHASE = 1; // 4
-    public const SALE = 1; // 4
+    public const DESTROY            = 1; // 8
+    public const RETURN             = 1; // 8
+    public const INVENTORY_PLUS     = 1; // 4
+    public const INVENTORY_MINUS    = 1; // 8
+    public const PURCHASE           = 1; // 4
+    public const SALE               = 1; // 4
     public const MANUFACTURE_CREATE = 1; // 4
-    public const MANUFACTURE_USE = 1; // 8
-    public const MANUAL = 1; // 1-16
+    public const MANUFACTURE_USE    = 1; // 8
+    public const MANUAL             = 1; // 1-16
 }

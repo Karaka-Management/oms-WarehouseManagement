@@ -32,17 +32,37 @@ class Stock
      */
     private int $id = 0;
 
+    /**
+     * NAme.
+     *
+     * @var string
+     * @since 1.0.0
+     */
     public string $name = '';
 
     public int $type = 0;
 
+    /**
+     * Constructor.
+     *
+     * @param string $name Stock name
+     *
+     * @since 1.0.0
+     */
     public function __construct(string $name = '')
     {
         $this->name = $name;
     }
 
+    /**
+     * Get id.
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getId() : int
     {
-    	return $this->id;
+        return $this->id;
     }
 }

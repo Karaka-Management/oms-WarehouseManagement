@@ -32,8 +32,8 @@ use Modules\WarehouseManagement\Models\StockShelfMapper;
  */
 final class ApiController extends Controller
 {
-	public function eventStockCreateInternal(
-		int $account,
+    public function eventStockCreateInternal(
+        int $account,
         mixed $old,
         mixed $new,
         int $type = 0,
@@ -42,23 +42,23 @@ final class ApiController extends Controller
         string $ref = null,
         string $content = null,
         string $ip = null
-	) : void
-	{
-		$stock = new Stock($new->number);
-		$stock->type = 1;
-		StockMapper::create($stock);
+    ) : void
+    {
+        $stock       = new Stock($new->number);
+        $stock->type = 1;
+        StockMapper::create($stock);
 
-		$stockLocation = new StockLocation($stock->name . '-1');
-		$stockLocation->stock = $stock->getId();
-		StockLocationMapper::create($stockLocation);
+        $stockLocation        = new StockLocation($stock->name . '-1');
+        $stockLocation->stock = $stock->getId();
+        StockLocationMapper::create($stockLocation);
 
-		$stockShelf = new StockShelf($stockLocation->name . '-1');
-		$stockShelf->location = $stockLocation->getId();
-		StockShelfMapper::create($stockShelf);
-	}
+        $stockShelf           = new StockShelf($stockLocation->name . '-1');
+        $stockShelf->location = $stockLocation->getId();
+        StockShelfMapper::create($stockShelf);
+    }
 
-	public function eventBillUpdateInternal(
-		int $account,
+    public function eventBillUpdateInternal(
+        int $account,
         mixed $old,
         mixed $new,
         int $type = 0,
@@ -67,24 +67,24 @@ final class ApiController extends Controller
         string $ref = null,
         string $content = null,
         string $ip = null
-	) : void
-	{
-		if ($trigger === 'POST:Module:Billing-bill_element-create') {
-			// @todo: if is bill element create, create stock movement
+    ) : void
+    {
+        if ($trigger === 'POST:Module:Billing-bill_element-create') {
+            // @todo: if is bill element create, create stock movement
 
-		} elseif ($trigger === 'POST:Module:Billing-bill_element-update') {
-			// quantity change
-			// lot changes
-			// stock changes
-			// all other changes ignore!
-			// check availability again, if not available abort bill
-		} elseif ($trigger === 'POST:Module:Billing-bill_element-delete') {
-			// @todo: delete stock movement
-		} elseif ($trigger === 'POST:Module:Billing-bill-delete') {
-			// @todo: delete stock movements
-		} elseif ($trigger === 'POST:Module:Billing-bill-update') {
-			// is receiver update -> change all movements
-			// is status update -> change all movements (delete = delete)
-		}
-	}
+        } elseif ($trigger === 'POST:Module:Billing-bill_element-update') {
+            // quantity change
+            // lot changes
+            // stock changes
+            // all other changes ignore!
+            // check availability again, if not available abort bill
+        } elseif ($trigger === 'POST:Module:Billing-bill_element-delete') {
+            // @todo: delete stock movement
+        } elseif ($trigger === 'POST:Module:Billing-bill-delete') {
+            // @todo: delete stock movements
+        } elseif ($trigger === 'POST:Module:Billing-bill-update') {
+            // is receiver update -> change all movements
+            // is status update -> change all movements (delete = delete)
+        }
+    }
 }

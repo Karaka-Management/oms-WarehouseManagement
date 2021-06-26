@@ -42,13 +42,27 @@ class StockLocation
 
     public int $z = 0;
 
+    /**
+     * Constructor.
+     *
+     * @param string $name Stock name
+     *
+     * @since 1.0.0
+     */
     public function __construct(string $name = '')
     {
         $this->name = $name;
     }
 
+    /**
+     * Get id.
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
     public function getId() : int
     {
-    	return $this->id;
+        return $this->id;
     }
 }

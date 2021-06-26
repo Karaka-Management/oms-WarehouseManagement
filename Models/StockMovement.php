@@ -67,6 +67,11 @@ class StockMovement
      */
     public \DateTimeImmutable $createdAt;
 
+    /**
+     * Constructor.
+     *
+     * @since 1.0.0
+     */
     public function __construct()
     {
         $this->createdBy = new NullAccount();

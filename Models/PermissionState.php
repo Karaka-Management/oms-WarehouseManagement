@@ -27,5 +27,6 @@ use phpOMS\Stdlib\Base\Enum;
 abstract class PermissionState extends Enum
 {
     public const STOCK = 1;
+
     public const STOCK_LOCATION = 2;
 }

@@ -34,24 +34,31 @@ use Modules\WarehouseManagement\Models\StockLocationMapper;
  */
 final class Installer extends InstallerAbstract
 {
-	/**
+    /**
      * {@inheritdoc}
      */
     public static function install(DatabasePool $dbPool, ModuleInfo $info, SettingsInterface $cfgHandler) : void
     {
         parent::install($dbPool, $info, $cfgHandler);
 
-        self::createStock();
+        self::createDefaultStock();
     }
 
-    private static function createStock() : void
+    /**
+     * Creates a default stock
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    private static function createDefaultStock() : void
     {
-    	$stock = new Stock('Default');
-    	$stock->type = 0;
-    	StockMapper::create($stock);
+        $stock       = new Stock('Default');
+        $stock->type = 0;
+        StockMapper::create($stock);
 
-    	$stockLocation = new StockLocation((string) ($stock->getId() . '-1'));
-    	$stockLocation->stock = $stock;
-    	StockLocationMapper::create($stockLocation);
+        $stockLocation        = new StockLocation((string) ($stock->getId() . '-1'));
+        $stockLocation->stock = $stock;
+        StockLocationMapper::create($stockLocation);
     }
 }
