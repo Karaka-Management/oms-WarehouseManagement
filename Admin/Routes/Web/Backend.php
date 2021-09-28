@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockList',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::STOCK,
             ],
@@ -34,7 +34,7 @@ return [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStock',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::STOCK,
             ],
@@ -45,7 +45,7 @@ return [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocationList',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::STOCK_LOCATION,
             ],
@@ -56,7 +56,7 @@ return [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocation',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::STOCK_LOCATION,
             ],
