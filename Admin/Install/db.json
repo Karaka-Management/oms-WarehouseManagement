@@ -217,7 +217,7 @@
                 "autoincrement": true
             },
             "warehousemgmt_lot_status_name": {
-                "name": "warehousemgmt_lot_status_lot",
+                "name": "warehousemgmt_lot_status_name",
                 "type": "VARCHAR(255)",
                 "null": false
             }
@@ -261,7 +261,7 @@
                 "null": false
             },
             "warehousemgmt_lot_status_lot_created_at": {
-                "name": "warehousemgmt_lot_status_created_at",
+                "name": "warehousemgmt_lot_status_lot_created_at",
                 "type": "DATETIME",
                 "null": false
             }
