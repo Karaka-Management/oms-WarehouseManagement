@@ -34,7 +34,7 @@ final class StockMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'warehousemgmt_stock_id'    => ['name' => 'warehousemgmt_stock_id',    'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_stock_name' => ['name' => 'warehousemgmt_stock_name', 'type' => 'string', 'internal' => 'name'],
+        'warehousemgmt_stock_name'  => ['name' => 'warehousemgmt_stock_name', 'type' => 'string', 'internal' => 'name'],
         'warehousemgmt_stock_type'  => ['name' => 'warehousemgmt_stock_type',  'type' => 'int',    'internal' => 'type'],
     ];
 

@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Controller;
 
-use Modules\WarehouseManagement\Models\StockMapper;
 use Modules\WarehouseManagement\Models\StockLocationMapper;
+use Modules\WarehouseManagement\Models\StockMapper;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -92,7 +92,6 @@ final class BackendController extends Controller
 
         $view->setData('stock', StockMapper::get((int) $request->getData('id')));
 
-
         return $view;
     }
 
@@ -155,7 +154,6 @@ final class BackendController extends Controller
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response));
 
         $view->setData('location', StockLocationMapper::get((int) $request->getData('id')));
-
 
         return $view;
     }

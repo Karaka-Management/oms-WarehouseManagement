@@ -14,15 +14,14 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Admin;
 
-use phpOMS\Config\SettingsInterface;
-use phpOMS\DataStorage\Database\DatabasePool;
-use phpOMS\Localization\ISO639x1Enum;
-use phpOMS\Module\InstallerAbstract;
-use phpOMS\Module\ModuleInfo;
 use Modules\WarehouseManagement\Models\Stock;
-use Modules\WarehouseManagement\Models\StockMapper;
 use Modules\WarehouseManagement\Models\StockLocation;
 use Modules\WarehouseManagement\Models\StockLocationMapper;
+use Modules\WarehouseManagement\Models\StockMapper;
+use phpOMS\Config\SettingsInterface;
+use phpOMS\DataStorage\Database\DatabasePool;
+use phpOMS\Module\InstallerAbstract;
+use phpOMS\Module\ModuleInfo;
 
 /**
  * Installer class.
