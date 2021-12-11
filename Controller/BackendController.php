@@ -53,18 +53,24 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('stocks',
-                StockMapper::with('language', $response->getLanguage())
-                    ::getBeforePivot((int) ($request->getData('id') ?? 0), limit: 25)
+                StockMapper::getAll()
+                    ->where('id', (int) ($request->getData('id') ?? 0))
+                    ->limit(25)
+                    ->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('stocks',
-                StockMapper::with('language', $response->getLanguage())
-                    ::getAfterPivot((int) ($request->getData('id') ?? 0), limit: 25)
+                StockMapper::getAll()
+                    ->where('id', (int) ($request->getData('id') ?? 0))
+                    ->limit(25)
+                    ->execute()
             );
         } else {
             $view->setData('stocks',
-                StockMapper::with('language', $response->getLanguage())
-                    ::getAfterPivot(0, limit: 25)
+                StockMapper::getAll()
+                    ->where('id', 0)
+                    ->limit(25)
+                    ->execute()
             );
         }
 
@@ -90,7 +96,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response));
 
-        $view->setData('stock', StockMapper::get((int) $request->getData('id')));
+        $view->setData('stock', StockMapper::get()->where('id', (int) $request->getData('id'))->execute());
 
         return $view;
     }
@@ -116,18 +122,24 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('locations',
-                StockLocationMapper::with('language', $response->getLanguage())
-                    ::getBeforePivot((int) ($request->getData('id') ?? 0), limit: 25)
+                StockLocationMapper::getAll()
+                    ->where('id', (int) ($request->getData('id') ?? 0))
+                    ->limit(25)
+                    ->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('locations',
-                StockLocationMapper::with('language', $response->getLanguage())
-                    ::getAfterPivot((int) ($request->getData('id') ?? 0), limit: 25)
+                StockLocationMapper::getAll()
+                    ->where('id', (int) ($request->getData('id') ?? 0))
+                    ->limit(25)
+                    ->execute()
             );
         } else {
             $view->setData('locations',
-                StockLocationMapper::with('language', $response->getLanguage())
-                    ::getAfterPivot(0, limit: 25)
+                StockLocationMapper::getAll()
+                    ->where('id', 0)
+                    ->limit(25)
+                    ->execute()
             );
         }
 
@@ -153,7 +165,7 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-location');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response));
 
-        $view->setData('location', StockLocationMapper::get((int) $request->getData('id')));
+        $view->setData('location', StockLocationMapper::get()->where('id', (int) $request->getData('id'))->execute());
 
         return $view;
     }

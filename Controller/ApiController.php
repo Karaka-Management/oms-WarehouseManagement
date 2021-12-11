@@ -62,15 +62,15 @@ final class ApiController extends Controller
     {
         $stock       = new Stock($new->number);
         $stock->type = 1;
-        StockMapper::create($stock);
+        StockMapper::create()->execute($stock);
 
         $stockLocation        = new StockLocation($stock->name . '-1');
         $stockLocation->stock = $stock->getId();
-        StockLocationMapper::create($stockLocation);
+        StockLocationMapper::create()->execute($stockLocation);
 
         $stockShelf           = new StockShelf($stockLocation->name . '-1');
         $stockShelf->location = $stockLocation->getId();
-        StockShelfMapper::create($stockShelf);
+        StockShelfMapper::create()->execute($stockShelf);
     }
 
     /**

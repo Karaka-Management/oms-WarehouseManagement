@@ -62,10 +62,10 @@ final class Installer extends InstallerAbstract
     {
         $stock       = new Stock('Default');
         $stock->type = 0;
-        StockMapper::create($stock);
+        StockMapper::create()->execute($stock);
 
         $stockLocation        = new StockLocation((string) ($stock->getId() . '-1'));
         $stockLocation->stock = $stock;
-        StockLocationMapper::create($stockLocation);
+        StockLocationMapper::create()->execute($stockLocation);
     }
 }

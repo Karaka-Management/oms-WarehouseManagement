@@ -14,16 +14,26 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
-use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
-
 /**
- * WarehouseManagement mapper class.
+ * Null model
  *
  * @package Modules\WarehouseManagement\Models
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class StockMovementMapper extends DataMapperFactory
+final class NullStockLocation extends StockLocation
 {
+    /**
+     * Constructor
+     *
+     * @param int $id Model id
+     *
+     * @since 1.0.0
+     */
+    public function __construct(int $id = 0)
+    {
+        $this->id = $id;
+        parent::__construct();
+    }
 }

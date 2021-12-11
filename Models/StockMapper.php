@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * WarehouseManagement mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class StockMapper extends DataMapperAbstract
+final class StockMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class StockMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'warehousemgmt_stock_id'    => ['name' => 'warehousemgmt_stock_id',    'type' => 'int',    'internal' => 'id'],
         'warehousemgmt_stock_name'  => ['name' => 'warehousemgmt_stock_name', 'type' => 'string', 'internal' => 'name'],
         'warehousemgmt_stock_type'  => ['name' => 'warehousemgmt_stock_type',  'type' => 'int',    'internal' => 'type'],
@@ -44,7 +44,7 @@ final class StockMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'warehousemgmt_stock';
+    public const TABLE = 'warehousemgmt_stock';
 
     /**
      * Primary field name.
@@ -52,5 +52,5 @@ final class StockMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'warehousemgmt_stock_id';
+    public const PRIMARYFIELD ='warehousemgmt_stock_id';
 }

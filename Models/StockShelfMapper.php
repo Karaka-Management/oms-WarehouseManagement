@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * WarehouseManagement mapper class.
@@ -24,7 +24,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class StockShelfMapper extends DataMapperAbstract
+final class StockShelfMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -32,7 +32,7 @@ final class StockShelfMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'warehousemgmt_stockshelf_id'        => ['name' => 'warehousemgmt_stockshelf_id',    'type' => 'int',    'internal' => 'id'],
         'warehousemgmt_stockshelf_name'      => ['name' => 'warehousemgmt_stockshelf_name', 'type' => 'string', 'internal' => 'name'],
         'warehousemgmt_stockshelf_location'  => ['name' => 'warehousemgmt_stockshelf_location',  'type' => 'int',    'internal' => 'location'],
@@ -47,7 +47,7 @@ final class StockShelfMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'location' => [
             'mapper'     => StockMapper::class,
             'external'   => 'warehousemgmt_stockshelf_location',
@@ -60,7 +60,7 @@ final class StockShelfMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'warehousemgmt_stockshelf';
+    public const TABLE = 'warehousemgmt_stockshelf';
 
     /**
      * Primary field name.
@@ -68,5 +68,5 @@ final class StockShelfMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'warehousemgmt_stockshelf_id';
+    public const PRIMARYFIELD ='warehousemgmt_stockshelf_id';
 }
