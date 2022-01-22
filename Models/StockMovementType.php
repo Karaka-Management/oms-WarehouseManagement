@@ -37,21 +37,21 @@ abstract class StockMovementType extends Enum
     public const TRANSFER = 16;
 
     // @todo: subtypes, maybe creates as database subtypes during install.
-    public const DESTROY = 1; // 8
+    public const DESTROY = 101;
 
-    public const RETURN = 1; // 8
+    public const RETURN = 102;
 
-    public const INVENTORY_PLUS = 1; // 4
+    public const INVENTORY_PLUS = 103;
 
-    public const INVENTORY_MINUS = 1; // 8
+    public const INVENTORY_MINUS = 104;
 
-    public const PURCHASE = 1; // 4
+    public const PURCHASE = 105;
 
-    public const SALE = 1; // 4
+    public const SALE = 106;
 
-    public const MANUFACTURE_CREATE = 1; // 4
+    public const MANUFACTURE_CREATE = 107;
 
-    public const MANUFACTURE_USE = 1; // 8
+    public const MANUFACTURE_USE = 108;
 
-    public const MANUAL = 1; // 1-16
+    public const MANUAL = 109;
 }
