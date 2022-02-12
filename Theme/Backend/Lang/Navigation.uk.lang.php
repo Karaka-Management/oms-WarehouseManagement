@@ -13,11 +13,11 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Arrival'     => 'Arrival',
-    'Articles'    => 'Articles',
-    'Locations'   => 'Locations',
-    'Shipping'    => 'Shipping',
-    'Stock'       => 'Stock',
-    'Stocks'      => 'Stocks',
-    'Warehousing' => 'Warehousing',
+    'Arrival'     => 'Прибуття',
+    'Articles'    => 'Статті',
+    'Locations'   => 'Розташування',
+    'Shipping'    => 'Доставка',
+    'Stock'       => 'Запас',
+    'Stocks'      => 'Запаси',
+    'Warehousing' => 'Склад',
 ]];

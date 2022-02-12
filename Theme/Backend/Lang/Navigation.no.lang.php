@@ -13,11 +13,11 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Arrival'     => 'Arrival',
-    'Articles'    => 'Articles',
-    'Locations'   => 'Locations',
+    'Arrival'     => 'Ankomst',
+    'Articles'    => 'Artikler',
+    'Locations'   => 'Steder',
     'Shipping'    => 'Shipping',
-    'Stock'       => 'Stock',
-    'Stocks'      => 'Stocks',
-    'Warehousing' => 'Warehousing',
+    'Stock'       => 'Lager',
+    'Stocks'      => 'Aksjer',
+    'Warehousing' => 'Lagring',
 ]];

@@ -4,7 +4,7 @@
  *
  * PHP Version 8.0
  *
- * @package   Modules\WarehouseManagement
+ * @package   Modules\Localization
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -26,6 +26,7 @@ return ['WarehouseManagement' => [
     'Description' => 'Description',
     'Interval'    => 'Interval',
     'Location'    => 'Location',
+    'Locations'   => '',
     'Matchcode'   => 'Matchcode',
     'Month'       => 'Month',
     'Name'        => 'Name',
@@ -35,6 +36,7 @@ return ['WarehouseManagement' => [
     'Shipping'    => 'Shipping',
     'Statistics'  => 'Statistics',
     'Stock'       => 'Stock',
+    'Stocks'      => '',
     'Street'      => 'Street',
     'Today'       => 'Today',
     'Type'        => 'Type',
