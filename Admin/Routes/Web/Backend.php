@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 use Modules\WarehouseManagement\Controller\BackendController;
-use Modules\WarehouseManagement\Models\PermissionState;
+use Modules\WarehouseManagement\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
@@ -25,7 +25,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::STOCK,
+                'state'  => PermissionCategory::STOCK,
             ],
         ],
     ],
@@ -36,7 +36,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::STOCK,
+                'state'  => PermissionCategory::STOCK,
             ],
         ],
     ],
@@ -47,7 +47,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::STOCK_LOCATION,
+                'state'  => PermissionCategory::STOCK_LOCATION,
             ],
         ],
     ],
@@ -58,7 +58,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::STOCK_LOCATION,
+                'state'  => PermissionCategory::STOCK_LOCATION,
             ],
         ],
     ],
