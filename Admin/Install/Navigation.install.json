@@ -10,7 +10,7 @@
         "icon": "fa fa-cube",
         "order": 40,
         "from": "WarehouseManagement",
-        "permission": { "permission": 2, "type": null, "element": null },
+        "permission": { "permission": 2, "category": null, "element": null },
         "parent": 0,
         "children": [
             {
@@ -24,7 +24,7 @@
                 "icon": null,
                 "order": 1,
                 "from": "WarehouseManagement",
-                "permission": { "permission": 2, "type": null, "element": null },
+                "permission": { "permission": 2, "category": null, "element": null },
                 "parent": 1001301001,
                 "children": [
                     {
@@ -38,7 +38,7 @@
                         "icon": null,
                         "order": 1,
                         "from": "WarehouseManagement",
-                        "permission": { "permission": 2, "type": null, "element": null },
+                        "permission": { "permission": 2, "category": null, "element": null },
                         "parent": 1001302001,
                         "children": []
                     },
@@ -53,7 +53,7 @@
                         "icon": null,
                         "order": 1,
                         "from": "WarehouseManagement",
-                        "permission": { "permission": 2, "type": null, "element": null },
+                        "permission": { "permission": 2, "category": null, "element": null },
                         "parent": 1001302001,
                         "children": []
                     }
