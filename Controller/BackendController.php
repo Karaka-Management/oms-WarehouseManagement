@@ -44,7 +44,7 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStockList(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewStockList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -89,7 +89,7 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStock(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewStock(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -113,7 +113,7 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStockLocationList(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewStockLocationList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -158,7 +158,7 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStockLocation(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewStockLocation(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
