@@ -32,7 +32,7 @@ echo $this->getData('nav')->render(); ?>
                 <tbody>
                 <?php $count = 0; foreach ($stocks as $key => $value) :
                     ++$count;
-                    $url = UriFactory::build('{/prefix}warehouse/stock?{?}&id=' . $value->getId());
+                    $url = UriFactory::build('warehouse/stock?{?}&id=' . $value->getId());
                 ?>
                     <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
