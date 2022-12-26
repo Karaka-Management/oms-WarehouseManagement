@@ -60,6 +60,7 @@ final class ApiController extends Controller
         string $ip = null
     ) : void
     {
+        /** @var \Modules\ClientManagement\Models\Client|\Modules\SupplierManagement\Models\Supplier $new */
         $stock       = new Stock($new->number);
         $stock->type = 1;
         StockMapper::create()->execute($stock);
