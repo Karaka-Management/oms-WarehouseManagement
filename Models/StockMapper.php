@@ -52,5 +52,5 @@ final class StockMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='warehousemgmt_stock_id';
+    public const PRIMARYFIELD = 'warehousemgmt_stock_id';
 }
