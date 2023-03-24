@@ -6,7 +6,7 @@
  *
  * @package   Modules\WarehouseManagement
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -32,7 +32,7 @@ echo $this->getData('nav')->render(); ?>
                 <tbody>
                 <?php $count = 0; foreach ($locations as $key => $value) :
                     ++$count;
-                    $url = UriFactory::build('{/lang}/{/app}/warehouse/stock/location?{?}&id=' . $value->getId());
+                    $url = UriFactory::build('{/base}/warehouse/stock/location?{?}&id=' . $value->getId());
                 ?>
                     <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $value->getId(); ?></a>
