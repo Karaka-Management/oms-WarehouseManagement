@@ -66,11 +66,11 @@ final class ApiController extends Controller
         StockMapper::create()->execute($stock);
 
         $stockLocation        = new StockLocation($stock->name . '-1');
-        $stockLocation->stock = $stock->getId();
+        $stockLocation->stock = $stock->id;
         StockLocationMapper::create()->execute($stockLocation);
 
         $stockShelf           = new StockShelf($stockLocation->name . '-1');
-        $stockShelf->location = $stockLocation->getId();
+        $stockShelf->location = $stockLocation->id;
         StockShelfMapper::create()->execute($stockShelf);
     }
 

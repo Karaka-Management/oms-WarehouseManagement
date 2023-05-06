@@ -37,6 +37,6 @@ final class StockShelfTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->stock->getId());
+        self::assertEquals(0, $this->stock->id);
     }
 }

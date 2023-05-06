@@ -37,6 +37,6 @@ final class StockMovementTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->movement->getId());
+        self::assertEquals(0, $this->movement->id);
     }
 }
