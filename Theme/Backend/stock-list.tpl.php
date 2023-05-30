@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
 
-$stocks = $this->getData('stocks') ?? [];
+$stocks = $this->data['stocks'] ?? [];
 
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 
 <div class="row">
     <div class="col-xs-12">
