@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
 
-$locations = $this->getData('locations') ?? [];
+$locations = $this->data['locations'] ?? [];
 
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 
 <div class="row">
     <div class="col-xs-12">

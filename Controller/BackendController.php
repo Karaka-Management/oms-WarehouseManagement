@@ -49,29 +49,23 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-list');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('stocks',
-                StockMapper::getAll()
+            $view->data['stocks'] = StockMapper::getAll()
                     ->where('id', $request->getDataInt('id') ?? 0)
                     ->limit(25)
-                    ->execute()
-            );
+                    ->execute();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('stocks',
-                StockMapper::getAll()
+            $view->data['stocks'] = StockMapper::getAll()
                     ->where('id', $request->getDataInt('id') ?? 0)
                     ->limit(25)
-                    ->execute()
-            );
+                    ->execute();
         } else {
-            $view->setData('stocks',
-                StockMapper::getAll()
+            $view->data['stocks'] = StockMapper::getAll()
                     ->where('id', 0)
                     ->limit(25)
-                    ->execute()
-            );
+                    ->execute();
         }
 
         return $view;
@@ -94,9 +88,9 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
-        $view->setData('stock', StockMapper::get()->where('id', (int) $request->getData('id'))->execute());
+        $view->data['stock'] = StockMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
         return $view;
     }
@@ -118,29 +112,23 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-location-list');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('locations',
-                StockLocationMapper::getAll()
+            $view->data['locations'] = StockLocationMapper::getAll()
                     ->where('id', $request->getDataInt('id') ?? 0)
                     ->limit(25)
-                    ->execute()
-            );
+                    ->execute();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('locations',
-                StockLocationMapper::getAll()
+            $view->data['locations'] = StockLocationMapper::getAll()
                     ->where('id', $request->getDataInt('id') ?? 0)
                     ->limit(25)
-                    ->execute()
-            );
+                    ->execute();
         } else {
-            $view->setData('locations',
-                StockLocationMapper::getAll()
+            $view->data['locations'] = StockLocationMapper::getAll()
                     ->where('id', 0)
                     ->limit(25)
-                    ->execute()
-            );
+                    ->execute();
         }
 
         return $view;
@@ -163,9 +151,9 @@ final class BackendController extends Controller
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-location');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
-        $view->setData('location', StockLocationMapper::get()->where('id', (int) $request->getData('id'))->execute());
+        $view->data['location'] = StockLocationMapper::get()->where('id', (int) $request->getData('id'))->execute();
 
         return $view;
     }
