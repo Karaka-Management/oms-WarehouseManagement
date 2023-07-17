@@ -11,21 +11,28 @@
             },
             "warehousemgmt_item_item": {
                 "name": "warehousemgmt_item_item",
-                "type": "VARCHAR(255)",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "itemmgmt_item",
+                "foreignKey": "itemmgmt_item_id"
+            },
+            "warehousemgmt_item_hassn": {
+                "name": "warehousemgmt_item_hassn",
+                "type": "TINYINT(1)",
                 "null": false
             },
-            "warehousemgmt_item_track_type": {
-                "name": "warehousemgmt_item_track_type",
-                "type": "TINYINT",
+            "warehousemgmt_item_haslot": {
+                "name": "warehousemgmt_item_haslot",
+                "type": "TINYINT(1)",
+                "null": false
+            },
+            "warehousemgmt_item_hasstock": {
+                "name": "warehousemgmt_item_hasstock",
+                "type": "TINYINT(1)",
                 "null": false
             },
             "warehousemgmt_item_negative": {
                 "name": "warehousemgmt_item_negative",
-                "type": "TINYINT",
-                "null": false
-            },
-            "warehousemgmt_item_": {
-                "name": "warehousemgmt_item_",
                 "type": "TINYINT",
                 "null": false
             }
@@ -46,10 +53,35 @@
                 "type": "VARCHAR(255)",
                 "null": false
             },
-            "warehousemgmt_stock_type": {
-                "description": "???",
-                "name": "warehousemgmt_stock_type",
-                "type": "TINYINT",
+            "warehousemgmt_stock_unit": {
+                "name": "warehousemgmt_stock_unit",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "itemmgmt_item",
+                "foreignKey": "itemmgmt_item_id"
+            },
+            "warehousemgmt_stock_address": {
+                "name": "warehousemgmt_stock_address",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "address",
+                "foreignKey": "address_id"
+            }
+        }
+    },
+    "warehousemgmt_stock_type": {
+        "name": "warehousemgmt_stock_type",
+        "fields": {
+            "warehousemgmt_stock_type_id": {
+                "name": "warehousemgmt_stock_type_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "warehousemgmt_stock_type_name": {
+                "name": "warehousemgmt_stock_type_name",
+                "type": "VARCHAR(255)",
                 "null": false
             }
         }
@@ -75,6 +107,14 @@
                 "null": false,
                 "foreignTable": "warehousemgmt_stock",
                 "foreignKey": "warehousemgmt_stock_id"
+            },
+            "warehousemgmt_stocklocation_type": {
+                "name": "warehousemgmt_stocklocation_type",
+                "type": "INT",
+                "null": true,
+                "default": "null",
+                "foreignTable": "warehousemgmt_stock_type",
+                "foreignKey": "warehousemgmt_stock_type_id"
             },
             "warehousemgmt_stocklocation_x": {
                 "name": "warehousemgmt_stocklocation_x",
@@ -115,6 +155,14 @@
                 "null": false,
                 "foreignTable": "warehousemgmt_stocklocation",
                 "foreignKey": "warehousemgmt_stocklocation_id"
+            },
+            "warehousemgmt_stockshelf_type": {
+                "name": "warehousemgmt_stockshelf_type",
+                "type": "INT",
+                "null": true,
+                "default": "null",
+                "foreignTable": "warehousemgmt_stock_type",
+                "foreignKey": "warehousemgmt_stock_type_id"
             },
             "warehousemgmt_stockshelf_x": {
                 "name": "warehousemgmt_stockshelf_x",

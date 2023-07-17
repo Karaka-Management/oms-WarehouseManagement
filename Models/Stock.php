@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
+use Modules\Admin\Models\Address;
+
 /**
  * Warehouse class.
  *
@@ -40,7 +42,9 @@ class Stock
      */
     public string $name = '';
 
-    public int $type = 0;
+    public int $unit = 0;
+
+    public Address $address;
 
     /**
      * Constructor.

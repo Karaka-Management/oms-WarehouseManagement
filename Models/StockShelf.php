@@ -36,6 +36,8 @@ class StockShelf
 
     public int | StockLocation $location = 0;
 
+    public ?int $type = null;
+
     public int $x = 0;
 
     public int $y = 0;
