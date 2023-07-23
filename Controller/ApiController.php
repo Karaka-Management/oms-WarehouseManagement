@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Controller;
 
+use Modules\Billing\Models\Bill;
 use Modules\WarehouseManagement\Models\Stock;
 use Modules\WarehouseManagement\Models\StockLocation;
 use Modules\WarehouseManagement\Models\StockLocationMapper;
@@ -37,7 +38,7 @@ final class ApiController extends Controller
      * @param int         $account Account
      * @param mixed       $old     Old stock model
      * @param mixed       $new     New / created stock model
-     * @param int         $type    Event type (usually mapper hash)
+     * @param null|int    $type    Event type (usually mapper hash)
      * @param string      $trigger Trigger name
      * @param null|string $module  Module name who triggers the event
      * @param null|string $ref     Reference (e.g. reference to a different model)
@@ -52,7 +53,7 @@ final class ApiController extends Controller
         int $account,
         mixed $old,
         mixed $new,
-        int $type = 0,
+        int $type = null,
         string $trigger = '',
         string $module = null,
         string $ref = null,
@@ -62,7 +63,6 @@ final class ApiController extends Controller
     {
         /** @var \Modules\ClientManagement\Models\Client|\Modules\SupplierManagement\Models\Supplier $new */
         $stock       = new Stock($new->number);
-        $stock->type = 1;
         StockMapper::create()->execute($stock);
 
         $stockLocation        = new StockLocation($stock->name . '-1');
@@ -95,7 +95,7 @@ final class ApiController extends Controller
         int $account,
         mixed $old,
         mixed $new,
-        int $type = 0,
+        int $type = null,
         string $trigger = '',
         string $module = null,
         string $ref = null,
@@ -125,4 +125,6 @@ final class ApiController extends Controller
             return;
         }
     }
+
+
 }

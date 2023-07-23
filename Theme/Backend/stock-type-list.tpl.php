@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
 
-$stocks = $this->data['stocks'] ?? [];
+$types = $this->data['types'] ?? [];
 
 echo $this->data['nav']->render(); ?>
 
@@ -29,13 +29,13 @@ echo $this->data['nav']->render(); ?>
                     <td><?= $this->getHtml('ID', '0', '0'); ?>
                     <td class="wf-100"><?= $this->getHtml('Name'); ?>
                 <tbody>
-                <?php $count = 0; foreach ($stocks as $key => $value) :
+                <?php $count = 0; foreach ($types as $key => $value) :
                     ++$count;
-                    $url = UriFactory::build('{/base}/warehouse/stock?{?}&id=' . $value->id);
+                    $url = UriFactory::build('{/base}/warehouse/stock/type?id=' . $value->id);
                 ?>
                     <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $value->id; ?></a>
-                        <td><a href="<?= $url; ?>"><?= $value->name; ?></a>
+                        <td><a href="<?= $url; ?>"><?= $this->printHtml($value->getL11n()); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                     <tr><td colspan="2" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

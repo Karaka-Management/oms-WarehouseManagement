@@ -44,7 +44,7 @@ class Stock
 
     public int $unit = 0;
 
-    public Address $address;
+    public ?Address $address = null;
 
     /**
      * Constructor.

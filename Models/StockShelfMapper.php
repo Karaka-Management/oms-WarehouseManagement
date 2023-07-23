@@ -39,6 +39,7 @@ final class StockShelfMapper extends DataMapperFactory
         'warehousemgmt_stockshelf_id'        => ['name' => 'warehousemgmt_stockshelf_id',    'type' => 'int',    'internal' => 'id'],
         'warehousemgmt_stockshelf_name'      => ['name' => 'warehousemgmt_stockshelf_name', 'type' => 'string', 'internal' => 'name'],
         'warehousemgmt_stockshelf_location'  => ['name' => 'warehousemgmt_stockshelf_location',  'type' => 'int',    'internal' => 'location'],
+        'warehousemgmt_stockshelf_type'  => ['name' => 'warehousemgmt_stockshelf_type',  'type' => 'int',    'internal' => 'type'],
         'warehousemgmt_stockshelf_x'         => ['name' => 'warehousemgmt_stockshelf_x',  'type' => 'int',    'internal' => 'x'],
         'warehousemgmt_stockshelf_y'         => ['name' => 'warehousemgmt_stockshelf_y',  'type' => 'int',    'internal' => 'y'],
         'warehousemgmt_stockshelf_z'         => ['name' => 'warehousemgmt_stockshelf_z',  'type' => 'int',    'internal' => 'z'],

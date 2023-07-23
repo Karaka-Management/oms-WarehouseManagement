@@ -43,4 +43,5 @@ return ['WarehouseManagement' => [
     'Week'        => 'Week',
     'Year'        => 'Year',
     'Zip'         => 'Zip',
+    'Types'         => 'Types',
 ]];

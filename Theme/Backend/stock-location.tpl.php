@@ -20,7 +20,7 @@ echo $this->data['nav']->render();
     <div class="col-xs-12">
         <section class="portlet">
             <div class="portlet-head"><?= $this->printHtml($location->name); ?></div>
-            <div class="portlet-body">
+            <div class="portlet-body"></div>
         </section>
     </div>
 </div>

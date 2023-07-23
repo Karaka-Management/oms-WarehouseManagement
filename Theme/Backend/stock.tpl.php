@@ -18,9 +18,14 @@ echo $this->data['nav']->render();
 ?>
 <div class="row">
     <div class="col-xs-12">
-        <section class="portlet">
-            <div class="portlet-head"><?= $this->printHtml($stock->name); ?></div>
+    <section class="portlet">
+            <div class="portlet-head"><?= $this->getHtml('Stock'); ?></div>
             <div class="portlet-body">
+                <div class="form-group">
+                    <label for="name"><?= $this->getHtml('Name'); ?></label>
+                    <input id="name" name="name" value="<?= $this->printHtml($stock->name); ?>">
+                </div>
+            </div>
         </section>
     </div>
 </div>

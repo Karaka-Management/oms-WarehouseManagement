@@ -16,6 +16,8 @@ namespace Modules\WarehouseManagement\Controller;
 
 use Modules\WarehouseManagement\Models\StockLocationMapper;
 use Modules\WarehouseManagement\Models\StockMapper;
+use Modules\WarehouseManagement\Models\StockTypeL11nMapper;
+use Modules\WarehouseManagement\Models\StockTypeMapper;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -44,6 +46,48 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
+    public function viewStockTypeList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-type-list');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
+
+        if ($request->getData('ptype') === 'p') {
+            $view->data['types'] = StockTypeMapper::getAll()
+                    ->with('l11n')
+                    ->where('l11n/language', $response->header->l11n->language)
+                    ->limit(25)
+                    ->execute();
+        } elseif ($request->getData('ptype') === 'n') {
+            $view->data['types'] = StockTypeMapper::getAll()
+                    ->with('l11n')
+                    ->where('l11n/language', $response->header->l11n->language)
+                    ->limit(25)
+                    ->execute();
+        } else {
+            $view->data['types'] = StockTypeMapper::getAll()
+                    ->with('l11n')
+                    ->where('l11n/language', $response->header->l11n->language)
+                    ->limit(25)
+                    ->execute();
+        }
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
     public function viewStockList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
@@ -53,17 +97,14 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === 'p') {
             $view->data['stocks'] = StockMapper::getAll()
-                    ->where('id', $request->getDataInt('id') ?? 0)
                     ->limit(25)
                     ->execute();
         } elseif ($request->getData('ptype') === 'n') {
             $view->data['stocks'] = StockMapper::getAll()
-                    ->where('id', $request->getDataInt('id') ?? 0)
                     ->limit(25)
                     ->execute();
         } else {
             $view->data['stocks'] = StockMapper::getAll()
-                    ->where('id', 0)
                     ->limit(25)
                     ->execute();
         }
@@ -107,6 +148,37 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
+    public function viewStockType(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-type-profile');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
+
+        $view->data['type'] = StockMapper::get()->where('id', (int) $request->getData('id'))->execute();
+
+        $l11nValues = StockTypeL11nMapper::getAll()
+            ->with('type')
+            ->where('ref', $view->data['type']->id)
+            ->execute();
+
+        $view->data['l11nValues'] = $l11nValues;
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
     public function viewStockLocationList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
@@ -116,19 +188,19 @@ final class BackendController extends Controller
 
         if ($request->getData('ptype') === 'p') {
             $view->data['locations'] = StockLocationMapper::getAll()
-                    ->where('id', $request->getDataInt('id') ?? 0)
-                    ->limit(25)
-                    ->execute();
+                ->with('stock')
+                ->limit(25)
+                ->execute();
         } elseif ($request->getData('ptype') === 'n') {
             $view->data['locations'] = StockLocationMapper::getAll()
-                    ->where('id', $request->getDataInt('id') ?? 0)
-                    ->limit(25)
-                    ->execute();
+                ->with('stock')
+                ->limit(25)
+                ->execute();
         } else {
             $view->data['locations'] = StockLocationMapper::getAll()
-                    ->where('id', 0)
-                    ->limit(25)
-                    ->execute();
+                ->with('stock')
+                ->limit(25)
+                ->execute();
         }
 
         return $view;

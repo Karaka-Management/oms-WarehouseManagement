@@ -1,0 +1,51 @@
+[
+    {
+		"name": "default",
+		"l11n": {
+			"en": "Default",
+			"de": "Standard"
+		}
+	},
+	{
+		"name": "incoming",
+		"l11n": {
+			"en": "Incoming",
+			"de": "Wareneingang"
+		}
+	},
+	{
+		"name": "outgoing",
+		"l11n": {
+			"en": "Outgoing",
+			"de": "Warenausgang"
+		}
+	},
+    {
+		"name": "return",
+		"l11n": {
+			"en": "Return",
+			"de": "Rückgabe"
+		}
+	},
+    {
+		"name": "quarantine",
+		"l11n": {
+			"en": "Quarantine",
+			"de": "Quarantäne"
+		}
+	},
+    {
+		"name": "quality_control",
+		"l11n": {
+			"en": "Quality control",
+			"de": "Qualitätskontrolle"
+		}
+	},
+    {
+		"name": "retention_sample",
+		"l11n": {
+			"en": "Retention sample",
+			"de": "Rückstellmuster"
+		}
+	}
+]

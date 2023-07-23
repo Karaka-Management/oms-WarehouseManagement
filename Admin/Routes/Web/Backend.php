@@ -40,6 +40,28 @@ return [
             ],
         ],
     ],
+    '^.*/warehouse/stock/type/list.*$' => [
+        [
+            'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockTypeList',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::STOCK,
+            ],
+        ],
+    ],
+    '^.*/warehouse/stock/type(\?.*)?$' => [
+        [
+            'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockType',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::STOCK,
+            ],
+        ],
+    ],
     '^.*/warehouse/stock/location/list.*$' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocationList',
