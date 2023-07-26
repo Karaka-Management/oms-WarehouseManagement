@@ -22,10 +22,8 @@ use Modules\WarehouseManagement\Models\StockTypeMapper;
 use phpOMS\Localization\BaseStringL11n;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Model\Message\FormValidation;
 
 /**
  * Warehouse class.
@@ -53,16 +51,15 @@ final class ApiStockTypeController extends Controller
     public function apiStockTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateStockTypeCreate($request))) {
-            $response->data['stock_type_create'] = new FormValidation($val);
-            $response->header->status           = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $stockType = $this->createStockTypeFromRequest($request);
         $this->createModel($request->header->account, $stockType, StockTypeMapper::class, 'stock_type', $request->getOrigin());
-
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Stock type', 'Stock type successfully created', $stockType);
+        $this->createStandardCreateResponse($request, $response, $stockType);
     }
 
     /**
@@ -120,15 +117,15 @@ final class ApiStockTypeController extends Controller
     public function apiStockTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateStockTypeL11nCreate($request))) {
-            $response->data['stock_type_l11n_create'] = new FormValidation($val);
-            $response->header->status                = RequestStatusCode::R_400;
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
 
             return;
         }
 
         $stockTypeL11n = $this->createStockTypeL11nFromRequest($request);
         $this->createModel($request->header->account, $stockTypeL11n, StockTypeL11nMapper::class, 'stock_type_l11n', $request->getOrigin());
-        $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'Localization', 'Localization successfully created', $stockTypeL11n);
+        $this->createStandardCreateResponse($request, $response, $stockTypeL11n);
     }
 
     /**
