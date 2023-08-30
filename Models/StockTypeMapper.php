@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
-use Modules\Admin\Models\AddressMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**

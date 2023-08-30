@@ -89,8 +89,8 @@ final class Installer extends InstallerAbstract
     /**
      * Install default stock types
      *
-     * @param ApplicationAbstract $app      Application
-     * @param array               $types    Stock types
+     * @param ApplicationAbstract $app   Application
+     * @param array               $types Stock types
      *
      * @return array
      *

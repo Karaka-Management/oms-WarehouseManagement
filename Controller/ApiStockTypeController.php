@@ -73,7 +73,7 @@ final class ApiStockTypeController extends Controller
      */
     private function createStockTypeFromRequest(RequestAbstract $request) : StockType
     {
-        $stockType = new StockType();
+        $stockType       = new StockType();
         $stockType->name = $request->getDataString('name') ?? '';
         $stockType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
 

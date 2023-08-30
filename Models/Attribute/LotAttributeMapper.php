@@ -38,7 +38,7 @@ final class LotAttributeMapper extends DataMapperFactory
      */
     public const COLUMNS = [
         'warehousemgmt_lot_attr_id'    => ['name' => 'warehousemgmt_lot_attr_id',    'type' => 'int', 'internal' => 'id'],
-        'warehousemgmt_lot_attr_lot'  => ['name' => 'warehousemgmt_lot_attr_lot',  'type' => 'int', 'internal' => 'ref'],
+        'warehousemgmt_lot_attr_lot'   => ['name' => 'warehousemgmt_lot_attr_lot',  'type' => 'int', 'internal' => 'ref'],
         'warehousemgmt_lot_attr_type'  => ['name' => 'warehousemgmt_lot_attr_type',  'type' => 'int', 'internal' => 'type'],
         'warehousemgmt_lot_attr_value' => ['name' => 'warehousemgmt_lot_attr_value', 'type' => 'int', 'internal' => 'value'],
     ];

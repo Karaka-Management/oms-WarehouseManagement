@@ -37,9 +37,9 @@ final class StockMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'warehousemgmt_stock_id'    => ['name' => 'warehousemgmt_stock_id',    'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_stock_name'  => ['name' => 'warehousemgmt_stock_name', 'type' => 'string', 'internal' => 'name'],
-        'warehousemgmt_stock_unit'  => ['name' => 'warehousemgmt_stock_unit',  'type' => 'int',    'internal' => 'unit'],
+        'warehousemgmt_stock_id'       => ['name' => 'warehousemgmt_stock_id',    'type' => 'int',    'internal' => 'id'],
+        'warehousemgmt_stock_name'     => ['name' => 'warehousemgmt_stock_name', 'type' => 'string', 'internal' => 'name'],
+        'warehousemgmt_stock_unit'     => ['name' => 'warehousemgmt_stock_unit',  'type' => 'int',    'internal' => 'unit'],
         'warehousemgmt_stock_address'  => ['name' => 'warehousemgmt_stock_address',  'type' => 'int',    'internal' => 'address'],
     ];
 
