@@ -14,11 +14,18 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Controller;
 
-use Modules\Billing\Models\Bill;
+use Modules\Billing\Models\BillElement;
+use Modules\Billing\Models\BillMapper;
+use Modules\Billing\Models\BillStatus;
+use Modules\Billing\Models\BillTransferType;
 use Modules\WarehouseManagement\Models\Stock;
 use Modules\WarehouseManagement\Models\StockLocation;
 use Modules\WarehouseManagement\Models\StockLocationMapper;
 use Modules\WarehouseManagement\Models\StockMapper;
+use Modules\WarehouseManagement\Models\StockMovement;
+use Modules\WarehouseManagement\Models\StockMovementMapper;
+use Modules\WarehouseManagement\Models\StockMovementState;
+use Modules\WarehouseManagement\Models\StockMovementType;
 use Modules\WarehouseManagement\Models\StockShelf;
 use Modules\WarehouseManagement\Models\StockShelfMapper;
 
@@ -62,7 +69,7 @@ final class ApiController extends Controller
     ) : void
     {
         /** @var \Modules\ClientManagement\Models\Client|\Modules\SupplierManagement\Models\Supplier $new */
-        $stock       = new Stock($new->number);
+        $stock = new Stock($new->number);
         StockMapper::create()->execute($stock);
 
         $stockLocation        = new StockLocation($stock->name . '-1');
@@ -103,25 +110,157 @@ final class ApiController extends Controller
         string $ip = null
     ) : void
     {
+        // Directly/manually creating a transaction is handled in the API Create/Update functions.
+
+        /** @var \Modules\Billing\Models\Bill $bill */
+        $bill = BillMapper::get()
+            ->with('type')
+            ->with('supplier')
+            ->with('client')
+            ->where('id', $new instanceof BillElement ? $new->bill->id : $new->id)
+            ->execute();
+
+        // Has stock movement?
+        if ($bill->id !== 0 && !$bill->type->transferStock) {
+            return;
+        }
+
+        // @todo: check if old element existex -> removed/changed item
+
+        $transaction = new StockMovement();
+
         if ($trigger === 'POST:Module:Billing-bill_element-create') {
-            // @todo: if is bill element create, create stock movement
+            /** @var \Modules\Billing\Models\BillElement $new */
+
+            $transaction->billElement = $new->id;
+            $transaction->state = StockMovementState::DRAFT;
+
+            // @todo: load default stock movement for bill type/organization settings (default stock location, default lot order e.g. FIFO/LIFO)
+            // @todo: find stock candidates
+
+            $transaction->type = StockMovementType::TRANSFER; // @todo: depends on bill type
+            $transaction->quantity = $new->getQuantity(); // @todo may require split quantity if not sufficient available from one lost
+
+            // @todo: allow consignment bills
+            // @todo: allow to pass stocklocation for entire bill to avoid re-defining it
+
+            // @todo: allow custom stock location
+            if ($bill->type->sign > 0) {
+                // Handle from
+                // @todo: find possible candidate based on defined default stock for bill type/org/location
+
+                // Handle to
+                if ($bill->client->id !== 0) {
+                    $transaction->to = $bill->client->number;
+                } elseif ($bill->supplier->id !== 0) {
+                    $transaction->to = $bill->supplier->number;
+                }
+
+                if ($bill->type->transferType === BillTransferType::SALES) {
+                    $transaction->subtype = StockMovementType::SALE;
+                } elseif ($bill->type->transferType === BillTransferType::PURCHASE) {
+                    $transaction->subtype = StockMovementType::PURCHASE;
+                }
+            } else {
+                // Handle from
+                if ($bill->client->id !== 0) {
+                    $transaction->from = $bill->client->number;
+                } elseif ($bill->supplier->id !== 0) {
+                    $transaction->from = $bill->supplier->number;
+                }
+
+                // Handle to
+                // @todo: find possible candidate based on defined default stock for bill type/org/location
+
+                if ($bill->type->transferType === BillTransferType::SALES
+                    || $bill->type->transferType === BillTransferType::PURCHASE
+                ) {
+                    $transaction->subtype = StockMovementType::RETURN;
+                }
+            }
+
             return;
         } elseif ($trigger === 'POST:Module:Billing-bill_element-update') {
-            // quantity change
-            // lot changes
-            // stock changes
-            // all other changes ignore!
-            // check availability again, if not available abort bill
+            $transactions = StockMovementMapper::getAll()
+                ->where('billElement', $new->billElement)
+                ->execute();
+
+            if ($new->item === $old->item) {
+                // quantity change
+                // lot changes
+                // stock changes
+                // all other changes ignore!
+                // check availability again, if not available abort bill
+            } else {
+                StockMovementMapper::delete()->execute($transactions);
+
+                $this->eventBillUpdateInternal(
+                    $account, $old, $new,
+                    $type, 'POST:Module:Billing-bill_element-create', $module, $ref, $content, $ip
+                );
+            }
+
             return;
         } elseif ($trigger === 'POST:Module:Billing-bill_element-delete') {
-            // @todo: delete stock movement
+            $transactions = StockMovementMapper::getAll()
+                ->where('billElement', $new->billElement)
+                ->execute();
+
+            StockMovementMapper::delete()->execute($transactions);
+
             return;
         } elseif ($trigger === 'POST:Module:Billing-bill-delete') {
-            // @todo: delete stock movements
+            /** @var \Modules\Billing\Models\Bill $bill */
+            $bill = BillMapper::get()
+                ->with('type')
+                ->with('elements')
+                ->with('supplier')
+                ->with('client')
+                ->where('id', $new->bill->id)
+                ->execute();
+
+            foreach ($bill->elements as $element) {
+                $transactions = StockMovementMapper::getAll()
+                    ->where('billElement', $element->id)
+                    ->execute();
+
+                StockMovementMapper::delete()->execute($transactions);
+                // @todo: consider not to delete but mark as deleted?
+            }
+
             return;
         } elseif ($trigger === 'POST:Module:Billing-bill-update') {
             // is receiver update -> change all movements
             // is status update -> change all movements (delete = delete)
+
+            if ($new->status === BillStatus::DELETED) {
+                $this->eventBillUpdateInternal(
+                    $account, $old, $new,
+                    $type, 'POST:Module:Billing-bill-delete', $module, $ref, $content, $ip
+                );
+            } elseif ($new->status === BillStatus::ARCHIVED) {
+                /** @var \Modules\Billing\Models\Bill $bill */
+                $bill = BillMapper::get()
+                    ->with('type')
+                    ->with('elements')
+                    ->with('supplier')
+                    ->with('client')
+                    ->where('id', $new->id)
+                    ->execute();
+
+                foreach ($bill->elements as $element) {
+                    $transactions = StockMovementMapper::getAll()
+                        ->where('billElement', $element->id)
+                        ->execute();
+
+                    foreach ($transactions as $transaction) {
+                        $transaction->state = StockMovementState::TRANSIT; // @todo: change to more specific
+
+                        StockMovementMapper::update()->execute($transaction);
+                    }
+                }
+            }
+
             return;
         }
     }

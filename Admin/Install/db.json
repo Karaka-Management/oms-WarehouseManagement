@@ -586,6 +586,12 @@
                 "primary": true,
                 "autoincrement": true
             },
+            "warehousemgmt_stock_distribution_history_name": {
+                "descritpion": "Name of the stock distribution snapshot, given by a user/admin.",
+                "name": "warehousemgmt_stock_distribution_history_name",
+                "type": "VARCHAR(255)",
+                "null": false
+            },
             "warehousemgmt_stock_distribution_history_item": {
                 "name": "warehousemgmt_stock_distribution_history_item",
                 "type": "INT",

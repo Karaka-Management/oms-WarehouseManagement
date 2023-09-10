@@ -30,7 +30,7 @@ abstract class StockEvaluation extends Enum
     public int $type = 0;
 
     // lifo, fifo, ...
-    public int $method = StockEValuationMethod::SPECIFIC_IDENTIFICATION;
+    public int $method = StockEvaluationMethod::SPECIFIC_IDENTIFICATION;
 
     public int $altmethod = StockEvaluationMethod::WEIGHTED_AVERAGE;
 

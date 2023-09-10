@@ -51,6 +51,8 @@ class StockMovement
 
     public int $billElement = 0;
 
+    public int $state = StockMovementState::DRAFT;
+
     /**
      * Creator.
      *
