@@ -134,12 +134,12 @@ final class ApiController extends Controller
             /** @var \Modules\Billing\Models\BillElement $new */
 
             $transaction->billElement = $new->id;
-            $transaction->state = StockMovementState::DRAFT;
+            $transaction->state       = StockMovementState::DRAFT;
 
             // @todo: load default stock movement for bill type/organization settings (default stock location, default lot order e.g. FIFO/LIFO)
             // @todo: find stock candidates
 
-            $transaction->type = StockMovementType::TRANSFER; // @todo: depends on bill type
+            $transaction->type     = StockMovementType::TRANSFER; // @todo: depends on bill type
             $transaction->quantity = $new->getQuantity(); // @todo may require split quantity if not sufficient available from one lost
 
             // @todo: allow consignment bills
