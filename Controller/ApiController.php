@@ -112,6 +112,7 @@ final class ApiController extends Controller
     {
         // Directly/manually creating a transaction is handled in the API Create/Update functions.
 
+        /** @var \Modules\Billing\Models\Bill|\Modules\Billing\Models\BillElement $new */
         /** @var \Modules\Billing\Models\Bill $bill */
         $bill = BillMapper::get()
             ->with('type')
@@ -181,8 +182,10 @@ final class ApiController extends Controller
 
             return;
         } elseif ($trigger === 'POST:Module:Billing-bill_element-update') {
+            /** @var \Modules\Billing\Models\BillElement $new */
+            /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
             $transactions = StockMovementMapper::getAll()
-                ->where('billElement', $new->billElement)
+                ->where('billElement', $new->id)
                 ->execute();
 
             if ($new->item === $old->item) {
@@ -202,8 +205,10 @@ final class ApiController extends Controller
 
             return;
         } elseif ($trigger === 'POST:Module:Billing-bill_element-delete') {
+            /** @var \Modules\Billing\Models\BillElement $new */
+            /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
             $transactions = StockMovementMapper::getAll()
-                ->where('billElement', $new->billElement)
+                ->where('billElement', $new->id)
                 ->execute();
 
             StockMovementMapper::delete()->execute($transactions);
@@ -220,6 +225,7 @@ final class ApiController extends Controller
                 ->execute();
 
             foreach ($bill->elements as $element) {
+                /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
                 $transactions = StockMovementMapper::getAll()
                     ->where('billElement', $element->id)
                     ->execute();
@@ -233,6 +239,7 @@ final class ApiController extends Controller
             // is receiver update -> change all movements
             // is status update -> change all movements (delete = delete)
 
+            /** @var \Modules\Billing\Models\Bill $new */
             if ($new->status === BillStatus::DELETED) {
                 $this->eventBillUpdateInternal(
                     $account, $old, $new,
@@ -249,6 +256,7 @@ final class ApiController extends Controller
                     ->execute();
 
                 foreach ($bill->elements as $element) {
+                    /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
                     $transactions = StockMovementMapper::getAll()
                         ->where('billElement', $element->id)
                         ->execute();
