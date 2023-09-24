@@ -188,9 +188,8 @@ final class ApiController extends Controller
                 ->where('billElement', $new->id)
                 ->execute();
 
-            /** @phpstan-ignore-next-line */
+            /*
             if ($new->item === $old->item) {
-                /** @phpstan-ignore-next-line */
                 // quantity change
                 // lot changes
                 // stock changes
@@ -198,7 +197,9 @@ final class ApiController extends Controller
                 // check availability again, if not available abort bill
                 // maybe from an algorithmic point of view first set quantity to zero
                 // and then do normal algorithm like for a new element
-            } else {
+            }
+            */
+            if ($new->item !== $old->item) {
                 StockMovementMapper::delete()->execute($transactions);
 
                 $this->eventBillUpdateInternal(
