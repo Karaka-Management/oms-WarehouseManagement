@@ -188,7 +188,9 @@ final class ApiController extends Controller
                 ->where('billElement', $new->id)
                 ->execute();
 
+            /** @phpstan-ignore-next-line */
             if ($new->item === $old->item) {
+                /** @phpstan-ignore-next-line */
                 // quantity change
                 // lot changes
                 // stock changes
