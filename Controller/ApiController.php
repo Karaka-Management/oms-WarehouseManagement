@@ -194,6 +194,8 @@ final class ApiController extends Controller
                 // stock changes
                 // all other changes ignore!
                 // check availability again, if not available abort bill
+                // maybe from an algorithmic point of view first set quantity to zero
+                // and then do normal algorithm like for a new element
             } else {
                 StockMovementMapper::delete()->execute($transactions);
 
