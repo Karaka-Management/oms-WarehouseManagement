@@ -122,9 +122,9 @@ final class Installer extends InstallerAbstract
                 continue;
             }
 
-            $stockType = !\is_array($responseData['response'])
-                ? $responseData['response']->toArray()
-                : $responseData['response'];
+            $stockType = \is_array($responseData['response'])
+                ? $responseData['response']
+                : $responseData['response']->toArray();
 
             $stockTypes[] = $stockType;
 
