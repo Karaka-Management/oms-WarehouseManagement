@@ -151,9 +151,9 @@ final class ApiController extends Controller
                 // @todo: find possible candidate based on defined default stock for bill type/org/location
 
                 // Handle to
-                if ($bill->client->id !== 0) {
+                if (($bill->client?->id ?? 0) !== 0) {
                     $transaction->to = $bill->client->number;
-                } elseif ($bill->supplier->id !== 0) {
+                } elseif (($bill->supplier?->id ?? 0) !== 0) {
                     $transaction->to = $bill->supplier->number;
                 }
 
@@ -164,9 +164,9 @@ final class ApiController extends Controller
                 }
             } else {
                 // Handle from
-                if ($bill->client->id !== 0) {
+                if (($bill->client?->id ?? 0) !== 0) {
                     $transaction->from = $bill->client->number;
-                } elseif ($bill->supplier->id !== 0) {
+                } elseif (($bill->supplier?->id ?? 0) !== 0) {
                     $transaction->from = $bill->supplier->number;
                 }
 
@@ -220,13 +220,14 @@ final class ApiController extends Controller
 
             return;
         } elseif ($trigger === 'POST:Module:Billing-bill-delete') {
+            /** @var \Modules\Billing\Models\Bill $new */
             /** @var \Modules\Billing\Models\Bill $bill */
             $bill = BillMapper::get()
                 ->with('type')
                 ->with('elements')
                 ->with('supplier')
                 ->with('client')
-                ->where('id', $new->bill->id)
+                ->where('id', $new->id)
                 ->execute();
 
             foreach ($bill->elements as $element) {
