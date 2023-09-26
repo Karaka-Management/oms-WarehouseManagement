@@ -127,6 +127,7 @@ final class ApiController extends Controller
         }
 
         // @todo: check if old element existex -> removed/changed item
+        // @todo: we cannot have transaction->to and transaction->from  be the id of client/supplier because the IDs can overlap
 
         $transaction = new StockMovement();
 
@@ -152,9 +153,9 @@ final class ApiController extends Controller
 
                 // Handle to
                 if (($bill->client?->id ?? 0) !== 0) {
-                    $transaction->to = $bill->client->number;
+                    $transaction->to = $bill->client->id;
                 } elseif (($bill->supplier?->id ?? 0) !== 0) {
-                    $transaction->to = $bill->supplier->number;
+                    $transaction->to = $bill->supplier->id;
                 }
 
                 if ($bill->type->transferType === BillTransferType::SALES) {
@@ -165,9 +166,9 @@ final class ApiController extends Controller
             } else {
                 // Handle from
                 if (($bill->client?->id ?? 0) !== 0) {
-                    $transaction->from = $bill->client->number;
+                    $transaction->from = $bill->client->id;
                 } elseif (($bill->supplier?->id ?? 0) !== 0) {
-                    $transaction->from = $bill->supplier->number;
+                    $transaction->from = $bill->supplier->id;
                 }
 
                 // Handle to
