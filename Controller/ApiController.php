@@ -184,6 +184,7 @@ final class ApiController extends Controller
             return;
         } elseif ($trigger === 'POST:Module:Billing-bill_element-update') {
             /** @var \Modules\Billing\Models\BillElement $new */
+            /** @var \Modules\Billing\Models\BillElement $old */
             /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
             $transactions = StockMovementMapper::getAll()
                 ->where('billElement', $new->id)
