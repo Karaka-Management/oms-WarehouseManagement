@@ -45,7 +45,7 @@ final class ApiAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -53,7 +53,7 @@ final class ApiAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiLotAttributeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiLotAttributeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateLotAttributeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -123,7 +123,7 @@ final class ApiAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -131,7 +131,7 @@ final class ApiAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiLotAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiLotAttributeTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateLotAttributeTypeL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -192,7 +192,7 @@ final class ApiAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -200,7 +200,7 @@ final class ApiAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiLotAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiLotAttributeTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateLotAttributeTypeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -262,7 +262,7 @@ final class ApiAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -270,7 +270,7 @@ final class ApiAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiLotAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiLotAttributeValueCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateLotAttributeValueCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -347,7 +347,7 @@ final class ApiAttributeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -355,7 +355,7 @@ final class ApiAttributeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiLotAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiLotAttributeValueL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateLotAttributeValueL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;

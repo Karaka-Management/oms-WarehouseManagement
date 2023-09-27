@@ -39,14 +39,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStockTypeList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewStockTypeList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -81,14 +81,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStockList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewStockList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -117,14 +117,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStock(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewStock(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -141,14 +141,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStockType(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewStockType(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -172,14 +172,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStockLocationList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewStockLocationList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -211,14 +211,14 @@ final class BackendController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface Returns a renderable object
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewStockLocation(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewStockLocation(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 

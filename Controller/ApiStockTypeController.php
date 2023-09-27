@@ -39,7 +39,7 @@ final class ApiStockTypeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -47,7 +47,7 @@ final class ApiStockTypeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiStockTypeCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiStockTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateStockTypeCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -105,7 +105,7 @@ final class ApiStockTypeController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -113,7 +113,7 @@ final class ApiStockTypeController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiStockTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiStockTypeL11nCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateStockTypeL11nCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
