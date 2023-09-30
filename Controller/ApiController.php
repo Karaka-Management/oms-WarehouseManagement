@@ -153,8 +153,12 @@ final class ApiController extends Controller
 
                 // Handle to
                 if (($bill->client?->id ?? 0) !== 0) {
+                    // @todo: remove phpstan this is just a bug fix until phpstan fixes this bug
+                    /** @phpstan-ignore-next-line */
                     $transaction->to = $bill->client->id;
                 } elseif (($bill->supplier?->id ?? 0) !== 0) {
+                    // @todo: remove phpstan this is just a bug fix until phpstan fixes this bug
+                    /** @phpstan-ignore-next-line */
                     $transaction->to = $bill->supplier->id;
                 }
 
@@ -166,8 +170,12 @@ final class ApiController extends Controller
             } else {
                 // Handle from
                 if (($bill->client?->id ?? 0) !== 0) {
+                    // @todo: remove phpstan this is just a bug fix until phpstan fixes this bug
+                    /** @phpstan-ignore-next-line */
                     $transaction->from = $bill->client->id;
                 } elseif (($bill->supplier?->id ?? 0) !== 0) {
+                    // @todo: remove phpstan this is just a bug fix until phpstan fixes this bug
+                    /** @phpstan-ignore-next-line */
                     $transaction->from = $bill->supplier->id;
                 }
 
