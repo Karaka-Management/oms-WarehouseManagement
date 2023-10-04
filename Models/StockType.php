@@ -48,7 +48,7 @@ class StockType
      *
      * @var string|BaseStringL11n
      */
-    protected string | BaseStringL11n $l11n;
+    public string | BaseStringL11n $l11n;
 
     /**
      * Set l11n

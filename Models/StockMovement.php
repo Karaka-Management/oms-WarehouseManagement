@@ -59,7 +59,7 @@ class StockMovement
      * @var Account
      * @since 1.0.0
      */
-    protected Account $createdBy;
+    public Account $createdBy;
 
     /**
      * Created.
