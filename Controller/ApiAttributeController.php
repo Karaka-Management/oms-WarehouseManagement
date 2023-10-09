@@ -82,11 +82,11 @@ final class ApiAttributeController extends Controller
         $attribute->ref  = (int) $request->getData('ref');
         $attribute->type = new NullAttributeType((int) $request->getData('type'));
 
-        if ($request->hasData('value')) {
-            $attribute->value = new NullAttributeValue((int) $request->getData('value'));
+        if ($request->hasData('value_id')) {
+            $attribute->value = new NullAttributeValue((int) $request->getData('value_id'));
         } else {
             $newRequest = clone $request;
-            $newRequest->setData('value', $request->getData('custom'), true);
+            $newRequest->setData('value', $request->getData('value'), true);
 
             $value = $this->createLotAttributeValueFromRequest($newRequest);
 
@@ -109,7 +109,7 @@ final class ApiAttributeController extends Controller
     {
         $val = [];
         if (($val['type'] = !$request->hasData('type'))
-            || ($val['value'] = (!$request->hasData('value') && !$request->hasData('custom')))
+            || ($val['value'] = (!$request->hasData('value') && !$request->hasData('value_id')))
             || ($val['lot'] = !$request->hasData('lot'))
         ) {
             return $val;
