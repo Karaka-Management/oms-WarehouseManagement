@@ -126,7 +126,7 @@ final class ApiController extends Controller
             return;
         }
 
-        // @todo: check if old element existex -> removed/changed item
+        // @todo: check if old element existed -> removed/changed item
         // @todo: we cannot have transaction->to and transaction->from  be the id of client/supplier because the IDs can overlap
 
         $transaction = new StockMovement();
