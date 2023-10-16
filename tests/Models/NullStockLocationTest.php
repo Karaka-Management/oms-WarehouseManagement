@@ -23,7 +23,7 @@ final class NullStockLocationTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers Modules\WarehouseManagement\Models\NullStockLocation
-     * @group framework
+     * @group module
      */
     public function testNull() : void
     {
@@ -32,7 +32,7 @@ final class NullStockLocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers Modules\WarehouseManagement\Models\NullStockLocation
-     * @group framework
+     * @group module
      */
     public function testId() : void
     {
@@ -42,7 +42,7 @@ final class NullStockLocationTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @covers Modules\WarehouseManagement\Models\NullStockLocation
-     * @group framework
+     * @group module
      */
     public function testJsonSerialize() : void
     {
