@@ -37,7 +37,7 @@ final class NullStockShelfTest extends \PHPUnit\Framework\TestCase
     public function testId() : void
     {
         $null = new NullStockShelf(2);
-        self::assertEquals(2, $null->getId());
+        self::assertEquals(2, $null->id);
     }
 
     /**
