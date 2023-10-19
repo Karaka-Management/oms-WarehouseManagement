@@ -7,7 +7,7 @@
         "name": "Warehousing",
         "uri": null,
         "target": "self",
-        "icon": "fa fa-cube",
+        "icon": "deployed_code",
         "order": 50,
         "from": "WarehouseManagement",
         "permission": { "permission": 2, "category": null, "element": null },
