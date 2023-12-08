@@ -36,7 +36,7 @@ abstract class StockMovementType extends Enum
 
     public const TRANSFER = 16;
 
-    // @todo: subtypes, maybe creates as database subtypes during install.
+    // @todo subtypes, maybe creates as database subtypes during install.
     public const DESTROY = 101;
 
     public const RETURN = 102;

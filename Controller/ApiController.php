@@ -126,8 +126,8 @@ final class ApiController extends Controller
             return;
         }
 
-        // @todo: check if old element existed -> removed/changed item
-        // @todo: we cannot have transaction->to and transaction->from  be the id of client/supplier because the IDs can overlap
+        // @todo check if old element existed -> removed/changed item
+        // @todo we cannot have transaction->to and transaction->from  be the id of client/supplier because the IDs can overlap
 
         $transaction = new StockMovement();
 
@@ -137,27 +137,27 @@ final class ApiController extends Controller
             $transaction->billElement = $new->id;
             $transaction->state       = StockMovementState::DRAFT;
 
-            // @todo: load default stock movement for bill type/organization settings (default stock location, default lot order e.g. FIFO/LIFO)
-            // @todo: find stock candidates
+            // @todo load default stock movement for bill type/organization settings (default stock location, default lot order e.g. FIFO/LIFO)
+            // @todo find stock candidates
 
-            $transaction->type     = StockMovementType::TRANSFER; // @todo: depends on bill type
+            $transaction->type     = StockMovementType::TRANSFER; // @todo depends on bill type
             $transaction->quantity = $new->getQuantity(); // @todo may require split quantity if not sufficient available from one lost
 
-            // @todo: allow consignment bills
-            // @todo: allow to pass stocklocation for entire bill to avoid re-defining it
+            // @todo allow consignment bills
+            // @todo allow to pass stocklocation for entire bill to avoid re-defining it
 
-            // @todo: allow custom stock location
+            // @todo allow custom stock location
             if ($bill->type->sign > 0) {
                 // Handle from
-                // @todo: find possible candidate based on defined default stock for bill type/org/location
+                // @todo find possible candidate based on defined default stock for bill type/org/location
 
                 // Handle to
                 if (($bill->client?->id ?? 0) !== 0) {
-                    // @todo: remove phpstan this is just a bug fix until phpstan fixes this bug
+                    // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
                     /** @phpstan-ignore-next-line */
                     $transaction->to = $bill->client->id;
                 } elseif (($bill->supplier?->id ?? 0) !== 0) {
-                    // @todo: remove phpstan this is just a bug fix until phpstan fixes this bug
+                    // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
                     /** @phpstan-ignore-next-line */
                     $transaction->to = $bill->supplier->id;
                 }
@@ -170,17 +170,17 @@ final class ApiController extends Controller
             } else {
                 // Handle from
                 if (($bill->client?->id ?? 0) !== 0) {
-                    // @todo: remove phpstan this is just a bug fix until phpstan fixes this bug
+                    // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
                     /** @phpstan-ignore-next-line */
                     $transaction->from = $bill->client->id;
                 } elseif (($bill->supplier?->id ?? 0) !== 0) {
-                    // @todo: remove phpstan this is just a bug fix until phpstan fixes this bug
+                    // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
                     /** @phpstan-ignore-next-line */
                     $transaction->from = $bill->supplier->id;
                 }
 
                 // Handle to
-                // @todo: find possible candidate based on defined default stock for bill type/org/location
+                // @todo find possible candidate based on defined default stock for bill type/org/location
 
                 if ($bill->type->transferType === BillTransferType::SALES
                     || $bill->type->transferType === BillTransferType::PURCHASE
@@ -247,7 +247,7 @@ final class ApiController extends Controller
                     ->execute();
 
                 StockMovementMapper::delete()->execute($transactions);
-                // @todo: consider not to delete but mark as deleted?
+                // @todo consider not to delete but mark as deleted?
             }
 
             return;
@@ -278,7 +278,7 @@ final class ApiController extends Controller
                         ->execute();
 
                     foreach ($transactions as $transaction) {
-                        $transaction->state = StockMovementState::TRANSIT; // @todo: change to more specific
+                        $transaction->state = StockMovementState::TRANSIT; // @todo change to more specific
 
                         StockMovementMapper::update()->execute($transaction);
                     }

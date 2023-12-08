@@ -103,8 +103,8 @@ final class Installer extends InstallerAbstract
         /** @var \Modules\WarehouseManagement\Controller\ApiStockTypeController $module */
         $module = $app->moduleManager->getModuleInstance('WarehouseManagement', 'ApiStockType');
 
-        // @todo: allow multiple alternative stock templates
-        // @todo: implement ordering of templates
+        // @todo allow multiple alternative stock templates
+        // @todo implement ordering of templates
 
         foreach ($types as $type) {
             $response = new HttpResponse();

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
-use Modules\Admin\Models\Address;
+use phpOMS\Stdlib\Base\Address;
 
 /**
  * Warehouse class.
