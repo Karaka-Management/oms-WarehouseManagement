@@ -28,6 +28,9 @@ use Modules\WarehouseManagement\Models\StockMovementState;
 use Modules\WarehouseManagement\Models\StockMovementType;
 use Modules\WarehouseManagement\Models\StockShelf;
 use Modules\WarehouseManagement\Models\StockShelfMapper;
+use phpOMS\Message\Http\RequestStatusCode;
+use phpOMS\Message\RequestAbstract;
+use phpOMS\Message\ResponseAbstract;
 
 /**
  * WarehouseManagement api controller class.
@@ -39,6 +42,137 @@ use Modules\WarehouseManagement\Models\StockShelfMapper;
  */
 final class ApiController extends Controller
 {
+    /**
+     * Api method to create stock
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiStockCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        if (!empty($val = $this->validateStockCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
+
+            return;
+        }
+
+        $stock = $this->createStockFromRequest($request);
+        $this->createModel($request->header->account, $stock, StockMapper::class, 'stock', $request->getOrigin());
+        $this->createStandardCreateResponse($request, $response, $stock);
+    }
+
+    /**
+     * Validate stock create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateStockCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['name'] = !$request->hasData('name'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Method to create stock from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return Stock
+     *
+     * @since 1.0.0
+     */
+    private function createStockFromRequest(RequestAbstract $request) : Stock
+    {
+        $stock       = new Stock();
+        $stock->name = $request->getDataString('name') ?? '';
+        $stock->unit = $request->getDataInt('unit') ?? 1;
+
+        return $stock;
+    }
+
+    /**
+     * Api method to create stock
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
+    public function apiStockLocationCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        if (!empty($val = $this->validateStockLocationCreate($request))) {
+            $response->header->status = RequestStatusCode::R_400;
+            $this->createInvalidCreateResponse($request, $response, $val);
+
+            return;
+        }
+
+        $stock = $this->createStockLocationFromRequest($request);
+        $this->createModel($request->header->account, $stock, StockLocationMapper::class, 'stocklocation', $request->getOrigin());
+        $this->createStandardCreateResponse($request, $response, $stock);
+    }
+
+    /**
+     * Validate stock create request
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return array<string, bool>
+     *
+     * @since 1.0.0
+     */
+    private function validateStockLocationCreate(RequestAbstract $request) : array
+    {
+        $val = [];
+        if (($val['name'] = !$request->hasData('name'))
+            || ($val['stock'] = !$request->hasData('stock'))
+        ) {
+            return $val;
+        }
+
+        return [];
+    }
+
+    /**
+     * Method to create stock from request.
+     *
+     * @param RequestAbstract $request Request
+     *
+     * @return StockLocation
+     *
+     * @since 1.0.0
+     */
+    private function createStockLocationFromRequest(RequestAbstract $request) : StockLocation
+    {
+        $location       = new StockLocation();
+        $location->name = $request->getDataString('name') ?? '';
+        $location->stock = $request->getDataInt('stock') ?? 1;
+
+        return $location;
+    }
+
     /**
      * Event after creating a stock
      *

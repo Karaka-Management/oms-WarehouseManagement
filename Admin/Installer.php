@@ -51,7 +51,7 @@ final class Installer extends InstallerAbstract
     {
         parent::install($app, $info, $cfgHandler);
 
-        self::createDefaultStock();
+        self::createDefaultStock($app);
 
         /* Stock types */
         $fileContent = \file_get_contents(__DIR__ . '/Install/types.json');
@@ -75,15 +75,38 @@ final class Installer extends InstallerAbstract
      *
      * @since 1.0.0
      */
-    private static function createDefaultStock() : void
+    private static function createDefaultStock(ApplicationAbstract $app) : void
     {
-        $stock       = new Stock('Default');
-        $stock->unit = 1;
-        StockMapper::create()->execute($stock);
+        /** @var \Modules\WarehouseManagement\Controller\ApiController $module */
+        $module = $app->moduleManager->getModuleInstance('WarehouseManagement', 'Api');
 
-        $stockLocation        = new StockLocation((string) ($stock->id . '-1'));
-        $stockLocation->stock = $stock;
-        StockLocationMapper::create()->execute($stockLocation);
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+        $request->setData('name', 'Default');
+        $request->setData('unit', 1);
+        $module->apiStockCreate($request, $response);
+
+        $responseData = $response->getData('');
+        if (!\is_array($responseData)) {
+            return;
+        }
+
+        $id = $responseData['response']->id;
+
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+        $request->setData('name', $id . '-1');
+        $request->setData('stock', $id);
+        $module->apiStockLocationCreate($request, $response);
+
+        $responseData = $response->getData('');
+        if (!\is_array($responseData)) {
+            return;
+        }
     }
 
     /**
