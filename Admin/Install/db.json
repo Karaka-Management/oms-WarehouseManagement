@@ -1,43 +1,4 @@
 {
-    "warehousemgmt_item": {
-        "name": "warehousemgmt_item",
-        "fields": {
-            "warehousemgmt_item_id": {
-                "name": "warehousemgmt_item_id",
-                "type": "INT",
-                "null": false,
-                "primary": true,
-                "autoincrement": true
-            },
-            "warehousemgmt_item_item": {
-                "name": "warehousemgmt_item_item",
-                "type": "INT",
-                "null": false,
-                "foreignTable": "itemmgmt_item",
-                "foreignKey": "itemmgmt_item_id"
-            },
-            "warehousemgmt_item_hassn": {
-                "name": "warehousemgmt_item_hassn",
-                "type": "TINYINT(1)",
-                "null": false
-            },
-            "warehousemgmt_item_haslot": {
-                "name": "warehousemgmt_item_haslot",
-                "type": "TINYINT(1)",
-                "null": false
-            },
-            "warehousemgmt_item_hasstock": {
-                "name": "warehousemgmt_item_hasstock",
-                "type": "TINYINT(1)",
-                "null": false
-            },
-            "warehousemgmt_item_negative": {
-                "name": "warehousemgmt_item_negative",
-                "type": "TINYINT",
-                "null": false
-            }
-        }
-    },
     "warehousemgmt_stock": {
         "name": "warehousemgmt_stock",
         "fields": {
@@ -307,6 +268,11 @@
                 "type": "TINYINT(1)",
                 "null": false
             },
+            "warehousemgmt_attr_type_repeatable": {
+                "name": "warehousemgmt_attr_type_repeatable",
+                "type": "TINYINT(1)",
+                "null": false
+            },
             "warehousemgmt_attr_type_required": {
                 "description": "Every item must have this attribute type if set to true.",
                 "name": "warehousemgmt_attr_type_required",
@@ -551,16 +517,17 @@
             "warehousemgmt_stock_distribution_lot": {
                 "name": "warehousemgmt_stock_distribution_lot",
                 "type": "INT",
-                "null": false,
+                "null": true,
+                "default": null,
                 "foreignTable": "warehousemgmt_lot",
                 "foreignKey": "warehousemgmt_lot_id"
             },
-            "warehousemgmt_stock_distribution_shelf": {
-                "name": "warehousemgmt_stock_distribution_shelf",
+            "warehousemgmt_stock_distribution_stock": {
+                "name": "warehousemgmt_stock_distribution_stock",
                 "type": "INT",
                 "null": false,
-                "foreignTable": "warehousemgmt_stockshelf",
-                "foreignKey": "warehousemgmt_stockshelf_id"
+                "foreignTable": "warehousemgmt_stock",
+                "foreignKey": "warehousemgmt_stock_id"
             },
             "warehousemgmt_stock_distribution_stocktype": {
                 "name": "warehousemgmt_stock_distribution_stocktype",
@@ -606,12 +573,12 @@
                 "foreignTable": "warehousemgmt_lot",
                 "foreignKey": "warehousemgmt_lot_id"
             },
-            "warehousemgmt_stock_distribution_history_shelf": {
-                "name": "warehousemgmt_stock_distribution_history_shelf",
+            "warehousemgmt_stock_distribution_history_stock": {
+                "name": "warehousemgmt_stock_distribution_history_stock",
                 "type": "INT",
                 "null": false,
-                "foreignTable": "warehousemgmt_stockshelf",
-                "foreignKey": "warehousemgmt_stockshelf_id"
+                "foreignTable": "warehousemgmt_stock",
+                "foreignKey": "warehousemgmt_stock_id"
             },
             "warehousemgmt_stock_distribution_history_stocktype": {
                 "name": "warehousemgmt_stock_distribution_history_stocktype",
@@ -653,11 +620,6 @@
                 "type": "BIGINT",
                 "null": false
             },
-            "warehousemgmt_stock_transaction_pprice": {
-                "name": "warehousemgmt_stock_transaction_pprice",
-                "type": "BIGINT",
-                "null": false
-            },
             "warehousemgmt_stock_transaction_type": {
                 "name": "warehousemgmt_stock_transaction_type",
                 "type": "INT",
@@ -677,12 +639,12 @@
                 "foreignTable": "warehousemgmt_lot",
                 "foreignKey": "warehousemgmt_lot_id"
             },
-            "warehousemgmt_stock_transaction_from_shelf": {
-                "name": "warehousemgmt_stock_transaction_from_shelf",
+            "warehousemgmt_stock_transaction_from_stock": {
+                "name": "warehousemgmt_stock_transaction_from_stock",
                 "type": "INT",
                 "null": false,
-                "foreignTable": "warehousemgmt_stockshelf",
-                "foreignKey": "warehousemgmt_stockshelf_id"
+                "foreignTable": "warehousemgmt_stock",
+                "foreignKey": "warehousemgmt_stock_id"
             },
             "warehousemgmt_stock_transaction_from_stocktype": {
                 "name": "warehousemgmt_stock_transaction_from_stocktype",
@@ -698,12 +660,12 @@
                 "foreignTable": "warehousemgmt_lot",
                 "foreignKey": "warehousemgmt_lot_id"
             },
-            "warehousemgmt_stock_transaction_to_shelf": {
-                "name": "warehousemgmt_stock_transaction_to_shelf",
+            "warehousemgmt_stock_transaction_to_stock": {
+                "name": "warehousemgmt_stock_transaction_to_stock",
                 "type": "INT",
                 "null": false,
-                "foreignTable": "warehousemgmt_stockshelf",
-                "foreignKey": "warehousemgmt_stockshelf_id"
+                "foreignTable": "warehousemgmt_stock",
+                "foreignKey": "warehousemgmt_stock_id"
             },
             "warehousemgmt_stock_transaction_to_stocktype": {
                 "name": "warehousemgmt_stock_transaction_to_stocktype",

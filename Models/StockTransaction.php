@@ -25,7 +25,7 @@ use Modules\Admin\Models\NullAccount;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class StockMovement
+class StockTransaction
 {
     /**
      * ID.
@@ -43,7 +43,7 @@ class StockMovement
 
     public int $to = 0;
 
-    public int $type = StockMovementType::TRANSFER;
+    public int $type = StockTransactionType::TRANSFER;
 
     public int $subtype = 0;
 
@@ -51,7 +51,17 @@ class StockMovement
 
     public int $billElement = 0;
 
-    public int $state = StockMovementState::DRAFT;
+    public int $state = StockTransactionState::DRAFT;
+
+    public int $item = 0;
+
+    public int $fromLot = 0;
+    public int $fromStock = 0;
+    public int $fromStockType = 0;
+
+    public int $toLot = 0;
+    public int $toStock = 0;
+    public int $toStockType = 0;
 
     /**
      * Creator.

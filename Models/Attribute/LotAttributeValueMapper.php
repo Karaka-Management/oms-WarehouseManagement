@@ -59,6 +59,7 @@ final class LotAttributeValueMapper extends DataMapperFactory
             'mapper'   => LotAttributeValueL11nMapper::class,
             'table'    => 'warehousemgmt_attr_value_l11n',
             'self'     => 'warehousemgmt_attr_value_l11n_value',
+            'column'   => 'content',
             'external' => null,
         ],
     ];

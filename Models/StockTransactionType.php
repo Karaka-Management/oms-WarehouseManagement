@@ -24,7 +24,7 @@ use phpOMS\Stdlib\Base\Enum;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-abstract class StockMovementType extends Enum
+abstract class StockTransactionType extends Enum
 {
     public const MERGE = 1;
 

@@ -24,7 +24,7 @@ use phpOMS\Stdlib\Base\Enum;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-abstract class StockMovementState extends Enum
+abstract class StockTransactionState extends Enum
 {
     public const DRAFT = 1;
 

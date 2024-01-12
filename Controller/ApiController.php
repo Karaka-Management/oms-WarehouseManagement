@@ -18,14 +18,17 @@ use Modules\Billing\Models\BillElement;
 use Modules\Billing\Models\BillMapper;
 use Modules\Billing\Models\BillStatus;
 use Modules\Billing\Models\BillTransferType;
+use Modules\ItemManagement\Models\StockIdentifierType;
 use Modules\WarehouseManagement\Models\Stock;
+use Modules\WarehouseManagement\Models\StockDistribution;
+use Modules\WarehouseManagement\Models\StockDistributionMapper;
 use Modules\WarehouseManagement\Models\StockLocation;
 use Modules\WarehouseManagement\Models\StockLocationMapper;
 use Modules\WarehouseManagement\Models\StockMapper;
-use Modules\WarehouseManagement\Models\StockMovement;
-use Modules\WarehouseManagement\Models\StockMovementMapper;
-use Modules\WarehouseManagement\Models\StockMovementState;
-use Modules\WarehouseManagement\Models\StockMovementType;
+use Modules\WarehouseManagement\Models\StockTransaction;
+use Modules\WarehouseManagement\Models\StockTransactionMapper;
+use Modules\WarehouseManagement\Models\StockTransactionState;
+use Modules\WarehouseManagement\Models\StockTransactionType;
 use Modules\WarehouseManagement\Models\StockShelf;
 use Modules\WarehouseManagement\Models\StockShelfMapper;
 use phpOMS\Message\Http\RequestStatusCode;
@@ -245,157 +248,182 @@ final class ApiController extends Controller
     ) : void
     {
         // Directly/manually creating a transaction is handled in the API Create/Update functions.
+        $isBillElement = $new instanceof BillElement;
 
         /** @var \Modules\Billing\Models\Bill|\Modules\Billing\Models\BillElement $new */
         /** @var \Modules\Billing\Models\Bill $bill */
         $bill = BillMapper::get()
             ->with('type')
+            ->with('elements')
+            ->with('elements/item')
             ->with('supplier')
             ->with('client')
-            ->where('id', $new instanceof BillElement ? $new->bill->id : $new->id)
+            ->where('id', $isBillElement ? $new->bill->id : $new->id)
             ->execute();
 
         // Has stock movement?
-        if ($bill->id !== 0 && !$bill->type->transferStock) {
+        if (!$bill->type->transferStock) {
             return;
         }
+
+        $billElements = $isBillElement ? [$new] : $bill->elements;
 
         // @todo check if old element existed -> removed/changed item
         // @todo we cannot have transaction->to and transaction->from  be the id of client/supplier because the IDs can overlap
 
-        $transaction = new StockMovement();
-
-        if ($trigger === 'POST:Module:Billing-bill_element-create') {
-            /** @var \Modules\Billing\Models\BillElement $new */
-
-            $transaction->billElement = $new->id;
-            $transaction->state       = StockMovementState::DRAFT;
-
-            // @todo load default stock movement for bill type/organization settings (default stock location, default lot order e.g. FIFO/LIFO)
-            // @todo find stock candidates
-
-            $transaction->type     = StockMovementType::TRANSFER; // @todo depends on bill type
-            $transaction->quantity = $new->getQuantity(); // @todo may require split quantity if not sufficient available from one lost
-
-            // @todo allow consignment bills
-            // @todo allow to pass stocklocation for entire bill to avoid re-defining it
-
-            // @todo allow custom stock location
-            if ($bill->type->sign > 0) {
-                // Handle from
-                // @todo find possible candidate based on defined default stock for bill type/org/location
-
-                // Handle to
-                if (($bill->client?->id ?? 0) !== 0) {
-                    // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
-                    /** @phpstan-ignore-next-line */
-                    $transaction->to = $bill->client->id;
-                } elseif (($bill->supplier?->id ?? 0) !== 0) {
-                    // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
-                    /** @phpstan-ignore-next-line */
-                    $transaction->to = $bill->supplier->id;
-                }
-
-                if ($bill->type->transferType === BillTransferType::SALES) {
-                    $transaction->subtype = StockMovementType::SALE;
-                } elseif ($bill->type->transferType === BillTransferType::PURCHASE) {
-                    $transaction->subtype = StockMovementType::PURCHASE;
-                }
-            } else {
-                // Handle from
-                if (($bill->client?->id ?? 0) !== 0) {
-                    // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
-                    /** @phpstan-ignore-next-line */
-                    $transaction->from = $bill->client->id;
-                } elseif (($bill->supplier?->id ?? 0) !== 0) {
-                    // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
-                    /** @phpstan-ignore-next-line */
-                    $transaction->from = $bill->supplier->id;
-                }
-
-                // Handle to
-                // @todo find possible candidate based on defined default stock for bill type/org/location
-
-                if ($bill->type->transferType === BillTransferType::SALES
-                    || $bill->type->transferType === BillTransferType::PURCHASE
-                ) {
-                    $transaction->subtype = StockMovementType::RETURN;
-                }
+        // @todo How to differentiate between stock movement
+        //      invoice with prior delivery note(s),
+        //      invoice with partly delivery note(s),
+        //      invoice with no delivery note
+        // @todo Handle bill drafts (now only finalization moves stock, how do we reserve stock?)
+        foreach ($billElements as $element) {
+            if ($element->item === 0 || $element->item === null
+                || $element->item->stockIdentifier === StockIdentifierType::NONE
+            ) {
+                continue;
             }
 
-            return;
-        } elseif ($trigger === 'POST:Module:Billing-bill_element-update') {
-            /** @var \Modules\Billing\Models\BillElement $new */
-            /** @var \Modules\Billing\Models\BillElement $old */
-            /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
-            $transactions = StockMovementMapper::getAll()
-                ->where('billElement', $new->id)
+            $dist = StockDistributionMapper::get()
+                ->where('item', $element->item->id)
+                ->where('stock', 1) // @todo fix
+                ->where('stockType', 1) // @todo fix
+                ->where('lot', $element->item->stockIdentifier === StockIdentifierType::NUMBER ? null : '')
                 ->execute();
 
-            /*
-            if ($new->item === $old->item) {
-                // quantity change
-                // lot changes
-                // stock changes
-                // all other changes ignore!
-                // check availability again, if not available abort bill
-                // maybe from an algorithmic point of view first set quantity to zero
-                // and then do normal algorithm like for a new element
-            }
-            */
-            if ($new->item !== $old->item) {
-                StockMovementMapper::delete()->execute($transactions);
+            $transaction = new StockTransaction();
 
-                $this->eventBillUpdateInternal(
-                    $account, $old, $new,
-                    $type, 'POST:Module:Billing-bill_element-create', $module, $ref, $content, $ip
-                );
-            }
+            // @todo how to handle only reserving items for drafted bills (not yet shipped)
 
-            return;
-        } elseif ($trigger === 'POST:Module:Billing-bill_element-delete') {
-            /** @var \Modules\Billing\Models\BillElement $new */
-            /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
-            $transactions = StockMovementMapper::getAll()
-                ->where('billElement', $new->id)
-                ->execute();
+            if ($trigger === 'POST:Module:Billing-bill_element-create') {
+                // Check stock availability
+                if ($bill->type->sign < 0 && $dist->quantity < $element->quantity) {
+                    continue;
+                }
 
-            StockMovementMapper::delete()->execute($transactions);
+                /** @var \Modules\Billing\Models\BillElement $new */
 
-            return;
-        } elseif ($trigger === 'POST:Module:Billing-bill-delete') {
-            /** @var \Modules\Billing\Models\Bill $new */
-            /** @var \Modules\Billing\Models\Bill $bill */
-            $bill = BillMapper::get()
-                ->with('type')
-                ->with('elements')
-                ->with('supplier')
-                ->with('client')
-                ->where('id', $new->id)
-                ->execute();
+                // Handle stock quantity
+                /////////////////////////////////////////////////////////////////
 
-            foreach ($bill->elements as $element) {
-                /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
-                $transactions = StockMovementMapper::getAll()
-                    ->where('billElement', $element->id)
+                // @todo handle stock returns!!!
+                if ($bill->type->sign < 0) {
+                    $dist->quantity -= $element->quantity;
+
+                    StockDistributionMapper::update()->execute($dist);
+                } else {
+                    if ($dist->id === 0) {
+                        $dist = new StockDistribution();
+                        $dist->item = $element->item->id;
+                        $dist->quantity = $element->quantity;
+
+                        $dist->lot = null; // @todo handle correct
+                        $dist->stock = 1; // @todo handle correct
+                        $dist->stockType = 1; // @todo handle correct
+
+                        StockDistributionMapper::create()->execute($dist);
+                    } else {
+                        $dist->quantity += $element->quantity;
+
+                        StockDistributionMapper::update()->execute($dist);
+                    }
+                }
+
+                // Handle transfer protocol
+                /////////////////////////////////////////////////////////////////
+
+                $transaction->billElement = $new->id;
+                $transaction->state       = StockTransactionState::DRAFT;
+
+                // @todo load default stock movement for bill type/organization settings (default stock location, default lot order e.g. FIFO/LIFO)
+                // @todo find stock candidates
+
+                $transaction->type     = StockTransactionType::TRANSFER; // @todo depends on bill type
+                $transaction->quantity = $new->getQuantity(); // @todo may require split quantity if not sufficient available from one lost
+
+                // @todo allow consignment bills
+                // @todo allow to pass stocklocation for entire bill to avoid re-defining it
+
+                // @todo allow custom stock location
+                if ($bill->type->sign > 0) {
+                    // Handle from
+                    // @todo find possible candidate based on defined default stock for bill type/org/location
+
+                    // Handle to
+                    if (($bill->client?->id ?? 0) !== 0) {
+                        // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
+                        /** @phpstan-ignore-next-line */
+                        $transaction->to = $bill->client->id;
+                    } elseif (($bill->supplier?->id ?? 0) !== 0) {
+                        // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
+                        /** @phpstan-ignore-next-line */
+                        $transaction->to = $bill->supplier->id;
+                    }
+
+                    if ($bill->type->transferType === BillTransferType::SALES) {
+                        $transaction->subtype = StockTransactionType::SALE;
+                    } elseif ($bill->type->transferType === BillTransferType::PURCHASE) {
+                        $transaction->subtype = StockTransactionType::PURCHASE;
+                    }
+                } else {
+                    // Handle from
+                    if (($bill->client?->id ?? 0) !== 0) {
+                        // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
+                        /** @phpstan-ignore-next-line */
+                        $transaction->from = $bill->client->id;
+                    } elseif (($bill->supplier?->id ?? 0) !== 0) {
+                        // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
+                        /** @phpstan-ignore-next-line */
+                        $transaction->from = $bill->supplier->id;
+                    }
+
+                    // Handle to
+                    // @todo find possible candidate based on defined default stock for bill type/org/location
+
+                    if ($bill->type->transferType === BillTransferType::SALES
+                        || $bill->type->transferType === BillTransferType::PURCHASE
+                    ) {
+                        $transaction->subtype = StockTransactionType::RETURN;
+                    }
+                }
+
+                StockTransactionMapper::create()->execute($transaction);
+            } elseif ($trigger === 'POST:Module:Billing-bill_element-update') {
+                /** @var \Modules\Billing\Models\BillElement $new */
+                /** @var \Modules\Billing\Models\BillElement $old */
+                /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
+                $transactions = StockTransactionMapper::getAll()
+                    ->where('billElement', $new->id)
                     ->execute();
 
-                StockMovementMapper::delete()->execute($transactions);
-                // @todo consider not to delete but mark as deleted?
-            }
+                /*
+                if ($new->item === $old->item) {
+                    // quantity change
+                    // lot changes
+                    // stock changes
+                    // all other changes ignore!
+                    // check availability again, if not available abort bill
+                    // maybe from an algorithmic point of view first set quantity to zero
+                    // and then do normal algorithm like for a new element
+                }
+                */
+                if ($new->item !== $old->item) {
+                    StockTransactionMapper::delete()->execute($transactions);
 
-            return;
-        } elseif ($trigger === 'POST:Module:Billing-bill-update') {
-            // is receiver update -> change all movements
-            // is status update -> change all movements (delete = delete)
+                    $this->eventBillUpdateInternal(
+                        $account, $old, $new,
+                        $type, 'POST:Module:Billing-bill_element-create', $module, $ref, $content, $ip
+                    );
+                }
+            } elseif ($trigger === 'POST:Module:Billing-bill_element-delete') {
+                /** @var \Modules\Billing\Models\BillElement $new */
+                /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
+                $transactions = StockTransactionMapper::getAll()
+                    ->where('billElement', $new->id)
+                    ->execute();
 
-            /** @var \Modules\Billing\Models\Bill $new */
-            if ($new->status === BillStatus::DELETED) {
-                $this->eventBillUpdateInternal(
-                    $account, $old, $new,
-                    $type, 'POST:Module:Billing-bill-delete', $module, $ref, $content, $ip
-                );
-            } elseif ($new->status === BillStatus::ARCHIVED) {
+                StockTransactionMapper::delete()->execute($transactions);
+            } elseif ($trigger === 'POST:Module:Billing-bill-delete') {
+                /** @var \Modules\Billing\Models\Bill $new */
                 /** @var \Modules\Billing\Models\Bill $bill */
                 $bill = BillMapper::get()
                     ->with('type')
@@ -406,20 +434,48 @@ final class ApiController extends Controller
                     ->execute();
 
                 foreach ($bill->elements as $element) {
-                    /** @var \Modules\WarehouseManagement\Models\StockMovement[] $transactions */
-                    $transactions = StockMovementMapper::getAll()
+                    /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
+                    $transactions = StockTransactionMapper::getAll()
                         ->where('billElement', $element->id)
                         ->execute();
 
-                    foreach ($transactions as $transaction) {
-                        $transaction->state = StockMovementState::TRANSIT; // @todo change to more specific
+                    StockTransactionMapper::delete()->execute($transactions);
+                    // @todo consider not to delete but mark as deleted?
+                }
+            } elseif ($trigger === 'POST:Module:Billing-bill-update') {
+                // is receiver update -> change all movements
+                // is status update -> change all movements (delete = delete)
 
-                        StockMovementMapper::update()->execute($transaction);
+                /** @var \Modules\Billing\Models\Bill $new */
+                if ($new->status === BillStatus::DELETED) {
+                    $this->eventBillUpdateInternal(
+                        $account, $old, $new,
+                        $type, 'POST:Module:Billing-bill-delete', $module, $ref, $content, $ip
+                    );
+                } elseif ($new->status === BillStatus::ARCHIVED) {
+                    /** @var \Modules\Billing\Models\Bill $bill */
+                    $bill = BillMapper::get()
+                        ->with('type')
+                        ->with('elements')
+                        ->with('supplier')
+                        ->with('client')
+                        ->where('id', $new->id)
+                        ->execute();
+
+                    foreach ($bill->elements as $element) {
+                        /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
+                        $transactions = StockTransactionMapper::getAll()
+                            ->where('billElement', $element->id)
+                            ->execute();
+
+                        foreach ($transactions as $transaction) {
+                            $transaction->state = StockTransactionState::TRANSIT; // @todo change to more specific
+
+                            StockTransactionMapper::update()->execute($transaction);
+                        }
                     }
                 }
             }
-
-            return;
         }
     }
 }
