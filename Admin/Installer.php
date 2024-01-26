@@ -14,17 +14,12 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Admin;
 
-use Modules\WarehouseManagement\Models\Stock;
-use Modules\WarehouseManagement\Models\StockLocation;
-use Modules\WarehouseManagement\Models\StockLocationMapper;
-use Modules\WarehouseManagement\Models\StockMapper;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Config\SettingsInterface;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Module\InstallerAbstract;
 use phpOMS\Module\ModuleInfo;
-use phpOMS\Uri\HttpUri;
 
 /**
  * Installer class.
@@ -81,32 +76,13 @@ final class Installer extends InstallerAbstract
         $module = $app->moduleManager->getModuleInstance('WarehouseManagement', 'Api');
 
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('name', 'Default');
         $request->setData('unit', 1);
+        $request->setData('inventory', true);
         $module->apiStockCreate($request, $response);
-
-        $responseData = $response->getData('');
-        if (!\is_array($responseData)) {
-            return;
-        }
-
-        $id = $responseData['response']->id;
-
-        $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
-
-        $request->header->account = 1;
-        $request->setData('name', $id . '-1');
-        $request->setData('stock', $id);
-        $module->apiStockLocationCreate($request, $response);
-
-        $responseData = $response->getData('');
-        if (!\is_array($responseData)) {
-            return;
-        }
     }
 
     /**
@@ -131,7 +107,7 @@ final class Installer extends InstallerAbstract
 
         foreach ($types as $type) {
             $response = new HttpResponse();
-            $request  = new HttpRequest(new HttpUri(''));
+            $request  = new HttpRequest();
 
             $request->header->account = 1;
             $request->setData('name', $type['name'] ?? '');
@@ -159,7 +135,7 @@ final class Installer extends InstallerAbstract
                 }
 
                 $response = new HttpResponse();
-                $request  = new HttpRequest(new HttpUri(''));
+                $request  = new HttpRequest();
 
                 $request->header->account = 1;
                 $request->setData('title', $l11n);
@@ -171,5 +147,35 @@ final class Installer extends InstallerAbstract
         }
 
         return $stockTypes;
+    }
+
+    /**
+     * Import accounts
+     *
+     * @param ApplicationAbstract $app  Application
+     * @param string              $type Personal account type
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public static function personalStock(ApplicationAbstract $app, string $type) : void
+    {
+        /** @var \Modules\WarehouseManagement\Controller\ApiController $module */
+        $module = $app->moduleManager->getModuleInstance('WarehouseManagement', 'Api');
+
+        $mapper = $type === 'client'
+            ? \Modules\ClientManagement\Models\ClientMapper::class
+            : \Modules\SupplierManagement\Models\SupplierMapper::class;
+
+        foreach ($mapper::yield()->execute() as $person) {
+            $response = new HttpResponse();
+            $request  = new HttpRequest();
+
+            $request->header->account = 1;
+            $request->setData('name', $person->number);
+            $request->setData($type, $person->id);
+            $module->apiStockCreate($request, $response);
+        }
     }
 }

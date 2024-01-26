@@ -37,10 +37,10 @@ final class LotAttributeValueL11nMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'warehousemgmt_attr_value_l11n_id'     => ['name' => 'warehousemgmt_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_attr_value_l11n_title'  => ['name' => 'warehousemgmt_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
-        'warehousemgmt_attr_value_l11n_value'  => ['name' => 'warehousemgmt_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
-        'warehousemgmt_attr_value_l11n_lang'   => ['name' => 'warehousemgmt_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
+        'warehousemgmt_attr_value_l11n_id'    => ['name' => 'warehousemgmt_attr_value_l11n_id',    'type' => 'int',    'internal' => 'id'],
+        'warehousemgmt_attr_value_l11n_title' => ['name' => 'warehousemgmt_attr_value_l11n_title', 'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
+        'warehousemgmt_attr_value_l11n_value' => ['name' => 'warehousemgmt_attr_value_l11n_value',  'type' => 'int',    'internal' => 'ref'],
+        'warehousemgmt_attr_value_l11n_lang'  => ['name' => 'warehousemgmt_attr_value_l11n_lang',  'type' => 'string', 'internal' => 'language'],
     ];
 
     /**

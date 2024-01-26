@@ -34,7 +34,7 @@ class StockDistribution
 
     public int $quantity = 0;
 
-    public int $lot = 0;
+    public ?int $lot = null;
 
     public int $item = 0;
 

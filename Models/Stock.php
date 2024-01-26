@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
+use Modules\ClientManagement\Models\Client;
+use Modules\SupplierManagement\Models\Supplier;
 use phpOMS\Stdlib\Base\Address;
 
 /**
@@ -44,7 +46,13 @@ class Stock
 
     public int $unit = 0;
 
+    public ?Client $client = null;
+
+    public ?Supplier $supplier = null;
+
     public ?Address $address = null;
+
+    public bool $inventory = false;
 
     /**
      * Constructor.
@@ -56,17 +64,5 @@ class Stock
     public function __construct(string $name = '')
     {
         $this->name = $name;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
     }
 }

@@ -36,18 +36,18 @@ final class StockTransactionMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'warehousemgmt_stock_transaction_id'                     => ['name' => 'warehousemgmt_stock_transaction_id',             'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_stock_transaction_state'         => ['name' => 'warehousemgmt_stock_transaction_state', 'type' => 'int',   'internal' => 'state'],
-        'warehousemgmt_stock_transaction_quantity'         => ['name' => 'warehousemgmt_stock_transaction_quantity', 'type' => 'int',   'internal' => 'quantity'],
-        'warehousemgmt_stock_transaction_type'         => ['name' => 'warehousemgmt_stock_transaction_type', 'type' => 'int',   'internal' => 'type'],
-        'warehousemgmt_stock_transaction_item'         => ['name' => 'warehousemgmt_stock_transaction_item', 'type' => 'int',   'internal' => 'item'],
-        'warehousemgmt_stock_transaction_from_lot'         => ['name' => 'warehousemgmt_stock_transaction_from_lot', 'type' => 'int',   'internal' => 'fromLot'],
-        'warehousemgmt_stock_transaction_from_stock'         => ['name' => 'warehousemgmt_stock_transaction_from_stock', 'type' => 'int',   'internal' => 'fromStock'],
-        'warehousemgmt_stock_transaction_from_stocktype'         => ['name' => 'warehousemgmt_stock_transaction_from_stocktype', 'type' => 'int',   'internal' => 'fromStockType'],
+        'warehousemgmt_stock_transaction_id'             => ['name' => 'warehousemgmt_stock_transaction_id',             'type' => 'int',    'internal' => 'id'],
+        'warehousemgmt_stock_transaction_state'          => ['name' => 'warehousemgmt_stock_transaction_state', 'type' => 'int',   'internal' => 'state'],
+        'warehousemgmt_stock_transaction_quantity'       => ['name' => 'warehousemgmt_stock_transaction_quantity', 'type' => 'int',   'internal' => 'quantity'],
+        'warehousemgmt_stock_transaction_type'           => ['name' => 'warehousemgmt_stock_transaction_type', 'type' => 'int',   'internal' => 'type'],
+        'warehousemgmt_stock_transaction_item'           => ['name' => 'warehousemgmt_stock_transaction_item', 'type' => 'int',   'internal' => 'item'],
+        'warehousemgmt_stock_transaction_from_lot'       => ['name' => 'warehousemgmt_stock_transaction_from_lot', 'type' => 'int',   'internal' => 'fromLot'],
+        'warehousemgmt_stock_transaction_from_stock'     => ['name' => 'warehousemgmt_stock_transaction_from_stock', 'type' => 'int',   'internal' => 'fromStock'],
+        'warehousemgmt_stock_transaction_from_stocktype' => ['name' => 'warehousemgmt_stock_transaction_from_stocktype', 'type' => 'int',   'internal' => 'fromStockType'],
         'warehousemgmt_stock_transaction_to_lot'         => ['name' => 'warehousemgmt_stock_transaction_to_lot', 'type' => 'int',   'internal' => 'toLot'],
-        'warehousemgmt_stock_transaction_to_stock'         => ['name' => 'warehousemgmt_stock_transaction_to_stock', 'type' => 'int',   'internal' => 'toStock'],
-        'warehousemgmt_stock_transaction_to_stocktype'         => ['name' => 'warehousemgmt_stock_transaction_to_stocktype', 'type' => 'int',   'internal' => 'toStockType'],
-        'warehousemgmt_stock_transaction_bill_element'         => ['name' => 'warehousemgmt_stock_transaction_bill_element', 'type' => 'int',   'internal' => 'billElement'],
+        'warehousemgmt_stock_transaction_to_stock'       => ['name' => 'warehousemgmt_stock_transaction_to_stock', 'type' => 'int',   'internal' => 'toStock'],
+        'warehousemgmt_stock_transaction_to_stocktype'   => ['name' => 'warehousemgmt_stock_transaction_to_stocktype', 'type' => 'int',   'internal' => 'toStockType'],
+        'warehousemgmt_stock_transaction_bill_element'   => ['name' => 'warehousemgmt_stock_transaction_bill_element', 'type' => 'int',   'internal' => 'billElement'],
     ];
 
     /**

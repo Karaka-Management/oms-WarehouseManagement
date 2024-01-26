@@ -152,7 +152,7 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-type-profile');
+        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-type-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
         $view->data['type'] = StockMapper::get()->where('id', (int) $request->getData('id'))->execute();

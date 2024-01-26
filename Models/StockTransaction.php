@@ -55,13 +55,17 @@ class StockTransaction
 
     public int $item = 0;
 
-    public int $fromLot = 0;
-    public int $fromStock = 0;
-    public int $fromStockType = 0;
+    public ?int $fromLot = null;
 
-    public int $toLot = 0;
-    public int $toStock = 0;
-    public int $toStockType = 0;
+    public ?int $fromStock = null;
+
+    public ?int $fromStockType = null;
+
+    public ?int $toLot = null;
+
+    public ?int $toStock = null;
+
+    public ?int $toStockType = null;
 
     /**
      * Creator.
@@ -88,17 +92,5 @@ class StockTransaction
     {
         $this->createdBy = new NullAccount();
         $this->createdAt = new \DateTimeImmutable('now');
-    }
-
-    /**
-     * Get ID.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

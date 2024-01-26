@@ -18,19 +18,21 @@ use Modules\Billing\Models\BillElement;
 use Modules\Billing\Models\BillMapper;
 use Modules\Billing\Models\BillStatus;
 use Modules\Billing\Models\BillTransferType;
+use Modules\ClientManagement\Models\NullClient;
 use Modules\ItemManagement\Models\StockIdentifierType;
+use Modules\SupplierManagement\Models\NullSupplier;
 use Modules\WarehouseManagement\Models\Stock;
 use Modules\WarehouseManagement\Models\StockDistribution;
 use Modules\WarehouseManagement\Models\StockDistributionMapper;
 use Modules\WarehouseManagement\Models\StockLocation;
 use Modules\WarehouseManagement\Models\StockLocationMapper;
 use Modules\WarehouseManagement\Models\StockMapper;
+use Modules\WarehouseManagement\Models\StockShelf;
+use Modules\WarehouseManagement\Models\StockShelfMapper;
 use Modules\WarehouseManagement\Models\StockTransaction;
 use Modules\WarehouseManagement\Models\StockTransactionMapper;
 use Modules\WarehouseManagement\Models\StockTransactionState;
 use Modules\WarehouseManagement\Models\StockTransactionType;
-use Modules\WarehouseManagement\Models\StockShelf;
-use Modules\WarehouseManagement\Models\StockShelfMapper;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -69,6 +71,13 @@ final class ApiController extends Controller
 
         $stock = $this->createStockFromRequest($request);
         $this->createModel($request->header->account, $stock, StockMapper::class, 'stock', $request->getOrigin());
+
+        $request->setData('name', $request->getDataString('name') . '-1', true);
+        $request->setData('stock', $stock->id, true);
+
+        $stock = $this->createStockLocationFromRequest($request);
+        $this->createModel($request->header->account, $stock, StockLocationMapper::class, 'stocklocation', $request->getOrigin());
+
         $this->createStandardCreateResponse($request, $response, $stock);
     }
 
@@ -103,9 +112,13 @@ final class ApiController extends Controller
      */
     private function createStockFromRequest(RequestAbstract $request) : Stock
     {
-        $stock       = new Stock();
-        $stock->name = $request->getDataString('name') ?? '';
-        $stock->unit = $request->getDataInt('unit') ?? 1;
+        $stock            = new Stock();
+        $stock->name      = $request->getDataString('name') ?? '';
+        $stock->unit      = $request->getDataInt('unit') ?? 1;
+        $stock->inventory = $request->getDataBool('inventory') ?? false;
+
+        $stock->client   = $request->hasData('client') ? new NullClient($request->getDataInt('client')) : null;
+        $stock->supplier = $request->hasData('supplier') ? new NullSupplier($request->getDataInt('supplier')) : null;
 
         return $stock;
     }
@@ -169,8 +182,8 @@ final class ApiController extends Controller
      */
     private function createStockLocationFromRequest(RequestAbstract $request) : StockLocation
     {
-        $location       = new StockLocation();
-        $location->name = $request->getDataString('name') ?? '';
+        $location        = new StockLocation();
+        $location->name  = $request->getDataString('name') ?? '';
         $location->stock = $request->getDataInt('stock') ?? 1;
 
         return $location;
@@ -197,12 +210,12 @@ final class ApiController extends Controller
         int $account,
         mixed $old,
         mixed $new,
-        int $type = null,
+        ?int $type = null,
         string $trigger = '',
-        string $module = null,
-        string $ref = null,
-        string $content = null,
-        string $ip = null
+        ?string $module = null,
+        ?string $ref = null,
+        ?string $content = null,
+        ?string $ip = null
     ) : void
     {
         /** @var \Modules\ClientManagement\Models\Client|\Modules\SupplierManagement\Models\Supplier $new */
@@ -234,17 +247,20 @@ final class ApiController extends Controller
      * @return void
      *
      * @since 1.0.0
+     *
+     * @todo Cleanup/restructure so this function works with database transactions and exceptions. This function is very critical!
+     *          Maybe do the transaction outside wherever the updateModel/createModel/... functions are called.
      */
     public function eventBillUpdateInternal(
         int $account,
         mixed $old,
         mixed $new,
-        int $type = null,
+        ?int $type = null,
         string $trigger = '',
-        string $module = null,
-        string $ref = null,
-        string $content = null,
-        string $ip = null
+        ?string $module = null,
+        ?string $ref = null,
+        ?string $content = null,
+        ?string $ip = null
     ) : void
     {
         // Directly/manually creating a transaction is handled in the API Create/Update functions.
@@ -255,18 +271,34 @@ final class ApiController extends Controller
         $bill = BillMapper::get()
             ->with('type')
             ->with('elements')
+            ->with('elements/container')
             ->with('elements/item')
             ->with('supplier')
             ->with('client')
             ->where('id', $isBillElement ? $new->bill->id : $new->id)
+            ->where('type/transferStock', true)
             ->execute();
 
         // Has stock movement?
-        if (!$bill->type->transferStock) {
+        if ($bill->id === 0 || !$bill->type->transferStock) {
             return;
         }
 
-        $billElements = $isBillElement ? [$new] : $bill->elements;
+        /*
+        Only necessary if actual client/supplier stock
+        $externalStock = 1;
+        if ($bill->client !== null) {
+            $externalStock = StockMapper::get()
+                ->where('client', $bill->client->id)
+                ->limit(1)
+                ->execute();
+        } elseif ($bill->supplier !== null) {
+            $externalStock = StockMapper::get()
+                ->where('supplier', $bill->supplier->id)
+                ->limit(1)
+                ->execute();
+        }
+        */
 
         // @todo check if old element existed -> removed/changed item
         // @todo we cannot have transaction->to and transaction->from  be the id of client/supplier because the IDs can overlap
@@ -276,7 +308,7 @@ final class ApiController extends Controller
         //      invoice with partly delivery note(s),
         //      invoice with no delivery note
         // @todo Handle bill drafts (now only finalization moves stock, how do we reserve stock?)
-        foreach ($billElements as $element) {
+        foreach ($bill->elements as $element) {
             if ($element->item === 0 || $element->item === null
                 || $element->item->stockIdentifier === StockIdentifierType::NONE
             ) {
@@ -288,15 +320,14 @@ final class ApiController extends Controller
                 ->where('stock', 1) // @todo fix
                 ->where('stockType', 1) // @todo fix
                 ->where('lot', $element->item->stockIdentifier === StockIdentifierType::NUMBER ? null : '')
+                ->limit(1)
                 ->execute();
-
-            $transaction = new StockTransaction();
 
             // @todo how to handle only reserving items for drafted bills (not yet shipped)
 
-            if ($trigger === 'POST:Module:Billing-bill_element-create') {
+            if ($trigger === 'Billing-bill_element-create') {
                 // Check stock availability
-                if ($bill->type->sign < 0 && $dist->quantity < $element->quantity) {
+                if ($bill->type->sign > 0 && $dist->quantity < $element->quantity->getInt()) {
                     continue;
                 }
 
@@ -306,31 +337,30 @@ final class ApiController extends Controller
                 /////////////////////////////////////////////////////////////////
 
                 // @todo handle stock returns!!!
-                if ($bill->type->sign < 0) {
-                    $dist->quantity -= $element->quantity;
+                if ($bill->type->sign > 0) {
+                    $dist->quantity -= $element->quantity->getInt();
 
                     StockDistributionMapper::update()->execute($dist);
+                } elseif ($dist->id === 0) {
+                    $dist           = new StockDistribution();
+                    $dist->item     = $element->item->id;
+                    $dist->quantity = $element->quantity->getInt();
+
+                    $dist->lot       = null; // @todo handle correct
+                    $dist->stock     = 1; // @todo handle correct
+                    $dist->stockType = 1; // @todo handle correct
+
+                    StockDistributionMapper::create()->execute($dist);
                 } else {
-                    if ($dist->id === 0) {
-                        $dist = new StockDistribution();
-                        $dist->item = $element->item->id;
-                        $dist->quantity = $element->quantity;
+                    $dist->quantity += $element->quantity->getInt();
 
-                        $dist->lot = null; // @todo handle correct
-                        $dist->stock = 1; // @todo handle correct
-                        $dist->stockType = 1; // @todo handle correct
-
-                        StockDistributionMapper::create()->execute($dist);
-                    } else {
-                        $dist->quantity += $element->quantity;
-
-                        StockDistributionMapper::update()->execute($dist);
-                    }
+                    StockDistributionMapper::update()->execute($dist);
                 }
 
                 // Handle transfer protocol
                 /////////////////////////////////////////////////////////////////
 
+                $transaction              = new StockTransaction();
                 $transaction->billElement = $new->id;
                 $transaction->state       = StockTransactionState::DRAFT;
 
@@ -338,7 +368,8 @@ final class ApiController extends Controller
                 // @todo find stock candidates
 
                 $transaction->type     = StockTransactionType::TRANSFER; // @todo depends on bill type
-                $transaction->quantity = $new->getQuantity(); // @todo may require split quantity if not sufficient available from one lost
+                $transaction->quantity = $new->quantity->getInt(); // @todo may require split quantity if not sufficient available from one lost
+                $transaction->item     = $element->item->id;
 
                 // @todo allow consignment bills
                 // @todo allow to pass stocklocation for entire bill to avoid re-defining it
@@ -347,8 +378,13 @@ final class ApiController extends Controller
                 if ($bill->type->sign > 0) {
                     // Handle from
                     // @todo find possible candidate based on defined default stock for bill type/org/location
+                    $transaction->fromStock     = 1; // @todo requires update
+                    $transaction->fromStockType = 1; // @todo requires update
 
                     // Handle to
+                    $transaction->toStock     = null; // @todo requires update
+                    $transaction->toStockType = null; // @todo requires update
+
                     if (($bill->client?->id ?? 0) !== 0) {
                         // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
                         /** @phpstan-ignore-next-line */
@@ -362,10 +398,13 @@ final class ApiController extends Controller
                     if ($bill->type->transferType === BillTransferType::SALES) {
                         $transaction->subtype = StockTransactionType::SALE;
                     } elseif ($bill->type->transferType === BillTransferType::PURCHASE) {
-                        $transaction->subtype = StockTransactionType::PURCHASE;
+                        $transaction->subtype = StockTransactionType::RETURN;
                     }
                 } else {
                     // Handle from
+                    $transaction->fromStock     = null; // @todo requires update
+                    $transaction->fromStockType = null; // @todo requires update
+
                     if (($bill->client?->id ?? 0) !== 0) {
                         // @todo remove phpstan this is just a bug fix until phpstan fixes this bug
                         /** @phpstan-ignore-next-line */
@@ -378,16 +417,18 @@ final class ApiController extends Controller
 
                     // Handle to
                     // @todo find possible candidate based on defined default stock for bill type/org/location
+                    $transaction->toStock     = 1; // @todo requires update
+                    $transaction->toStockType = 1; // @todo requires update
 
-                    if ($bill->type->transferType === BillTransferType::SALES
-                        || $bill->type->transferType === BillTransferType::PURCHASE
-                    ) {
+                    if ($bill->type->transferType === BillTransferType::SALES) {
                         $transaction->subtype = StockTransactionType::RETURN;
+                    } elseif ($bill->type->transferType === BillTransferType::PURCHASE) {
+                        $transaction->subtype = StockTransactionType::PURCHASE;
                     }
                 }
 
                 StockTransactionMapper::create()->execute($transaction);
-            } elseif ($trigger === 'POST:Module:Billing-bill_element-update') {
+            } elseif ($trigger === 'Billing-bill_element-update') {
                 /** @var \Modules\Billing\Models\BillElement $new */
                 /** @var \Modules\Billing\Models\BillElement $old */
                 /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
@@ -406,15 +447,18 @@ final class ApiController extends Controller
                     // and then do normal algorithm like for a new element
                 }
                 */
-                if ($new->item !== $old->item) {
+                if ($new->item->id !== $old->item->id) {
+                    // @todo: also undo stock amount in stock distribution
                     StockTransactionMapper::delete()->execute($transactions);
 
                     $this->eventBillUpdateInternal(
                         $account, $old, $new,
-                        $type, 'POST:Module:Billing-bill_element-create', $module, $ref, $content, $ip
+                        $type, 'Billing-bill_element-create', $module, $ref, $content, $ip
                     );
                 }
-            } elseif ($trigger === 'POST:Module:Billing-bill_element-delete') {
+
+                // @todo handle same item but quantity update
+            } elseif ($trigger === 'Billing-bill_element-delete') {
                 /** @var \Modules\Billing\Models\BillElement $new */
                 /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
                 $transactions = StockTransactionMapper::getAll()
@@ -422,17 +466,7 @@ final class ApiController extends Controller
                     ->execute();
 
                 StockTransactionMapper::delete()->execute($transactions);
-            } elseif ($trigger === 'POST:Module:Billing-bill-delete') {
-                /** @var \Modules\Billing\Models\Bill $new */
-                /** @var \Modules\Billing\Models\Bill $bill */
-                $bill = BillMapper::get()
-                    ->with('type')
-                    ->with('elements')
-                    ->with('supplier')
-                    ->with('client')
-                    ->where('id', $new->id)
-                    ->execute();
-
+            } elseif ($trigger === 'Billing-bill-delete') {
                 foreach ($bill->elements as $element) {
                     /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
                     $transactions = StockTransactionMapper::getAll()
@@ -442,7 +476,7 @@ final class ApiController extends Controller
                     StockTransactionMapper::delete()->execute($transactions);
                     // @todo consider not to delete but mark as deleted?
                 }
-            } elseif ($trigger === 'POST:Module:Billing-bill-update') {
+            } elseif ($trigger === 'Billing-bill-update') {
                 // is receiver update -> change all movements
                 // is status update -> change all movements (delete = delete)
 
@@ -450,18 +484,9 @@ final class ApiController extends Controller
                 if ($new->status === BillStatus::DELETED) {
                     $this->eventBillUpdateInternal(
                         $account, $old, $new,
-                        $type, 'POST:Module:Billing-bill-delete', $module, $ref, $content, $ip
+                        $type, 'Billing-bill-delete', $module, $ref, $content, $ip
                     );
                 } elseif ($new->status === BillStatus::ARCHIVED) {
-                    /** @var \Modules\Billing\Models\Bill $bill */
-                    $bill = BillMapper::get()
-                        ->with('type')
-                        ->with('elements')
-                        ->with('supplier')
-                        ->with('client')
-                        ->where('id', $new->id)
-                        ->execute();
-
                     foreach ($bill->elements as $element) {
                         /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
                         $transactions = StockTransactionMapper::getAll()

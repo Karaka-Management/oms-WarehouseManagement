@@ -36,12 +36,12 @@ final class StockDistributionMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'warehousemgmt_stock_distribution_id'                     => ['name' => 'warehousemgmt_stock_distribution_id',             'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_stock_distribution_item'          => ['name' => 'warehousemgmt_stock_distribution_item',  'type' => 'int',    'internal' => 'item'],
-        'warehousemgmt_stock_distribution_lot'          => ['name' => 'warehousemgmt_stock_distribution_lot',  'type' => 'int',    'internal' => 'lot'],
-        'warehousemgmt_stock_distribution_stock'          => ['name' => 'warehousemgmt_stock_distribution_stock',  'type' => 'int',    'internal' => 'stock'],
-        'warehousemgmt_stock_distribution_stocktype'          => ['name' => 'warehousemgmt_stock_distribution_stocktype',  'type' => 'int',    'internal' => 'stockType'],
-        'warehousemgmt_stock_distribution_quantity'          => ['name' => 'warehousemgmt_stock_distribution_quantity',  'type' => 'int',    'internal' => 'quantity'],
+        'warehousemgmt_stock_distribution_id'        => ['name' => 'warehousemgmt_stock_distribution_id',             'type' => 'int',    'internal' => 'id'],
+        'warehousemgmt_stock_distribution_item'      => ['name' => 'warehousemgmt_stock_distribution_item',  'type' => 'int',    'internal' => 'item'],
+        'warehousemgmt_stock_distribution_lot'       => ['name' => 'warehousemgmt_stock_distribution_lot',  'type' => 'int',    'internal' => 'lot'],
+        'warehousemgmt_stock_distribution_stock'     => ['name' => 'warehousemgmt_stock_distribution_stock',  'type' => 'int',    'internal' => 'stock'],
+        'warehousemgmt_stock_distribution_stocktype' => ['name' => 'warehousemgmt_stock_distribution_stocktype',  'type' => 'int',    'internal' => 'stockType'],
+        'warehousemgmt_stock_distribution_quantity'  => ['name' => 'warehousemgmt_stock_distribution_quantity',  'type' => 'int',    'internal' => 'quantity'],
     ];
 
     /**

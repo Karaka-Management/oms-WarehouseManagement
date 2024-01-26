@@ -36,13 +36,13 @@ final class StockLocationMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'warehousemgmt_stocklocation_id'     => ['name' => 'warehousemgmt_stocklocation_id',    'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_stocklocation_name'   => ['name' => 'warehousemgmt_stocklocation_name', 'type' => 'string', 'internal' => 'name'],
-        'warehousemgmt_stocklocation_stock'  => ['name' => 'warehousemgmt_stocklocation_stock',  'type' => 'int',    'internal' => 'stock'],
-        'warehousemgmt_stocklocation_type'   => ['name' => 'warehousemgmt_stocklocation_type',  'type' => 'int',    'internal' => 'type'],
-        'warehousemgmt_stocklocation_x'      => ['name' => 'warehousemgmt_stocklocation_x',  'type' => 'int',    'internal' => 'x'],
-        'warehousemgmt_stocklocation_y'      => ['name' => 'warehousemgmt_stocklocation_y',  'type' => 'int',    'internal' => 'y'],
-        'warehousemgmt_stocklocation_z'      => ['name' => 'warehousemgmt_stocklocation_z',  'type' => 'int',    'internal' => 'z'],
+        'warehousemgmt_stocklocation_id'    => ['name' => 'warehousemgmt_stocklocation_id',    'type' => 'int',    'internal' => 'id'],
+        'warehousemgmt_stocklocation_name'  => ['name' => 'warehousemgmt_stocklocation_name', 'type' => 'string', 'internal' => 'name'],
+        'warehousemgmt_stocklocation_stock' => ['name' => 'warehousemgmt_stocklocation_stock',  'type' => 'int',    'internal' => 'stock'],
+        'warehousemgmt_stocklocation_type'  => ['name' => 'warehousemgmt_stocklocation_type',  'type' => 'int',    'internal' => 'type'],
+        'warehousemgmt_stocklocation_x'     => ['name' => 'warehousemgmt_stocklocation_x',  'type' => 'int',    'internal' => 'x'],
+        'warehousemgmt_stocklocation_y'     => ['name' => 'warehousemgmt_stocklocation_y',  'type' => 'int',    'internal' => 'y'],
+        'warehousemgmt_stocklocation_z'     => ['name' => 'warehousemgmt_stocklocation_z',  'type' => 'int',    'internal' => 'z'],
     ];
 
     /**
@@ -53,8 +53,8 @@ final class StockLocationMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'stock' => [
-            'mapper'     => StockMapper::class,
-            'external'   => 'warehousemgmt_stocklocation_stock',
+            'mapper'   => StockMapper::class,
+            'external' => 'warehousemgmt_stocklocation_stock',
         ],
     ];
 

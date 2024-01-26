@@ -79,7 +79,7 @@ echo $this->data['nav']->render();
                                 <?php endif; ?>
                             <td data-tpl-text="/id" data-tpl-value="/id"><?= $value->id; ?>
                             <td data-tpl-text="/type" data-tpl-value="/type" data-value="<?= $value->type->id; ?>"><?= $this->printHtml($value->type->title); ?>
-                            <td data-tpl-text="/language" data-tpl-value="/language"><?= $this->printHtml($value->getLanguage()); ?>
+                            <td data-tpl-text="/language" data-tpl-value="/language"><?= $this->printHtml($value->language); ?>
                             <td data-tpl-text="/l11n" data-tpl-value="/l11n" data-value="<?= \nl2br($this->printHtml($value->content)); ?>"><?= \nl2br($this->printHtml(\substr($value->content, 0, 100))); ?>
                     <?php endforeach; ?>
                     <?php if ($c === 0) : ?>
