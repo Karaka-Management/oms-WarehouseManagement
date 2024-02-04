@@ -25,6 +25,11 @@ use phpOMS\Stdlib\Base\Address;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Add attributes for stock
+ *      This is important for things like warehousing cost ratio (Lagerkostensatz)
+ *          HR + energy + insurance + interest rate + machinery (e.g. depreciation) + leasing + cleaning
+ *          + security + maintenance + ...
  */
 class Stock
 {
