@@ -103,6 +103,14 @@ final class StockMapper extends DataMapperFactory
         $reserved = [];
         $ordered  = [];
 
+        if (empty($items)) {
+            return [
+                'dists'    => $dists,
+                'reserved' => $reserved,
+                'ordered'  => $ordered,
+            ];
+        }
+
         $itemIdsString = \implode(',', $items);
 
         // @todo only select sales stock. Therefore we need a place to define the sales stock(s)

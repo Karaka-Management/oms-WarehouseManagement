@@ -73,7 +73,7 @@ final class Installer extends InstallerAbstract
     private static function createDefaultStock(ApplicationAbstract $app) : void
     {
         /** @var \Modules\WarehouseManagement\Controller\ApiController $module */
-        $module = $app->moduleManager->getModuleInstance('WarehouseManagement', 'Api');
+        $module = $app->moduleManager->get('WarehouseManagement', 'Api');
 
         $response = new HttpResponse();
         $request  = new HttpRequest();
@@ -100,7 +100,7 @@ final class Installer extends InstallerAbstract
         $stockTypes = [];
 
         /** @var \Modules\WarehouseManagement\Controller\ApiStockTypeController $module */
-        $module = $app->moduleManager->getModuleInstance('WarehouseManagement', 'ApiStockType');
+        $module = $app->moduleManager->get('WarehouseManagement', 'ApiStockType');
 
         foreach ($types as $type) {
             $response = new HttpResponse();
@@ -159,7 +159,7 @@ final class Installer extends InstallerAbstract
     public static function personalStock(ApplicationAbstract $app, string $type) : void
     {
         /** @var \Modules\WarehouseManagement\Controller\ApiController $module */
-        $module = $app->moduleManager->getModuleInstance('WarehouseManagement', 'Api');
+        $module = $app->moduleManager->get('WarehouseManagement', 'Api');
 
         $mapper = $type === 'client'
             ? \Modules\ClientManagement\Models\ClientMapper::class
