@@ -74,7 +74,10 @@ final class ApiStockTypeController extends Controller
     {
         $stockType       = new StockType();
         $stockType->name = $request->getDataString('name') ?? '';
-        $stockType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $stockType->setL11n(
+            $request->getDataString('title') ?? '',
+            ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+        );
 
         return $stockType;
     }
@@ -138,12 +141,10 @@ final class ApiStockTypeController extends Controller
      */
     private function createStockTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $stockTypeL11n      = new BaseStringL11n();
-        $stockTypeL11n->ref = $request->getDataInt('type') ?? 0;
-        $stockTypeL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $stockTypeL11n->content = $request->getDataString('title') ?? '';
+        $stockTypeL11n           = new BaseStringL11n();
+        $stockTypeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $stockTypeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $stockTypeL11n->content  = $request->getDataString('title') ?? '';
 
         return $stockTypeL11n;
     }

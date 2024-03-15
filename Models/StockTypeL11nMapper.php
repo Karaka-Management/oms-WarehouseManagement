@@ -37,10 +37,10 @@ final class StockTypeL11nMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'warehousemgmt_stock_type_l11n_id'        => ['name' => 'warehousemgmt_stock_type_l11n_id',       'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_stock_type_l11n_name'      => ['name' => 'warehousemgmt_stock_type_l11n_name',    'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
-        'warehousemgmt_stock_type_l11n_type'      => ['name' => 'warehousemgmt_stock_type_l11n_type',      'type' => 'int',    'internal' => 'ref'],
-        'warehousemgmt_stock_type_l11n_language'  => ['name' => 'warehousemgmt_stock_type_l11n_language', 'type' => 'string', 'internal' => 'language'],
+        'warehousemgmt_stock_type_l11n_id'       => ['name' => 'warehousemgmt_stock_type_l11n_id',       'type' => 'int',    'internal' => 'id'],
+        'warehousemgmt_stock_type_l11n_name'     => ['name' => 'warehousemgmt_stock_type_l11n_name',    'type' => 'string', 'internal' => 'content', 'autocomplete' => true],
+        'warehousemgmt_stock_type_l11n_type'     => ['name' => 'warehousemgmt_stock_type_l11n_type',      'type' => 'int',    'internal' => 'ref'],
+        'warehousemgmt_stock_type_l11n_language' => ['name' => 'warehousemgmt_stock_type_l11n_language', 'type' => 'string', 'internal' => 'language'],
     ];
 
     /**

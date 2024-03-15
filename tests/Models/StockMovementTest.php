@@ -14,25 +14,25 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\tests\Models;
 
-use Modules\WarehouseManagement\Models\StockMovement;
+use Modules\WarehouseManagement\Models\StockTransaction;
 
 /**
  * @internal
  */
-final class StockMovementTest extends \PHPUnit\Framework\TestCase
+final class StockTransactionTest extends \PHPUnit\Framework\TestCase
 {
-    private StockMovement $movement;
+    private StockTransaction $movement;
 
     /**
      * {@inheritdoc}
      */
     protected function setUp() : void
     {
-        $this->movement = new StockMovement();
+        $this->movement = new StockTransaction();
     }
 
     /**
-     * @covers Modules\WarehouseManagement\Models\StockMovement
+     * @covers Modules\WarehouseManagement\Models\StockTransaction
      * @group module
      */
     public function testDefault() : void

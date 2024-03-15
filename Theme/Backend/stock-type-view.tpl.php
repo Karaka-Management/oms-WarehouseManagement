@@ -31,7 +31,7 @@ echo $this->data['nav']->render();
 
     <div class="col-xs-12 col-md-6">
         <section class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Localizations'); ?><i class="lni lni-download download btn end-xs"></i></div>
+            <div class="portlet-head"><?= $this->getHtml('Localizations'); ?><i class="g-icon download btn end-xs">download</i></div>
             <div class="slider">
             <table id="localizationTable" class="default sticky fixed-5"
                 data-tag="form"
@@ -42,16 +42,16 @@ echo $this->data['nav']->render();
                     <tr>
                         <td>
                         <td><?= $this->getHtml('ID', '0', '0'); ?>
-                        <td><?= $this->getHtml('Name'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                        <td><?= $this->getHtml('Language'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                        <td class="wf-100"><?= $this->getHtml('Localization'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
+                        <td><?= $this->getHtml('Name'); ?><i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
+                        <td><?= $this->getHtml('Language'); ?><i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
+                        <td class="wf-100"><?= $this->getHtml('Localization'); ?><i class="sort-asc g-icon">expand_less</i><i class="sort-desc g-icon">expand_more</i>
                 <tbody>
                     <template class="oms-add-tpl-attribute">
                         <tr data-id="" draggable="false">
                             <td>
-                                <i class="fa fa-cogs btn update-form"></i>
-                                <input id="attributeTable-remove-0" type="checkbox" class="hidden">
-                                <label for="attributeTable-remove-0" class="checked-visibility-alt"><i class="fa fa-times btn form-action"></i></label>
+                                <i class="g-icon btn update-form">settings</i>
+                                <input id="attributeTable-remove-0" type="checkbox" class="vh">
+                                <label for="attributeTable-remove-0" class="checked-visibility-alt"><i class="g-icon btn form-action">close</i></label>
                                 <span class="checked-visibility">
                                     <label for="attributeTable-remove-0" class="link default"><?= $this->getHtml('Cancel', '0', '0'); ?></label>
                                     <label for="attributeTable-remove-0" class="remove-form link cancel"><?= $this->getHtml('Delete', '0', '0'); ?></label>
@@ -68,10 +68,10 @@ echo $this->data['nav']->render();
                     foreach ($itemL11n as $value) : ++$c; ?>
                         <tr data-id="<?= $value->id; ?>">
                             <td>
-                                <i class="fa fa-cogs btn update-form"></i>
+                                <i class="g-icon btn update-form">settings</i>
                                 <?php if (!$value->type->isRequired) : ?>
-                                <input id="localizationTable-remove-<?= $value->id; ?>" type="checkbox" class="hidden">
-                                <label for="localizationTable-remove-<?= $value->id; ?>" class="checked-visibility-alt"><i class="fa fa-times btn form-action"></i></label>
+                                <input id="localizationTable-remove-<?= $value->id; ?>" type="checkbox" class="vh">
+                                <label for="localizationTable-remove-<?= $value->id; ?>" class="checked-visibility-alt"><i class="g-icon btn form-action">close</i></label>
                                 <span class="checked-visibility">
                                     <label for="localizationTable-remove-<?= $value->id; ?>" class="link default"><?= $this->getHtml('Cancel', '0', '0'); ?></label>
                                     <label for="localizationTable-remove-<?= $value->id; ?>" class="remove-form link cancel"><?= $this->getHtml('Delete', '0', '0'); ?></label>
@@ -79,7 +79,7 @@ echo $this->data['nav']->render();
                                 <?php endif; ?>
                             <td data-tpl-text="/id" data-tpl-value="/id"><?= $value->id; ?>
                             <td data-tpl-text="/type" data-tpl-value="/type" data-value="<?= $value->type->id; ?>"><?= $this->printHtml($value->type->title); ?>
-                            <td data-tpl-text="/language" data-tpl-value="/language"><?= $this->printHtml($value->getLanguage()); ?>
+                            <td data-tpl-text="/language" data-tpl-value="/language"><?= $this->printHtml($value->language); ?>
                             <td data-tpl-text="/l11n" data-tpl-value="/l11n" data-value="<?= \nl2br($this->printHtml($value->content)); ?>"><?= \nl2br($this->printHtml(\substr($value->content, 0, 100))); ?>
                     <?php endforeach; ?>
                     <?php if ($c === 0) : ?>

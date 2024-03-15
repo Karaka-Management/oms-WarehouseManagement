@@ -14,19 +14,33 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
-use phpOMS\Stdlib\Base\Enum;
-
 /**
- * Permission category enum.
+ * Null model
  *
  * @package Modules\WarehouseManagement\Models
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
-abstract class PermissionCategory extends Enum
+final class NullStockDistribution extends StockDistribution
 {
-    public const STOCK = 1;
+    /**
+     * Constructor
+     *
+     * @param int $id Model id
+     *
+     * @since 1.0.0
+     */
+    public function __construct(int $id = 0)
+    {
+        $this->id = $id;
+    }
 
-    public const STOCK_LOCATION = 2;
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize() : mixed
+    {
+        return ['id' => $this->id];
+    }
 }

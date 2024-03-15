@@ -37,13 +37,13 @@ final class LotAttributeTypeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'warehousemgmt_attr_type_id'         => ['name' => 'warehousemgmt_attr_type_id',       'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_attr_type_name'       => ['name' => 'warehousemgmt_attr_type_name',     'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
-        'warehousemgmt_attr_type_datatype'   => ['name' => 'warehousemgmt_attr_type_datatype',   'type' => 'int',    'internal' => 'datatype'],
-        'warehousemgmt_attr_type_fields'     => ['name' => 'warehousemgmt_attr_type_fields',   'type' => 'int',    'internal' => 'fields'],
-        'warehousemgmt_attr_type_custom'     => ['name' => 'warehousemgmt_attr_type_custom',   'type' => 'bool',   'internal' => 'custom'],
-        'warehousemgmt_attr_type_pattern'    => ['name' => 'warehousemgmt_attr_type_pattern',  'type' => 'string', 'internal' => 'validationPattern'],
-        'warehousemgmt_attr_type_required'   => ['name' => 'warehousemgmt_attr_type_required', 'type' => 'bool',   'internal' => 'isRequired'],
+        'warehousemgmt_attr_type_id'       => ['name' => 'warehousemgmt_attr_type_id',       'type' => 'int',    'internal' => 'id'],
+        'warehousemgmt_attr_type_name'     => ['name' => 'warehousemgmt_attr_type_name',     'type' => 'string', 'internal' => 'name', 'autocomplete' => true],
+        'warehousemgmt_attr_type_datatype' => ['name' => 'warehousemgmt_attr_type_datatype',   'type' => 'int',    'internal' => 'datatype'],
+        'warehousemgmt_attr_type_fields'   => ['name' => 'warehousemgmt_attr_type_fields',   'type' => 'int',    'internal' => 'fields'],
+        'warehousemgmt_attr_type_custom'   => ['name' => 'warehousemgmt_attr_type_custom',   'type' => 'bool',   'internal' => 'custom'],
+        'warehousemgmt_attr_type_pattern'  => ['name' => 'warehousemgmt_attr_type_pattern',  'type' => 'string', 'internal' => 'validationPattern'],
+        'warehousemgmt_attr_type_required' => ['name' => 'warehousemgmt_attr_type_required', 'type' => 'bool',   'internal' => 'isRequired'],
     ];
 
     /**

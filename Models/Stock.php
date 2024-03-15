@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace Modules\WarehouseManagement\Models;
 
-use Modules\Admin\Models\Address;
+use Modules\ClientManagement\Models\Client;
+use Modules\SupplierManagement\Models\Supplier;
+use phpOMS\Stdlib\Base\Address;
 
 /**
  * Warehouse class.
@@ -23,6 +25,11 @@ use Modules\Admin\Models\Address;
  * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
+ *
+ * @todo Add attributes for stock
+ *      This is important for things like warehousing cost ratio (Lagerkostensatz)
+ *          HR + energy + insurance + interest rate + machinery (e.g. depreciation) + leasing + cleaning
+ *          + security + maintenance + ...
  */
 class Stock
 {
@@ -44,7 +51,13 @@ class Stock
 
     public int $unit = 0;
 
+    public ?Client $client = null;
+
+    public ?Supplier $supplier = null;
+
     public ?Address $address = null;
+
+    public bool $inventory = false;
 
     /**
      * Constructor.
@@ -56,17 +69,5 @@ class Stock
     public function __construct(string $name = '')
     {
         $this->name = $name;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     *
-     * @since 1.0.0
-     */
-    public function getId() : int
-    {
-        return $this->id;
     }
 }

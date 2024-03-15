@@ -22,7 +22,7 @@ namespace Modules\WarehouseManagement\Models;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-class StockLocation
+class StockDistribution
 {
     /**
      * ID.
@@ -32,27 +32,13 @@ class StockLocation
      */
     public int $id = 0;
 
-    public string $name = '';
+    public int $quantity = 0;
 
-    public int | Stock $stock = 0;
+    public ?int $lot = null;
 
-    public ?int $type = null;
+    public int $item = 0;
 
-    public int $x = 0;
+    public int $stock = 0;
 
-    public int $y = 0;
-
-    public int $z = 0;
-
-    /**
-     * Constructor.
-     *
-     * @param string $name Stock name
-     *
-     * @since 1.0.0
-     */
-    public function __construct(string $name = '')
-    {
-        $this->name = $name;
-    }
+    public int $stockType = 0;
 }

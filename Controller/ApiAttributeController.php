@@ -17,6 +17,7 @@ namespace Modules\WarehouseManagement\Controller;
 use Modules\Attribute\Models\Attribute;
 use Modules\Attribute\Models\AttributeType;
 use Modules\Attribute\Models\AttributeValue;
+use Modules\Attribute\Models\AttributeValueType;
 use Modules\Attribute\Models\NullAttributeType;
 use Modules\Attribute\Models\NullAttributeValue;
 use Modules\WarehouseManagement\Models\Attribute\LotAttributeMapper;
@@ -156,12 +157,10 @@ final class ApiAttributeController extends Controller
      */
     private function createLotAttributeTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $attrL11n      = new BaseStringL11n();
-        $attrL11n->ref = $request->getDataInt('type') ?? 0;
-        $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $attrL11n->content = $request->getDataString('title') ?? '';
+        $attrL11n           = new BaseStringL11n();
+        $attrL11n->ref      = $request->getDataInt('type') ?? 0;
+        $attrL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $attrL11n->content  = $request->getDataString('title') ?? '';
 
         return $attrL11n;
     }
@@ -226,11 +225,14 @@ final class ApiAttributeController extends Controller
     private function createLotAttributeTypeFromRequest(RequestAbstract $request) : AttributeType
     {
         $attrType                    = new AttributeType($request->getDataString('name') ?? '');
-        $attrType->datatype          = $request->getDataInt('datatype') ?? 0;
+        $attrType->datatype          = AttributeValueType::tryFromValue($request->getDataInt('datatype')) ?? AttributeValueType::_STRING;
         $attrType->custom            = $request->getDataBool('custom') ?? false;
         $attrType->isRequired        = $request->getDataBool('is_required') ?? false;
         $attrType->validationPattern = $request->getDataString('validation_pattern') ?? '';
-        $attrType->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+        $attrType->setL11n(
+            $request->getDataString('title') ?? '',
+            ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+        );
         $attrType->setFields($request->getDataInt('fields') ?? 0);
 
         return $attrType;
@@ -315,7 +317,10 @@ final class ApiAttributeController extends Controller
         $attrValue->setValue($request->getDataString('value'), $type->datatype);
 
         if ($request->hasData('title')) {
-            $attrValue->setL11n($request->getDataString('title') ?? '', $request->getDataString('language') ?? ISO639x1Enum::_EN);
+            $attrValue->setL11n(
+                $request->getDataString('title') ?? '',
+                ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
+            );
         }
 
         return $attrValue;
@@ -380,12 +385,10 @@ final class ApiAttributeController extends Controller
      */
     private function createLotAttributeValueL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
-        $attrL11n      = new BaseStringL11n();
-        $attrL11n->ref = $request->getDataInt('value') ?? 0;
-        $attrL11n->setLanguage(
-            $request->getDataString('language') ?? $request->header->l11n->language
-        );
-        $attrL11n->content = $request->getDataString('title') ?? '';
+        $attrL11n           = new BaseStringL11n();
+        $attrL11n->ref      = $request->getDataInt('value') ?? 0;
+        $attrL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
+        $attrL11n->content  = $request->getDataString('title') ?? '';
 
         return $attrL11n;
     }

@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/warehouse/stock/list.*$' => [
+    '^.*/warehouse/stock/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockList',
             'verb'       => RouteVerb::GET,
@@ -40,7 +40,7 @@ return [
             ],
         ],
     ],
-    '^.*/warehouse/stock/type/list.*$' => [
+    '^.*/warehouse/stock/type/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockTypeList',
             'verb'       => RouteVerb::GET,
@@ -62,7 +62,7 @@ return [
             ],
         ],
     ],
-    '^.*/warehouse/stock/location/list.*$' => [
+    '^.*/warehouse/stock/location/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocationList',
             'verb'       => RouteVerb::GET,

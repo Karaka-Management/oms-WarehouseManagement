@@ -36,8 +36,8 @@ final class StockTypeMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'warehousemgmt_stock_type_id'    => ['name' => 'warehousemgmt_stock_type_id',    'type' => 'int',    'internal' => 'id'],
-        'warehousemgmt_stock_type_name'  => ['name' => 'warehousemgmt_stock_type_name', 'type' => 'string', 'internal' => 'name'],
+        'warehousemgmt_stock_type_id'   => ['name' => 'warehousemgmt_stock_type_id',    'type' => 'int',    'internal' => 'id'],
+        'warehousemgmt_stock_type_name' => ['name' => 'warehousemgmt_stock_type_name', 'type' => 'string', 'internal' => 'name'],
     ];
 
     /**
@@ -48,11 +48,11 @@ final class StockTypeMapper extends DataMapperFactory
      */
     public const HAS_MANY = [
         'l11n' => [
-            'mapper'            => StockTypeL11nMapper::class,
-            'table'             => 'warehousemgmt_stock_type_l11n',
-            'self'              => 'warehousemgmt_stock_type_l11n_type',
-            'column'            => 'content',
-            'external'          => null,
+            'mapper'   => StockTypeL11nMapper::class,
+            'table'    => 'warehousemgmt_stock_type_l11n',
+            'self'     => 'warehousemgmt_stock_type_l11n_type',
+            'column'   => 'content',
+            'external' => null,
         ],
     ];
 

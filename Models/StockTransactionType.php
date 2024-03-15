@@ -24,7 +24,7 @@ use phpOMS\Stdlib\Base\Enum;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-abstract class StockMovementType extends Enum
+abstract class StockTransactionType extends Enum
 {
     public const MERGE = 1;
 
@@ -36,7 +36,7 @@ abstract class StockMovementType extends Enum
 
     public const TRANSFER = 16;
 
-    // @todo: subtypes, maybe creates as database subtypes during install.
+    // @todo subtypes, maybe creates as database subtypes during install.
     public const DESTROY = 101;
 
     public const RETURN = 102;
