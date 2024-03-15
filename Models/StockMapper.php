@@ -16,7 +16,6 @@ namespace Modules\WarehouseManagement\Models;
 
 use Modules\Admin\Models\AddressMapper;
 use Modules\ClientManagement\Models\ClientMapper;
-use Modules\ItemManagement\Models\Item;
 use Modules\ItemManagement\Models\StockIdentifierType;
 use Modules\SupplierManagement\Models\SupplierMapper;
 use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
@@ -97,6 +96,15 @@ final class StockMapper extends DataMapperFactory
      */
     public const PRIMARYFIELD = 'warehousemgmt_stock_id';
 
+    /**
+     * Get stock distributions
+     *
+     * @param int[] $items Items
+     *
+     * @return array{dists:array, reserved:array, ordered:array}
+     *
+     * @since 1.0.0
+     */
     public static function getStockDistribution(array $items) : array
     {
         $dists    = [];
@@ -114,6 +122,7 @@ final class StockMapper extends DataMapperFactory
         $itemIdsString = \implode(',', $items);
 
         // @todo only select sales stock. Therefore we need a place to define the sales stock(s)
+        /** @var \Modules\WarehouseManagement\Models\StockDistribution[] $temp */
         $temp = StockDistributionMapper::getAll()
             ->where('item', $items, 'IN')
             ->execute();
@@ -151,7 +160,7 @@ final class StockMapper extends DataMapperFactory
         SQL;
 
         $query   = new Builder(self::$db);
-        $results = $query->raw($sql)->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $results = $query->raw($sql)->execute()?->fetchAll(\PDO::FETCH_ASSOC) ?? [];
 
         foreach ($results as $result) {
             if (!isset($reserved[(int) $result['billing_bill_element_item']])) {

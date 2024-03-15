@@ -117,8 +117,8 @@ final class ApiController extends Controller
         $stock->unit      = $request->getDataInt('unit') ?? 1;
         $stock->inventory = $request->getDataBool('inventory') ?? false;
 
-        $stock->client   = $request->hasData('client') ? new NullClient($request->getDataInt('client')) : null;
-        $stock->supplier = $request->hasData('supplier') ? new NullSupplier($request->getDataInt('supplier')) : null;
+        $stock->client   = $request->hasData('client') ? new NullClient((int) $request->getData('client')) : null;
+        $stock->supplier = $request->hasData('supplier') ? new NullSupplier((int) $request->getData('supplier')) : null;
 
         return $stock;
     }
