@@ -166,7 +166,7 @@ final class Installer extends InstallerAbstract
             : \Modules\SupplierManagement\Models\SupplierMapper::class;
 
         /** @var \Modules\ClientManagement\Models\Client|\Modules\SupplierManagement\Models\Supplier $person */
-        foreach ($mapper::yield()->execute() as $person) {
+        foreach ($mapper::yield()->executeYield() as $person) {
             $response = new HttpResponse();
             $request  = new HttpRequest();
 

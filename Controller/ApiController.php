@@ -447,7 +447,7 @@ final class ApiController extends Controller
                     // and then do normal algorithm like for a new element
                 }
                 */
-                if ($new->item->id !== $old->item->id) {
+                if ($new->item?->id !== $old->item?->id) {
                     // @todo: also undo stock amount in stock distribution
                     StockTransactionMapper::delete()->execute($transactions);
 
