@@ -19,31 +19,23 @@ use Modules\WarehouseManagement\Models\NullStock;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\WarehouseManagement\Models\NullStock::class)]
 final class NullStockTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers Modules\WarehouseManagement\Models\NullStock
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\WarehouseManagement\Models\Stock', new NullStock());
     }
 
-    /**
-     * @covers Modules\WarehouseManagement\Models\NullStock
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullStock(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers Modules\WarehouseManagement\Models\NullStock
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullStock(2);

@@ -19,6 +19,7 @@ use Modules\WarehouseManagement\Models\StockLocation;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\WarehouseManagement\Models\StockLocation::class)]
 final class StockLocationTest extends \PHPUnit\Framework\TestCase
 {
     private StockLocation $stock;
@@ -31,10 +32,7 @@ final class StockLocationTest extends \PHPUnit\Framework\TestCase
         $this->stock = new StockLocation();
     }
 
-    /**
-     * @covers Modules\WarehouseManagement\Models\StockLocation
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->stock->id);
