@@ -19,7 +19,8 @@ use Modules\WarehouseManagement\Models\StockTransaction;
 /**
  * @internal
  */
-final class StockTransactionTest extends \PHPUnit\Framework\TestCase
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\WarehouseManagement\Models\StockTransaction::class)]
+final class StockMovementTest extends \PHPUnit\Framework\TestCase
 {
     private StockTransaction $movement;
 
@@ -31,10 +32,7 @@ final class StockTransactionTest extends \PHPUnit\Framework\TestCase
         $this->movement = new StockTransaction();
     }
 
-    /**
-     * @covers \Modules\WarehouseManagement\Models\StockTransaction
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->movement->id);
