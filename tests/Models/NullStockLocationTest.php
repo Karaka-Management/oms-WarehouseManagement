@@ -22,7 +22,7 @@ use Modules\WarehouseManagement\Models\NullStockLocation;
 final class NullStockLocationTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\WarehouseManagement\Models\NullStockLocation
+     * @covers \Modules\WarehouseManagement\Models\NullStockLocation
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullStockLocationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\WarehouseManagement\Models\NullStockLocation
+     * @covers \Modules\WarehouseManagement\Models\NullStockLocation
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullStockLocationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\WarehouseManagement\Models\NullStockLocation
+     * @covers \Modules\WarehouseManagement\Models\NullStockLocation
      * @group module
      */
     public function testJsonSerialize() : void

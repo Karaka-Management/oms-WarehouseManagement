@@ -22,7 +22,7 @@ use Modules\WarehouseManagement\Models\NullStockShelf;
 final class NullStockShelfTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\WarehouseManagement\Models\NullStockShelf
+     * @covers \Modules\WarehouseManagement\Models\NullStockShelf
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullStockShelfTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\WarehouseManagement\Models\NullStockShelf
+     * @covers \Modules\WarehouseManagement\Models\NullStockShelf
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullStockShelfTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\WarehouseManagement\Models\NullStockShelf
+     * @covers \Modules\WarehouseManagement\Models\NullStockShelf
      * @group module
      */
     public function testJsonSerialize() : void

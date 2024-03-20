@@ -32,7 +32,7 @@ final class StockLocationTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\WarehouseManagement\Models\StockLocation
+     * @covers \Modules\WarehouseManagement\Models\StockLocation
      * @group module
      */
     public function testDefault() : void

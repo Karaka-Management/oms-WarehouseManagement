@@ -32,7 +32,7 @@ final class StockShelfTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\WarehouseManagement\Models\StockShelf
+     * @covers \Modules\WarehouseManagement\Models\StockShelf
      * @group module
      */
     public function testDefault() : void
