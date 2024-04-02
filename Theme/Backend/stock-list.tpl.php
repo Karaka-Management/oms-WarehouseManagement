@@ -21,7 +21,11 @@ echo $this->data['nav']->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <div class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Stocks'); ?><i class="g-icon download btn end-xs">download</i></div>
+            <div class="portlet-head">
+                <?= $this->getHtml('Stocks'); ?>
+                <i class="g-icon download btn end-xs">download</i>
+                <a class="button end-xs save" href="<?= UriFactory::build('{/base}/warehouse/stock/create'); ?>"><?= $this->getHtml('New', '0', '0'); ?></a>
+            </div>
             <div class="slider">
             <table id="stockList" class="default sticky">
                 <thead>
@@ -31,7 +35,7 @@ echo $this->data['nav']->render(); ?>
                 <tbody>
                 <?php $count = 0; foreach ($stocks as $key => $value) :
                     ++$count;
-                    $url = UriFactory::build('{/base}/warehouse/stock?{?}&id=' . $value->id);
+                    $url = UriFactory::build('{/base}/warehouse/stock/view?{?}&id=' . $value->id);
                 ?>
                     <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $value->id; ?></a>

@@ -36,13 +36,15 @@ class StockLocation
 
     public int | Stock $stock = 0;
 
-    public ?int $type = null;
+    public ?StockType $type = null;
 
     public int $x = 0;
 
     public int $y = 0;
 
     public int $z = 0;
+
+    public array $shelfs = [];
 
     /**
      * Constructor.

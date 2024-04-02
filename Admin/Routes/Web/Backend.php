@@ -29,13 +29,24 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock(\?.*)?$' => [
+    '^/warehouse/stock/view(\?.*)?$' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStock',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::STOCK,
+            ],
+        ],
+    ],
+    '^/warehouse/stock/create(\?.*)?$' => [
+        [
+            'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockCreate',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::CREATE,
                 'state'  => PermissionCategory::STOCK,
             ],
         ],
@@ -51,13 +62,24 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock/type(\?.*)?$' => [
+    '^/warehouse/stock/type/view(\?.*)?$' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockType',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::STOCK,
+            ],
+        ],
+    ],
+    '^/warehouse/stock/type/create(\?.*)?$' => [
+        [
+            'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockTypeCreate',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::CREATE,
                 'state'  => PermissionCategory::STOCK,
             ],
         ],
@@ -73,9 +95,20 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock/location(\?.*)?$' => [
+    '^/warehouse/stock/location/view(\?.*)?$' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocation',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::STOCK_LOCATION,
+            ],
+        ],
+    ],
+    '^/warehouse/stock/location/create(\?.*)?$' => [
+        [
+            'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocationCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::NAME,

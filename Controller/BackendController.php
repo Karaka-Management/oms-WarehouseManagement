@@ -70,7 +70,7 @@ final class BackendController extends Controller
                     ->with('l11n')
                     ->where('l11n/language', $response->header->l11n->language)
                     ->limit(25)
-                    ->execute();
+                    ->executeGetArray();
         }
 
         return $view;
@@ -106,7 +106,7 @@ final class BackendController extends Controller
         } else {
             $view->data['stocks'] = StockMapper::getAll()
                     ->limit(25)
-                    ->execute();
+                    ->executeGetArray();
         }
 
         return $view;
@@ -128,10 +128,21 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock');
+        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
-        $view->data['stock'] = StockMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $view->data['stock'] = StockMapper::get()
+            ->with('locations')
+            ->with('locations/type')
+            ->with('locations/type/l11n')
+            ->where('id', (int) $request->getData('id'))
+            ->where('locations/type/l11n/language', [$request->header->l11n->language, null])
+            ->execute();
+
+        $view->data['types'] = StockTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $request->header->l11n->language)
+            ->executeGetArray();
 
         return $view;
     }
@@ -155,13 +166,15 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-type-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
-        $view->data['type'] = StockMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $view->data['type'] = StockMapper::get()
+            ->where('id', (int) $request->getData('id'))->execute();
 
         $l11nValues = StockTypeL11nMapper::getAll()
             ->with('type')
             ->where('ref', $view->data['type']->id)
-            ->execute();
+            ->executeGetArray();
 
+        $view->data['l11nView']   = new \Web\Backend\Views\L11nView($this->app->l11nManager, $request, $response);
         $view->data['l11nValues'] = $l11nValues;
 
         return $view;
@@ -186,22 +199,13 @@ final class BackendController extends Controller
         $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-location-list');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
-        if ($request->getData('ptype') === 'p') {
-            $view->data['locations'] = StockLocationMapper::getAll()
-                ->with('stock')
-                ->limit(25)
-                ->execute();
-        } elseif ($request->getData('ptype') === 'n') {
-            $view->data['locations'] = StockLocationMapper::getAll()
-                ->with('stock')
-                ->limit(25)
-                ->execute();
-        } else {
-            $view->data['locations'] = StockLocationMapper::getAll()
-                ->with('stock')
-                ->limit(25)
-                ->execute();
-        }
+        $view->data['locations'] = StockLocationMapper::getAll()
+            ->with('stock')
+            ->with('type')
+            ->with('type/l11n')
+            ->where('type/l11n/language', [$request->header->l11n->language, null])
+            ->limit(25)
+            ->executeGetArray();
 
         return $view;
     }
@@ -222,10 +226,22 @@ final class BackendController extends Controller
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-location');
+        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-location-view');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
-        $view->data['location'] = StockLocationMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $view->data['location'] = StockLocationMapper::get()
+            ->with('stock')
+            ->with('shelfs')
+            ->with('type')
+            ->with('type/l11n')
+            ->where('type/l11n/language', [$request->header->l11n->language, null])
+            ->where('id', (int) $request->getData('id'))
+            ->execute();
+
+        $view->data['types'] = StockTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $request->header->l11n->language)
+            ->executeGetArray();
 
         return $view;
     }

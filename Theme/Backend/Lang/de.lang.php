@@ -13,12 +13,12 @@
 declare(strict_types=1);
 
 return ['WarehouseManagement' => [
-    'Language'      => '',
-    'Localization'  => '',
-    'Localizations' => '',
-    'Locations'     => '',
-    'Name'          => 'Name',
-    'Stock'         => 'Aktie',
-    'Stocks'        => '',
-    'Type'          => 'Typ',
+    'Locations' => 'Lagerplätze',
+    'Name'      => 'Name',
+    'Stock'     => 'Lager',
+    'Stocks'    => 'Lager',
+    'Shelfs'    => 'Fächer',
+    'Shelf'     => 'Fach',
+    'Type'      => 'Typ',
+    'Location'  => 'Lagerplatz',
 ]];

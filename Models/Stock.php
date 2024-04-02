@@ -59,6 +59,8 @@ class Stock
 
     public bool $inventory = false;
 
+    public array $locations = [];
+
     /**
      * Constructor.
      *

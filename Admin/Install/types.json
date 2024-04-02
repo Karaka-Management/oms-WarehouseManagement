@@ -7,6 +7,13 @@
 		}
 	},
 	{
+		"name": "virtual",
+		"l11n": {
+			"en": "Virtual",
+			"de": "Virtuell"
+		}
+	},
+	{
 		"name": "incoming",
 		"l11n": {
 			"en": "Incoming",
@@ -46,6 +53,20 @@
 		"l11n": {
 			"en": "Retention sample",
 			"de": "Rückstellmuster"
+		}
+	},
+    {
+		"name": "consignment",
+		"l11n": {
+			"en": "Consignment stock",
+			"de": "Konsignationslager"
+		}
+	},
+    {
+		"name": "duty_free",
+		"l11n": {
+			"en": "Duty-free",
+			"de": "Zollfreilager"
 		}
 	}
 ]

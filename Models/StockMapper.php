@@ -81,6 +81,21 @@ final class StockMapper extends DataMapperFactory
     ];
 
     /**
+     * Has many relation.
+     *
+     * @var array<string, array{mapper:class-string, table:string, self?:?string, external?:?string, column?:string}>
+     * @since 1.0.0
+     */
+    public const HAS_MANY = [
+        'locations' => [
+            'mapper'   => StockLocationMapper::class,
+            'table'    => 'warehousemgmt_stocklocation',
+            'self'     => 'warehousemgmt_stocklocation_stock',
+            'external' => null,
+        ],
+    ];
+
+    /**
      * Primary table.
      *
      * @var string
@@ -125,7 +140,7 @@ final class StockMapper extends DataMapperFactory
         /** @var \Modules\WarehouseManagement\Models\StockDistribution[] $temp */
         $temp = StockDistributionMapper::getAll()
             ->where('item', $items, 'IN')
-            ->execute();
+            ->executeGetArray();
 
         foreach ($temp as $t) {
             if (!isset($dists[$t->item])) {

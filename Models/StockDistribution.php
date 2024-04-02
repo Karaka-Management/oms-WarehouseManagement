@@ -41,4 +41,6 @@ class StockDistribution
     public int $stock = 0;
 
     public int $stockType = 0;
+
+    // @remark We don't care about the location because that is just an internal thing and not all companies really care about that.
 }
