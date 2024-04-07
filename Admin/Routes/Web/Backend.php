@@ -22,6 +22,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockList',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -33,6 +34,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStock',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -44,6 +46,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockCreate',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -55,6 +58,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockTypeList',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -66,6 +70,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockType',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -77,6 +82,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockTypeCreate',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -88,6 +94,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocationList',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -99,6 +106,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocation',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -110,6 +118,7 @@ return [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocationCreate',
             'verb'       => RouteVerb::GET,
+            'active' => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,

@@ -42,7 +42,7 @@ use phpOMS\Message\ResponseAbstract;
 final class ApiAttributeController extends Controller
 {
     /**
-     * Api method to create item attribute
+     * Api method to create Attribute
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -69,7 +69,7 @@ final class ApiAttributeController extends Controller
     }
 
     /**
-     * Method to create item attribute from request.
+     * Method to create lot attribute from request.
      *
      * @param RequestAbstract $request Request
      *
