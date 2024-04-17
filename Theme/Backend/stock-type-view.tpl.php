@@ -36,6 +36,14 @@ echo $this->data['nav']->render();
                     <input id="name" type="text" name="name" value="<?= $this->printHtml($type->name); ?>"<?= $isNew ? ' required' : ' disabled'; ?>>
                 </div>
             </div>
+            <div class="portlet-foot">
+                <?php if ($isNew) : ?>
+                    <input type="submit" value="<?= $this->getHtml('Create', '0', '0'); ?>" name="create-location">
+                <?php else : ?>
+                    <input type="submit" value="<?= $this->getHtml('Save', '0', '0'); ?>" name="save-location">
+                    <input class="cancel end-xs" type="submit" value="<?= $this->getHtml('Delete', '0', '0'); ?>" name="delete-location">
+                <?php endif; ?>
+            </div>
             </form>
         </section>
     </div>

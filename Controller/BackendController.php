@@ -159,6 +159,28 @@ final class BackendController extends Controller
      * @since 1.0.0
      * @codeCoverageIgnore
      */
+    public function viewStockCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-view');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
     public function viewStockType(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
@@ -176,6 +198,28 @@ final class BackendController extends Controller
 
         $view->data['l11nView']   = new \Web\Backend\Views\L11nView($this->app->l11nManager, $request, $response);
         $view->data['l11nValues'] = $l11nValues;
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewStockTypeCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-type-view');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
         return $view;
     }
@@ -237,6 +281,33 @@ final class BackendController extends Controller
             ->where('type/l11n/language', [$request->header->l11n->language, null])
             ->where('id', (int) $request->getData('id'))
             ->execute();
+
+        $view->data['types'] = StockTypeMapper::getAll()
+            ->with('l11n')
+            ->where('l11n/language', $request->header->l11n->language)
+            ->executeGetArray();
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behavior.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return RenderableInterface Returns a renderable object
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewStockLocationCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/WarehouseManagement/Theme/Backend/stock-location-view');
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1001302001, $request, $response);
 
         $view->data['types'] = StockTypeMapper::getAll()
             ->with('l11n')

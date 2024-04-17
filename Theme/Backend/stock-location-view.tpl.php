@@ -34,7 +34,7 @@ echo $this->data['nav']->render();
 
                     <div class="form-group">
                         <label for="iLocationStock"><?= $this->getHtml('Stock'); ?></label>
-                        <input type="text" id="iLocationStock" name="stock" value="<?= $location->stock->id; ?>"<?= $isNew ? ' required' : ' disabled'; ?>>
+                        <input type="text" id="iLocationStock" name="stock" value="<?= $location->stock; ?>"<?= $isNew ? ' required' : ' disabled'; ?>>
                     </div>
 
                     <div class="form-group">
@@ -46,7 +46,7 @@ echo $this->data['nav']->render();
                         <label for="iLocationType"><?= $this->getHtml('Type'); ?></label>
                         <select id="iLocationType" name="type">
                         <?php foreach ($this->data['types'] as $type) : ?>
-                            <option value="<?= $type->id; ?>"<?= $type->id === $location->type->id ? ' selected' : ''; ?>><?= $this->printHtml($type->getL11n()); ?>
+                            <option value="<?= $type->id; ?>"<?= $type->id === $location->type?->id ? ' selected' : ''; ?>><?= $this->printHtml($type->getL11n()); ?>
                         <?php endforeach; ?>
                         </select>
                     </div>
