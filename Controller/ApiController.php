@@ -21,6 +21,7 @@ use Modules\Billing\Models\BillTransferType;
 use Modules\ClientManagement\Models\NullClient;
 use Modules\ItemManagement\Models\StockIdentifierType;
 use Modules\SupplierManagement\Models\NullSupplier;
+use Modules\WarehouseManagement\Models\NullStock;
 use Modules\WarehouseManagement\Models\NullStockType;
 use Modules\WarehouseManagement\Models\Stock;
 use Modules\WarehouseManagement\Models\StockDistribution;
@@ -185,7 +186,7 @@ final class ApiController extends Controller
     {
         $location        = new StockLocation();
         $location->name  = $request->getDataString('name') ?? '';
-        $location->stock = $request->getDataInt('stock') ?? 1;
+        $location->stock = new NullStock($request->getDataInt('stock') ?? 1);
 
         $location->type = $request->hasData('type') ? new NullStockType((int) $request->getDataInt('type')) : null;
 

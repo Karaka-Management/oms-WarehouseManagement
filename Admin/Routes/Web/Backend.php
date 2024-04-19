@@ -30,7 +30,7 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock/view(\?.*)?$' => [
+    '^/warehouse/stock/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStock',
             'verb'       => RouteVerb::GET,
@@ -42,7 +42,7 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock/create(\?.*)?$' => [
+    '^/warehouse/stock/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockCreate',
             'verb'       => RouteVerb::GET,
@@ -66,7 +66,7 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock/type/view(\?.*)?$' => [
+    '^/warehouse/stock/type/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockType',
             'verb'       => RouteVerb::GET,
@@ -78,7 +78,7 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock/type/create(\?.*)?$' => [
+    '^/warehouse/stock/type/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockTypeCreate',
             'verb'       => RouteVerb::GET,
@@ -102,7 +102,7 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock/location/view(\?.*)?$' => [
+    '^/warehouse/stock/location/view(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocation',
             'verb'       => RouteVerb::GET,
@@ -114,7 +114,7 @@ return [
             ],
         ],
     ],
-    '^/warehouse/stock/location/create(\?.*)?$' => [
+    '^/warehouse/stock/location/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\WarehouseManagement\Controller\BackendController:viewStockLocationCreate',
             'verb'       => RouteVerb::GET,

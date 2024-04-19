@@ -34,7 +34,7 @@ echo $this->data['nav']->render();
 
                     <div class="form-group">
                         <label for="iLocationStock"><?= $this->getHtml('Stock'); ?></label>
-                        <input type="text" id="iLocationStock" name="stock" value="<?= $location->stock; ?>"<?= $isNew ? ' required' : ' disabled'; ?>>
+                        <input type="text" id="iLocationStock" name="stock" value="<?= $location->stock->id; ?>"<?= $isNew ? ' required' : ' disabled'; ?>>
                     </div>
 
                     <div class="form-group">

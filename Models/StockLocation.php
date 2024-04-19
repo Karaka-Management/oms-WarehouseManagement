@@ -34,7 +34,7 @@ class StockLocation
 
     public string $name = '';
 
-    public int | Stock $stock = 0;
+    public Stock $stock;
 
     public ?StockType $type = null;
 
@@ -56,5 +56,6 @@ class StockLocation
     public function __construct(string $name = '')
     {
         $this->name = $name;
+        $this->stock = new NullStock();
     }
 }
