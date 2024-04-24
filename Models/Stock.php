@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   Modules\Warehousing\Models
  * @copyright Dennis Eichhorn
@@ -58,6 +58,8 @@ class Stock
     public ?Address $address = null;
 
     public bool $inventory = false;
+
+    public array $locations = [];
 
     /**
      * Constructor.

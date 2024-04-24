@@ -3,7 +3,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   Modules\WarehouseManagement
  * @copyright Dennis Eichhorn
@@ -62,7 +62,7 @@ final class ApiStockTypeController extends Controller
     }
 
     /**
-     * Method to create item attribute from request.
+     * Method to create StockType from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -83,7 +83,7 @@ final class ApiStockTypeController extends Controller
     }
 
     /**
-     * Validate item attribute create request
+     * Validate StockType create request
      *
      * @param RequestAbstract $request Request
      *
@@ -104,7 +104,7 @@ final class ApiStockTypeController extends Controller
     }
 
     /**
-     * Api method to create item attribute l11n
+     * Api method to create StockType l11n
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
@@ -131,7 +131,7 @@ final class ApiStockTypeController extends Controller
     }
 
     /**
-     * Method to create item attribute l11n from request.
+     * Method to create StockType l11n from request.
      *
      * @param RequestAbstract $request Request
      *
@@ -150,7 +150,7 @@ final class ApiStockTypeController extends Controller
     }
 
     /**
-     * Validate item attribute l11n create request
+     * Validate StockType l11n create request
      *
      * @param RequestAbstract $request Request
      *

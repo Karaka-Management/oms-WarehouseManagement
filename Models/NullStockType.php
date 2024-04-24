@@ -22,7 +22,7 @@ namespace Modules\WarehouseManagement\Models;
  * @link    https://jingga.app
  * @since   1.0.0
  */
-final class NullStockTransaction extends StockTransaction
+final class NullStockType extends StockType
 {
     /**
      * Constructor

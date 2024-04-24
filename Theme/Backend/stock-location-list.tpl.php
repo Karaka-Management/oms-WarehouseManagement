@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   Modules\WarehouseManagement
  * @copyright Dennis Eichhorn
@@ -29,15 +29,17 @@ echo $this->data['nav']->render(); ?>
                     <td><?= $this->getHtml('ID', '0', '0'); ?>
                     <td><?= $this->getHtml('Stock'); ?>
                     <td class="wf-100"><?= $this->getHtml('Name'); ?>
+                    <td><?= $this->getHtml('Type'); ?>
                 <tbody>
                 <?php $count = 0; foreach ($locations as $key => $value) :
                     ++$count;
-                    $url = UriFactory::build('{/base}/warehouse/stock/location?{?}&id=' . $value->id);
+                    $url = UriFactory::build('{/base}/warehouse/stock/location/view?{?}&id=' . $value->id);
                 ?>
                     <tr data-href="<?= $url; ?>">
                         <td><a href="<?= $url; ?>"><?= $value->id; ?></a>
                         <td><a href="<?= $url; ?>"><?= $value->stock->name; ?></a>
                         <td><a href="<?= $url; ?>"><?= $value->name; ?></a>
+                        <td><a href="<?= $url; ?>"><?= $this->printHtml($value->type->getL11n()); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                     <tr><td colspan="3" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

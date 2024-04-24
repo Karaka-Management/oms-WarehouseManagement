@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   Modules\Localization
  * @copyright Dennis Eichhorn
@@ -13,12 +13,12 @@
 declare(strict_types=1);
 
 return ['WarehouseManagement' => [
-    'Language'      => '',
-    'Localization'  => '',
-    'Localizations' => '',
-    'Locations'     => 'Locations',
-    'Name'          => 'Name',
-    'Stock'         => 'Stock',
-    'Stocks'        => 'Stocks',
-    'Type'          => 'Type',
+    'Locations' => 'Locations',
+    'Name'      => 'Name',
+    'Stock'     => 'Stock',
+    'Stocks'    => 'Stocks',
+    'Shelfs'    => 'Shelfs',
+    'Shelf'     => 'Shelf',
+    'Type'      => 'Type',
+    'Location'  => 'Location',
 ]];

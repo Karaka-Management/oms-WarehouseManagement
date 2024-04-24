@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   Modules\Warehousing\Models
  * @copyright Dennis Eichhorn
@@ -34,15 +34,17 @@ class StockLocation
 
     public string $name = '';
 
-    public int | Stock $stock = 0;
+    public Stock $stock;
 
-    public ?int $type = null;
+    public ?StockType $type = null;
 
     public int $x = 0;
 
     public int $y = 0;
 
     public int $z = 0;
+
+    public array $shelfs = [];
 
     /**
      * Constructor.
@@ -54,5 +56,6 @@ class StockLocation
     public function __construct(string $name = '')
     {
         $this->name = $name;
+        $this->stock = new NullStock();
     }
 }

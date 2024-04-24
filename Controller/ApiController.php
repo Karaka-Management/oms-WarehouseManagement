@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   Modules\WarehouseManagement
  * @copyright Dennis Eichhorn
@@ -21,6 +21,8 @@ use Modules\Billing\Models\BillTransferType;
 use Modules\ClientManagement\Models\NullClient;
 use Modules\ItemManagement\Models\StockIdentifierType;
 use Modules\SupplierManagement\Models\NullSupplier;
+use Modules\WarehouseManagement\Models\NullStock;
+use Modules\WarehouseManagement\Models\NullStockType;
 use Modules\WarehouseManagement\Models\Stock;
 use Modules\WarehouseManagement\Models\StockDistribution;
 use Modules\WarehouseManagement\Models\StockDistributionMapper;
@@ -184,7 +186,9 @@ final class ApiController extends Controller
     {
         $location        = new StockLocation();
         $location->name  = $request->getDataString('name') ?? '';
-        $location->stock = $request->getDataInt('stock') ?? 1;
+        $location->stock = new NullStock($request->getDataInt('stock') ?? 1);
+
+        $location->type = $request->hasData('type') ? new NullStockType((int) $request->getDataInt('type')) : null;
 
         return $location;
     }
@@ -434,7 +438,7 @@ final class ApiController extends Controller
                 /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
                 $transactions = StockTransactionMapper::getAll()
                     ->where('billElement', $new->id)
-                    ->execute();
+                    ->executeGetArray();
 
                 /*
                 if ($new->item === $old->item) {
@@ -463,7 +467,7 @@ final class ApiController extends Controller
                 /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
                 $transactions = StockTransactionMapper::getAll()
                     ->where('billElement', $new->id)
-                    ->execute();
+                    ->executeGetArray();
 
                 StockTransactionMapper::delete()->execute($transactions);
             } elseif ($trigger === 'Billing-bill-delete') {
@@ -471,7 +475,7 @@ final class ApiController extends Controller
                     /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
                     $transactions = StockTransactionMapper::getAll()
                         ->where('billElement', $element->id)
-                        ->execute();
+                        ->executeGetArray();
 
                     StockTransactionMapper::delete()->execute($transactions);
                     // @todo consider not to delete but mark as deleted?
@@ -491,7 +495,7 @@ final class ApiController extends Controller
                         /** @var \Modules\WarehouseManagement\Models\StockTransaction[] $transactions */
                         $transactions = StockTransactionMapper::getAll()
                             ->where('billElement', $element->id)
-                            ->execute();
+                            ->executeGetArray();
 
                         foreach ($transactions as $transaction) {
                             $transaction->state = StockTransactionState::TRANSIT; // @todo change to more specific
