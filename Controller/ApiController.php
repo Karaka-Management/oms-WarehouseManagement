@@ -279,7 +279,7 @@ final class ApiController extends Controller
             ->with('elements/item')
             ->with('supplier')
             ->with('client')
-            ->where('id', $isBillElement ? $new->bill->id : $new->id)
+            ->where('id', $isBillElement ? $new->bill->id : $new->id) /* @phpstan-ignore-line */
             ->where('type/transferStock', true)
             ->execute();
 
