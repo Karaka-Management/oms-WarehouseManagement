@@ -46,8 +46,6 @@ final class Installer extends InstallerAbstract
     {
         parent::install($app, $info, $cfgHandler);
 
-        self::createDefaultStock($app);
-
         /* Stock types */
         $fileContent = \file_get_contents(__DIR__ . '/Install/types.json');
         if ($fileContent === false) {
@@ -61,6 +59,8 @@ final class Installer extends InstallerAbstract
         }
 
         self::createStockTypes($app, $types);
+
+        self::createDefaultStock($app);
     }
 
     /**

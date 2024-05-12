@@ -21,4 +21,6 @@ return ['WarehouseManagement' => [
     'Shelf'     => 'Fach',
     'Type'      => 'Typ',
     'Location'  => 'Lagerplatz',
+    'Quantity'  => 'Menge',
+    'All'  => 'Alle',
 ]];

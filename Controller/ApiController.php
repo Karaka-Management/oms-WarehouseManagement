@@ -188,7 +188,8 @@ final class ApiController extends Controller
         $location->name  = $request->getDataString('name') ?? '';
         $location->stock = new NullStock($request->getDataInt('stock') ?? 1);
 
-        $location->type = $request->hasData('type') ? new NullStockType((int) $request->getDataInt('type')) : null;
+        // @todo Define default type instead of just 1
+        $location->type = new NullStockType($request->getDataInt('type') ?? 1);
 
         return $location;
     }
