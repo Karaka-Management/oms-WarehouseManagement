@@ -55,7 +55,7 @@ class StockLocation
      */
     public function __construct(string $name = '')
     {
-        $this->name = $name;
+        $this->name  = $name;
         $this->stock = new NullStock();
     }
 }

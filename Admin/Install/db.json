@@ -140,7 +140,7 @@
                 "null": false
             },
             "warehousemgmt_stocklocation_z": {
-                "description": "Height",
+                "comment": "Height",
                 "name": "warehousemgmt_stocklocation_z",
                 "type": "INT",
                 "null": false
@@ -188,7 +188,7 @@
                 "null": false
             },
             "warehousemgmt_stockshelf_z": {
-                "description": "Height",
+                "comment": "Height",
                 "name": "warehousemgmt_stockshelf_z",
                 "type": "INT",
                 "null": false
@@ -214,7 +214,7 @@
                 "foreignKey": "itemmgmt_item_id"
             },
             "warehousemgmt_lot_purchase_price": {
-                "description": "only used if custom value, otherwise transaction protocol more accurate because of mixed prices and then lifo/fifo etc. depending on internal guidelines",
+                "comment": "only used if custom value, otherwise transaction protocol more accurate because of mixed prices and then lifo/fifo etc. depending on internal guidelines",
                 "name": "warehousemgmt_lot_purchase_price",
                 "type": "BIGINT",
                 "null": false
@@ -298,13 +298,13 @@
                 "null": false
             },
             "warehousemgmt_attr_type_required": {
-                "description": "Every item must have this attribute type if set to true.",
+                "comment": "Every item must have this attribute type if set to true.",
                 "name": "warehousemgmt_attr_type_required",
                 "type": "TINYINT(1)",
                 "null": false
             },
             "warehousemgmt_attr_type_pattern": {
-                "description": "This is a regex validation pattern.",
+                "comment": "This is a regex validation pattern.",
                 "name": "warehousemgmt_attr_type_pattern",
                 "type": "VARCHAR(255)",
                 "null": false
@@ -634,7 +634,7 @@
                 "autoincrement": true
             },
             "warehousemgmt_stock_transaction_state": {
-                "description": "Is draft (= reserved = bill currently in draft) or finalized",
+                "comment": "Is draft (= reserved = bill currently in draft) or finalized",
                 "name": "warehousemgmt_stock_transaction_state",
                 "type": "TINYINT",
                 "null": false
@@ -705,7 +705,7 @@
                 "foreignKey": "warehousemgmt_stock_type_id"
             },
             "warehousemgmt_stock_transaction_bill_element": {
-                "description": "indirectly contains createdat/by in the bill as well as supplier/customer",
+                "comment": "indirectly contains createdat/by in the bill as well as supplier/customer",
                 "name": "warehousemgmt_stock_transaction_bill_element",
                 "type": "INT",
                 "null": false,

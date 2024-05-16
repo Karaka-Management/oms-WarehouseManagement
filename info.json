@@ -2,7 +2,7 @@
     "name": {
         "id": 1001300000,
         "internal": "WarehouseManagement",
-        "external": "Warehousing"
+        "external": "Warehouse Management"
     },
     "category": "Logistics",
     "version": "1.0.0",
@@ -12,9 +12,9 @@
     },
     "creator": {
         "name": "Jingga",
-        "website": "jingga.app"
+        "website": "https://jingga.app"
     },
-    "description": "Warehousing module.",
+    "description": "Warehouse Management module.",
     "directory": "WarehouseManagement",
     "dependencies": {
         "Admin": "1.0.0",

@@ -22,5 +22,5 @@ return ['WarehouseManagement' => [
     'Type'      => 'Type',
     'Location'  => 'Location',
     'Quantity'  => 'Quantity',
-    'All'  => 'All',
+    'All'       => 'All',
 ]];
