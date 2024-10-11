@@ -75,7 +75,7 @@ final class ApiStockTypeController extends Controller
         $stockType       = new StockType();
         $stockType->name = $request->getDataString('name') ?? '';
         $stockType->setL11n(
-            $request->getDataString('title') ?? '',
+            $request->getDataString('content') ?? '',
             ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? ISO639x1Enum::_EN
         );
 
@@ -94,7 +94,7 @@ final class ApiStockTypeController extends Controller
     private function validateStockTypeCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = !$request->hasData('title'))
+        if (($val['content'] = !$request->hasData('content'))
             || ($val['name'] = !$request->hasData('name'))
         ) {
             return $val;
@@ -142,9 +142,9 @@ final class ApiStockTypeController extends Controller
     private function createStockTypeL11nFromRequest(RequestAbstract $request) : BaseStringL11n
     {
         $stockTypeL11n           = new BaseStringL11n();
-        $stockTypeL11n->ref      = $request->getDataInt('type') ?? 0;
+        $stockTypeL11n->ref      = $request->getDataInt('ref') ?? 0;
         $stockTypeL11n->language = ISO639x1Enum::tryFromValue($request->getDataString('language')) ?? $request->header->l11n->language;
-        $stockTypeL11n->content  = $request->getDataString('title') ?? '';
+        $stockTypeL11n->content  = $request->getDataString('content') ?? '';
 
         return $stockTypeL11n;
     }
@@ -161,8 +161,8 @@ final class ApiStockTypeController extends Controller
     private function validateStockTypeL11nCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = !$request->hasData('title'))
-            || ($val['type'] = !$request->hasData('type'))
+        if (($val['content'] = !$request->hasData('content'))
+            || ($val['ref'] = !$request->hasData('ref'))
         ) {
             return $val;
         }

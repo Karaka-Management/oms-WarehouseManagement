@@ -54,7 +54,8 @@ echo $this->data['nav']->render();
     <?= $this->data['l11nView']->render(
         $this->data['l11nValues'],
         [],
-        '{/api}warehouse/stock/type/l11n?csrf={$CSRF}'
+        '{/api}warehouse/stock/type/l11n?csrf={$CSRF}',
+        (string) $type->id
     );
     ?>
 </div>
